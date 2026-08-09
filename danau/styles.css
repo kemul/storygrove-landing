@@ -285,7 +285,14 @@ html, body {
 /* Fixed-size 4-dot badge, same pulsing-light language as the active lake's
    4 pillars, so it stays legible regardless of zoom (unlike a polygon
    outline, which shrinks to nothing when zoomed out). */
-.lake-badge { width: 40px; height: 40px; position: relative; cursor: pointer; }
+.lake-badge { width: 44px; height: 44px; position: relative; cursor: pointer; }
+.lake-badge::before {
+  /* Guarantees contrast against any terrain — light rooftops, dark water,
+     dense foliage — instead of relying on the dots alone to read clearly. */
+  content: ''; position: absolute; inset: 6px; border-radius: 50%;
+  background: rgba(14, 32, 25, 0.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
 .lake-badge-core {
   position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; border-radius: 50%;
   background: var(--paper); transform: translate(-50%, -50%);
@@ -320,10 +327,46 @@ html, body {
 }
 .other-lake-tooltip::before { display: none !important; }
 
+/* ===== "Danau di sekitarmu" panel ===== */
+.lakes-panel {
+  position: fixed; top: 72px; right: 20px; z-index: 500;
+  width: 240px; max-width: calc(100% - 40px);
+  padding: 14px 16px; border-radius: 14px;
+  background: rgba(14, 32, 25, 0.72); backdrop-filter: blur(8px);
+  color: var(--paper); box-shadow: 0 10px 24px -12px rgba(0,0,0,0.45);
+  transition: opacity 0.2s ease;
+}
+.lakes-panel.loading { opacity: 0.65; }
+.lakes-panel-count {
+  margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.86rem;
+}
+.lakes-panel-list {
+  display: flex; flex-direction: column; gap: 4px;
+  max-height: 220px; overflow-y: auto;
+}
+.lakes-panel-row {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 7px 8px; border: none; border-radius: 8px;
+  background: none; color: var(--paper); cursor: pointer; text-align: left;
+  transition: background 0.15s ease;
+}
+.lakes-panel-row:hover { background: rgba(246, 242, 230, 0.12); }
+.lakes-panel-dot {
+  flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--glow); box-shadow: 0 0 6px 1px var(--glow-dim);
+}
+.lakes-panel-row strong {
+  flex: 1; font-size: 0.82rem; font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.lakes-panel-row small { flex-shrink: 0; font-size: 0.72rem; color: rgba(246,242,230,0.65); }
+
 @media (max-width: 600px) {
   .badge span { display: none; }
   .badge { padding: 10px; }
   .legend { bottom: 18px; left: 16px; right: 16px; }
   .popup-card { padding: 26px 24px 22px; }
   .menu-card { padding: 28px 22px 24px; }
+  .lakes-panel { top: 130px; right: 14px; width: 190px; }
+  .lakes-panel-list { max-height: 160px; }
 }

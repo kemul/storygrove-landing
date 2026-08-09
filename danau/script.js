@@ -96,6 +96,8 @@ const CHECKPOINT_RADIUS_M = 30;  // how close to a pillar point counts as "arriv
 const MIN_LAKE_AREA_M2 = 1500;   // filters out tiny retention ponds that aren't real destinations
 const GRID_DEG = 0.01;           // ~1.1km cells — search areas snap to this so nearby users share the same cached query
 const MAX_SEARCH_RADIUS_M = 15000;
+const INITIAL_SEARCH_RADIUS_M = 3000; // kept small so the first page load stays light
+const INITIAL_SEARCH_LIMIT = 2;       // only 1-2 lakes shown before the user does anything
 
 function haversineMeters(lat1, lon1, lat2, lon2) {
   const R = 6371000;
@@ -257,6 +259,9 @@ const legend = document.getElementById('legend');
 const legendTitle = document.getElementById('legendTitle');
 const legendSub = document.getElementById('legendSub');
 const toast = document.getElementById('toast');
+const lakesPanel = document.getElementById('lakesPanel');
+const lakesPanelCount = document.getElementById('lakesPanelCount');
+const lakesPanelList = document.getElementById('lakesPanelList');
 
 function renderBody(spot) {
   popupBody.innerHTML = '';
@@ -350,6 +355,49 @@ function startSimulatedTracking(lake) {
   legendSub.textContent = 'Mode simulasi — dekati danau untuk tracking langsung';
 }
 
+// ===== "Danau di sekitarmu" side panel =====
+// Lightweight text list — unlike the map badges, this has no per-lake
+// render/animation cost, so it can safely show every known lake (not just
+// the capped set drawn on the map) and update live as the search expands.
+function lakesPanelSetLoading(isLoading) {
+  lakesPanel.classList.toggle('loading', isLoading);
+}
+
+function renderLakesPanel() {
+  if (!currentLake) {
+    lakesPanel.hidden = true;
+    return;
+  }
+  const others = nearbyLakesCache
+    .filter((l) => l.id !== currentLake.id)
+    .sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
+
+  lakesPanel.hidden = false;
+  lakesPanelCount.textContent =
+    others.length === 0
+      ? 'Belum ada danau lain ditemukan'
+      : `${others.length} danau di sekitarmu`;
+
+  lakesPanelList.innerHTML = '';
+  others.forEach((lake) => {
+    const row = document.createElement('button');
+    row.className = 'lakes-panel-row';
+    const dot = document.createElement('span');
+    dot.className = 'lakes-panel-dot';
+    const name = document.createElement('strong');
+    name.textContent = lake.name;
+    row.appendChild(dot);
+    row.appendChild(name);
+    if (lake.distance != null) {
+      const small = document.createElement('small');
+      small.textContent = `${Math.round(lake.distance)} m`;
+      row.appendChild(small);
+    }
+    row.addEventListener('click', () => loadLake(lake, lastCoord));
+    lakesPanelList.appendChild(row);
+  });
+}
+
 // ===== Other-lake indicators (visible when zoomed out from the active lake) =====
 // A fixed-size 4-dot badge — same pulsing-light language as the active
 // lake's 4 pillars — so it stays legible at any zoom, unlike a polygon
@@ -366,15 +414,28 @@ function otherLakeIcon() {
   });
 }
 
+const MAX_RENDERED_OTHER_LAKES = 10; // caps animated map layers; the side list can still show more
+const MAX_OUTLINE_POINTS = 60;       // decimate very complex shorelines before drawing the faint context outline
+
+function decimateOutline(outline) {
+  if (outline.length <= MAX_OUTLINE_POINTS) return outline;
+  const step = Math.ceil(outline.length / MAX_OUTLINE_POINTS);
+  const thinned = outline.filter((_, i) => i % step === 0);
+  thinned.push(outline[outline.length - 1]);
+  return thinned;
+}
+
 function renderOtherLakeMarkers(activeLake, coord) {
   otherLakeLayers.forEach((m) => map.removeLayer(m));
   otherLakeLayers = [];
   nearbyLakesCache
     .filter((l) => l.id !== activeLake.id)
+    .sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity))
+    .slice(0, MAX_RENDERED_OTHER_LAKES)
     .forEach((lake) => {
       const distText = lake.distance != null ? ` · ${Math.round(lake.distance)} m` : '';
 
-      const outline = L.polygon(lake.outline, {
+      const outline = L.polygon(decimateOutline(lake.outline), {
         color: '#5FCFA0',
         weight: 1.5,
         opacity: 0.35,
@@ -385,8 +446,14 @@ function renderOtherLakeMarkers(activeLake, coord) {
       }).addTo(map);
       otherLakeLayers.push(outline);
 
+      // lake.name is untrusted (OSM `name` tag, community-editable), so we
+      // build the tooltip as a real DOM node with textContent rather than
+      // handing Leaflet a string it will render via innerHTML.
+      const tooltipEl = document.createElement('span');
+      tooltipEl.textContent = `${lake.name}${distText}`;
+
       const badge = L.marker(lake.center, { icon: otherLakeIcon(), zIndexOffset: 400 }).addTo(map);
-      badge.bindTooltip(`${lake.name}${distText}`, {
+      badge.bindTooltip(tooltipEl, {
         sticky: true,
         direction: 'top',
         offset: [0, -18],
@@ -400,8 +467,11 @@ function renderOtherLakeMarkers(activeLake, coord) {
 // Grows the known-lakes pool to match whatever area is currently on screen,
 // so panning/zooming out surfaces more lakes instead of staying capped at
 // the original search radius.
+let expandGeneration = 0;
+let expandInFlight = false;
+
 async function expandSearchToView() {
-  if (!currentLake) return;
+  if (!currentLake || expandInFlight) return;
   const needed = bboxFromBounds(map.getBounds(), 300);
   if (bboxContains(searchedBBox, needed)) return;
   const merged = searchedBBox
@@ -415,8 +485,16 @@ async function expandSearchToView() {
   const refLat = lastCoord ? lastCoord[0] : currentLake.center[0];
   const refLon = lastCoord ? lastCoord[1] : currentLake.center[1];
   if (bboxArea(merged) > bboxArea(bboxFromCenterRadius(refLat, refLon, MAX_SEARCH_RADIUS_M))) return;
+
+  const myGeneration = ++expandGeneration;
+  const myLake = currentLake;
+  expandInFlight = true;
+  lakesPanelSetLoading(true);
   try {
     const found = await fetchLakesInBBox(merged, refLat, refLon);
+    // Bail if the user switched lakes or a newer search superseded this one
+    // while the request was in flight — don't apply stale results.
+    if (myGeneration !== expandGeneration || currentLake !== myLake) return;
     searchedBBox = merged;
     const existingIds = new Set(nearbyLakesCache.map((l) => l.id));
     found.forEach((l) => {
@@ -426,8 +504,12 @@ async function expandSearchToView() {
       }
     });
     renderOtherLakeMarkers(currentLake, lastCoord);
+    renderLakesPanel();
   } catch (e) {
     // Non-critical background enrichment — fail silently.
+  } finally {
+    expandInFlight = false;
+    lakesPanelSetLoading(false);
   }
 }
 
@@ -468,6 +550,7 @@ function loadLake(lake, userCoord) {
   });
 
   renderOtherLakeMarkers(lake, lastCoord);
+  renderLakesPanel();
 
   legendTitle.textContent = lake.name;
   legend.hidden = false;
@@ -514,6 +597,11 @@ function directionsUrl(lake) {
   return `https://www.google.com/maps/dir/?api=1&destination=${lake.center[0]},${lake.center[1]}`;
 }
 
+const DIRECTION_SVG = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 11l17-8-8 17-2-7-7-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+
+// lake.name comes from OpenStreetMap's `name` tag, which anyone can edit —
+// it's untrusted input. Build these nodes with textContent/DOM methods
+// rather than innerHTML so a malicious tag value can't inject markup.
 function renderLakeList(lakes, coord) {
   menuList.innerHTML = '';
   lakes.forEach((lake) => {
@@ -523,7 +611,14 @@ function renderLakeList(lakes, coord) {
 
     const main = document.createElement('button');
     main.className = 'menu-list-main';
-    main.innerHTML = `<strong>${lake.name}</strong>${distText ? `<small>${distText}</small>` : ''}`;
+    const strong = document.createElement('strong');
+    strong.textContent = lake.name;
+    main.appendChild(strong);
+    if (distText) {
+      const small = document.createElement('small');
+      small.textContent = distText;
+      main.appendChild(small);
+    }
     main.addEventListener('click', () => loadLake(lake, coord));
 
     const direction = document.createElement('a');
@@ -533,7 +628,7 @@ function renderLakeList(lakes, coord) {
     direction.rel = 'noopener';
     direction.title = 'Buka rute di Google Maps';
     direction.setAttribute('aria-label', `Buka rute ke ${lake.name} di Google Maps`);
-    direction.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 11l17-8-8 17-2-7-7-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    direction.innerHTML = DIRECTION_SVG;
     direction.addEventListener('click', (e) => e.stopPropagation());
 
     item.appendChild(main);
@@ -556,9 +651,12 @@ async function searchNearbyAndRenderList() {
   lastCoord = coord;
   menuStatus.textContent = 'Mencari danau di sekitarmu...';
   try {
-    const bbox = bboxFromCenterRadius(coord[0], coord[1], 6000);
+    // Small radius, small result count — keeps the very first load light.
+    // expandSearchToView() picks up the slack once a lake is open and the
+    // user starts panning around.
+    const bbox = bboxFromCenterRadius(coord[0], coord[1], INITIAL_SEARCH_RADIUS_M);
     const found = await fetchLakesInBBox(bbox, coord[0], coord[1]);
-    nearbyLakesCache = found.length ? prioritizeNamed(found, 5) : [DANAU_KENANGA];
+    nearbyLakesCache = found.length ? prioritizeNamed(found, INITIAL_SEARCH_LIMIT) : [DANAU_KENANGA];
     menuStatus.textContent = found.length ? '' : 'Tidak ditemukan danau bernama di sekitarmu — menampilkan Danau Kenanga.';
     renderLakeList(nearbyLakesCache, coord);
     return coord;
@@ -581,10 +679,14 @@ btnNearest.addEventListener('click', async () => {
 
 btnChangeLake.addEventListener('click', () => {
   stopTracking();
+  currentLake = null;
   legend.hidden = true;
+  lakesPanel.hidden = true;
   menuScreen.classList.remove('hidden');
   searchNearbyAndRenderList();
 });
 
-// Show the 5 nearest lakes as soon as the page opens.
+// Show the 1-2 nearest lakes as soon as the page opens — kept deliberately
+// small so the first paint stays light; expandSearchToView() fills in more
+// once the user is actually exploring the map.
 searchNearbyAndRenderList();
