@@ -282,15 +282,7 @@ html, body {
 .menu-list-direction:hover { background: var(--pine-soft, var(--paper-2)); }
 
 /* ===== Other-lake indicators on the map ===== */
-.other-lake {
-  width: 26px; height: 26px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(246, 242, 230, 0.85); backdrop-filter: blur(4px);
-  color: var(--pine-2); border: 1.5px solid rgba(23,52,42,0.35);
-  cursor: pointer; box-shadow: 0 4px 10px -4px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.other-lake:hover { transform: scale(1.12); border-color: var(--glow); }
+.other-lake-outline { cursor: pointer; }
 .other-lake-tooltip {
   font-family: 'Manrope', sans-serif !important; font-size: 0.78rem !important; font-weight: 600 !important;
   background: rgba(14, 32, 25, 0.88) !important; color: var(--paper) !important;

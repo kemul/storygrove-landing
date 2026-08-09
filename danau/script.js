@@ -312,31 +312,33 @@ function startSimulatedTracking(lake) {
 }
 
 // ===== Other-lake indicators (visible when zoomed out from the active lake) =====
-function otherLakeIcon() {
-  return L.divIcon({
-    className: '',
-    html: '<div class="other-lake"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M3 17c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 12c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/></svg></div>',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
-  });
-}
-
+// Same marching-ants green outline as the active lake, just dimmer — real
+// shape, not a generic pin, so it reads as "another lake" at a glance.
 function renderOtherLakeMarkers(activeLake, coord) {
   otherLakeMarkers.forEach((m) => map.removeLayer(m));
   otherLakeMarkers = [];
   nearbyLakesCache
     .filter((l) => l.id !== activeLake.id)
     .forEach((lake) => {
-      const marker = L.marker(lake.center, { icon: otherLakeIcon(), zIndexOffset: 300 }).addTo(map);
+      const outline = L.polygon(lake.outline, {
+        color: '#5FCFA0',
+        weight: 2,
+        opacity: 0.55,
+        fillColor: '#5FCFA0',
+        fillOpacity: 0.06,
+        dashArray: '8 7',
+        className: 'lake-outline other-lake-outline',
+      }).addTo(map);
       const distText = lake.distance != null ? ` · ${Math.round(lake.distance)} m` : '';
-      marker.bindTooltip(`${lake.name}${distText}`, {
-        permanent: false,
+      outline.bindTooltip(`${lake.name}${distText}`, {
+        sticky: true,
         direction: 'top',
-        offset: [0, -10],
         className: 'other-lake-tooltip',
       });
-      marker.on('click', () => loadLake(lake, coord));
-      otherLakeMarkers.push(marker);
+      outline.on('click', () => loadLake(lake, coord));
+      outline.on('mouseover', () => outline.setStyle({ opacity: 0.95, weight: 3, fillOpacity: 0.16 }));
+      outline.on('mouseout', () => outline.setStyle({ opacity: 0.55, weight: 2, fillOpacity: 0.06 }));
+      otherLakeMarkers.push(outline);
     });
 }
 
