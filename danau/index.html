@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -46,18 +46,9 @@
       </span>
     </button>
 
-    <button class="menu-option" id="btnChoose">
-      <span class="menu-option-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h16M4 12h16M4 18h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </span>
-      <span class="menu-option-text">
-        <strong>Pilih Danau</strong>
-        <small>Lihat daftar danau di sekitarmu, lalu mulai tracking</small>
-      </span>
-    </button>
-
+    <p class="menu-list-label">Danau di sekitarmu</p>
     <div class="menu-list" id="menuList" hidden></div>
-    <p class="menu-status" id="menuStatus"></p>
+    <p class="menu-status" id="menuStatus">Mencari danau di sekitarmu...</p>
   </div>
 </div>
 
@@ -73,6 +64,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="script.js?v=3"></script>
+<script src="script.js?v=4"></script>
 </body>
 </html>

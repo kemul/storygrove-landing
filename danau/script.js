@@ -93,6 +93,7 @@ function buildHotspots(lake) {
 
 const NEAR_THRESHOLD_M = 700;   // "considered near enough to track live" radius
 const CHECKPOINT_RADIUS_M = 30; // how close to a pillar point counts as "arrived"
+const MIN_LAKE_AREA_M2 = 1500;  // filters out tiny retention ponds that aren't real destinations
 
 function haversineMeters(lat1, lon1, lat2, lon2) {
   const R = 6371000;
@@ -105,6 +106,23 @@ function haversineMeters(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+// Rough planar shoelace area, accurate enough for filtering out tiny ponds.
+function polygonAreaM2(outline) {
+  if (outline.length < 3) return 0;
+  const avgLat = outline.reduce((s, c) => s + c[0], 0) / outline.length;
+  const mPerDegLat = 111320;
+  const mPerDegLon = 111320 * Math.cos((avgLat * Math.PI) / 180);
+  let area = 0;
+  for (let i = 0; i < outline.length - 1; i++) {
+    const [lat1, lon1] = outline[i];
+    const [lat2, lon2] = outline[i + 1];
+    const x1 = lon1 * mPerDegLon, y1 = lat1 * mPerDegLat;
+    const x2 = lon2 * mPerDegLon, y2 = lat2 * mPerDegLat;
+    area += x1 * y2 - x2 * y1;
+  }
+  return Math.abs(area / 2);
+}
+
 async function fetchNearbyLakes(lat, lon, radiusM, limit) {
   const query = `[out:json][timeout:20];(way["natural"="water"](around:${radiusM},${lat},${lon});relation["natural"="water"](around:${radiusM},${lat},${lon}););out geom;`;
   const res = await fetch('https://overpass-api.de/api/interpreter', {
@@ -113,23 +131,33 @@ async function fetchNearbyLakes(lat, lon, radiusM, limit) {
   });
   if (!res.ok) throw new Error('overpass request failed');
   const data = await res.json();
-  return data.elements
+
+  const all = data.elements
     .filter((el) => el.geometry && el.geometry.length > 3)
     .map((el) => {
       const outline = el.geometry.map((p) => [p.lat, p.lon]);
       const centerLat = outline.reduce((s, c) => s + c[0], 0) / outline.length;
       const centerLon = outline.reduce((s, c) => s + c[1], 0) / outline.length;
+      const name = el.tags && el.tags.name;
       return {
         id: el.id,
-        name: (el.tags && el.tags.name) || 'Danau tanpa nama',
+        name: name || null,
         outline,
         center: [centerLat, centerLon],
         distance: haversineMeters(lat, lon, centerLat, centerLon),
+        area: polygonAreaM2(outline),
         isKenanga: el.id === 28994172,
       };
     })
-    .sort((a, b) => a.distance - b.distance)
-    .slice(0, limit);
+    .filter((l) => l.area >= MIN_LAKE_AREA_M2);
+
+  // Prefer named lakes; only pad with unnamed ones if we don't have enough.
+  const named = all.filter((l) => l.name).sort((a, b) => a.distance - b.distance);
+  const unnamed = all.filter((l) => !l.name).sort((a, b) => a.distance - b.distance);
+  return named
+    .concat(unnamed)
+    .slice(0, limit)
+    .map((l) => ({ ...l, name: l.name || 'Situ tanpa nama' }));
 }
 
 const DANAU_KENANGA = {
@@ -145,7 +173,7 @@ const DANAU_KENANGA = {
 const map = L.map('map', {
   zoomControl: false,
   attributionControl: true,
-  minZoom: 13,
+  minZoom: 11,
   maxZoom: 19,
 }).setView([-6.376, 106.826], 13);
 
@@ -161,6 +189,10 @@ let markers = [];
 let currentHotspots = [];
 let userMarker = null;
 let watchId = null;
+let currentLake = null;
+let nearbyLakesCache = [];
+let lastCoord = null;
+let otherLakeMarkers = [];
 
 const userIcon = L.divIcon({
   className: '',
@@ -261,7 +293,7 @@ function stopTracking() {
   }
 }
 
-function startRealTracking(lakeCenter) {
+function startRealTracking() {
   legendSub.textContent = 'Lokasimu aktif — dekati tiap titik untuk observasi';
   watchId = navigator.geolocation.watchPosition(
     (pos) => {
@@ -279,6 +311,35 @@ function startSimulatedTracking(lake) {
   legendSub.textContent = 'Mode simulasi — dekati danau untuk tracking langsung';
 }
 
+// ===== Other-lake indicators (visible when zoomed out from the active lake) =====
+function otherLakeIcon() {
+  return L.divIcon({
+    className: '',
+    html: '<div class="other-lake"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M3 17c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 12c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/></svg></div>',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13],
+  });
+}
+
+function renderOtherLakeMarkers(activeLake, coord) {
+  otherLakeMarkers.forEach((m) => map.removeLayer(m));
+  otherLakeMarkers = [];
+  nearbyLakesCache
+    .filter((l) => l.id !== activeLake.id)
+    .forEach((lake) => {
+      const marker = L.marker(lake.center, { icon: otherLakeIcon(), zIndexOffset: 300 }).addTo(map);
+      const distText = lake.distance != null ? ` · ${Math.round(lake.distance)} m` : '';
+      marker.bindTooltip(`${lake.name}${distText}`, {
+        permanent: false,
+        direction: 'top',
+        offset: [0, -10],
+        className: 'other-lake-tooltip',
+      });
+      marker.on('click', () => loadLake(lake, coord));
+      otherLakeMarkers.push(marker);
+    });
+}
+
 // ===== Loading a lake onto the map =====
 function loadLake(lake, userCoord) {
   closePopup();
@@ -287,6 +348,8 @@ function loadLake(lake, userCoord) {
   markers.forEach((m) => map.removeLayer(m));
   if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
 
+  currentLake = lake;
+  lastCoord = userCoord || lastCoord;
   currentHotspots = buildHotspots(lake);
 
   lakePolygon = L.polygon(lake.outline, {
@@ -306,6 +369,8 @@ function loadLake(lake, userCoord) {
     return marker;
   });
 
+  renderOtherLakeMarkers(lake, lastCoord);
+
   legendTitle.textContent = lake.name;
   legend.hidden = false;
   updateProgress();
@@ -321,7 +386,7 @@ function loadLake(lake, userCoord) {
     if (userCoord && dist <= NEAR_THRESHOLD_M) {
       placeUserMarker(userCoord[0], userCoord[1]);
       checkCheckpoints(userCoord[0], userCoord[1]);
-      startRealTracking(lake.center);
+      startRealTracking();
     } else {
       startSimulatedTracking(lake);
     }
@@ -333,7 +398,6 @@ const menuScreen = document.getElementById('menuScreen');
 const menuStatus = document.getElementById('menuStatus');
 const menuList = document.getElementById('menuList');
 const btnNearest = document.getElementById('btnNearest');
-const btnChoose = document.getElementById('btnChoose');
 const btnChangeLake = document.getElementById('btnChangeLake');
 
 function getLocation() {
@@ -347,64 +411,80 @@ function getLocation() {
   });
 }
 
-btnNearest.addEventListener('click', async () => {
-  menuStatus.textContent = 'Mencari lokasimu...';
-  menuList.hidden = true;
-  const coord = await getLocation();
-  if (!coord) {
-    menuStatus.textContent = 'Lokasi tidak tersedia — membuka Danau Kenanga.';
-    loadLake(DANAU_KENANGA, null);
-    return;
-  }
-  menuStatus.textContent = 'Mencari danau terdekat...';
-  try {
-    const lakes = await fetchNearbyLakes(coord[0], coord[1], 3000, 1);
-    const lake = lakes[0] || DANAU_KENANGA;
-    menuStatus.textContent = '';
-    loadLake(lake, coord);
-  } catch (e) {
-    menuStatus.textContent = 'Pencarian gagal — membuka Danau Kenanga.';
-    loadLake(DANAU_KENANGA, coord);
-  }
-});
-
-btnChoose.addEventListener('click', async () => {
-  menuStatus.textContent = 'Mencari lokasimu...';
-  menuList.hidden = true;
-  const coord = await getLocation();
-  if (!coord) {
-    menuStatus.textContent = 'Lokasi tidak tersedia — menampilkan Danau Kenanga.';
-    renderLakeList([DANAU_KENANGA], null);
-    return;
-  }
-  menuStatus.textContent = 'Mencari danau di sekitarmu...';
-  try {
-    const lakes = await fetchNearbyLakes(coord[0], coord[1], 6000, 6);
-    menuStatus.textContent = lakes.length ? '' : 'Tidak ditemukan danau di sekitarmu.';
-    renderLakeList(lakes.length ? lakes : [DANAU_KENANGA], coord);
-  } catch (e) {
-    menuStatus.textContent = 'Pencarian gagal — menampilkan Danau Kenanga.';
-    renderLakeList([DANAU_KENANGA], coord);
-  }
-});
+function directionsUrl(lake) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${lake.center[0]},${lake.center[1]}`;
+}
 
 function renderLakeList(lakes, coord) {
   menuList.innerHTML = '';
   lakes.forEach((lake) => {
-    const item = document.createElement('button');
+    const item = document.createElement('div');
     item.className = 'menu-list-item';
     const distText = lake.distance != null ? `${Math.round(lake.distance)} m` : '';
-    item.innerHTML = `<strong>${lake.name}</strong>${distText ? `<small>${distText}</small>` : ''}`;
-    item.addEventListener('click', () => loadLake(lake, coord));
+
+    const main = document.createElement('button');
+    main.className = 'menu-list-main';
+    main.innerHTML = `<strong>${lake.name}</strong>${distText ? `<small>${distText}</small>` : ''}`;
+    main.addEventListener('click', () => loadLake(lake, coord));
+
+    const direction = document.createElement('a');
+    direction.className = 'menu-list-direction';
+    direction.href = directionsUrl(lake);
+    direction.target = '_blank';
+    direction.rel = 'noopener';
+    direction.title = 'Buka rute di Google Maps';
+    direction.setAttribute('aria-label', `Buka rute ke ${lake.name} di Google Maps`);
+    direction.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 11l17-8-8 17-2-7-7-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    direction.addEventListener('click', (e) => e.stopPropagation());
+
+    item.appendChild(main);
+    item.appendChild(direction);
     menuList.appendChild(item);
   });
   menuList.hidden = false;
 }
 
+async function searchNearbyAndRenderList() {
+  menuStatus.textContent = 'Mencari lokasimu...';
+  menuList.hidden = true;
+  const coord = await getLocation();
+  if (!coord) {
+    menuStatus.textContent = 'Aktifkan lokasi untuk menemukan danau di sekitarmu.';
+    nearbyLakesCache = [DANAU_KENANGA];
+    renderLakeList(nearbyLakesCache, null);
+    return null;
+  }
+  lastCoord = coord;
+  menuStatus.textContent = 'Mencari danau di sekitarmu...';
+  try {
+    const lakes = await fetchNearbyLakes(coord[0], coord[1], 6000, 5);
+    nearbyLakesCache = lakes.length ? lakes : [DANAU_KENANGA];
+    menuStatus.textContent = lakes.length ? '' : 'Tidak ditemukan danau bernama di sekitarmu — menampilkan Danau Kenanga.';
+    renderLakeList(nearbyLakesCache, coord);
+    return coord;
+  } catch (e) {
+    menuStatus.textContent = 'Pencarian gagal — menampilkan Danau Kenanga.';
+    nearbyLakesCache = [DANAU_KENANGA];
+    renderLakeList(nearbyLakesCache, coord);
+    return coord;
+  }
+}
+
+btnNearest.addEventListener('click', async () => {
+  if (nearbyLakesCache.length && lastCoord) {
+    loadLake(nearbyLakesCache[0], lastCoord);
+    return;
+  }
+  const coord = await searchNearbyAndRenderList();
+  loadLake(nearbyLakesCache[0] || DANAU_KENANGA, coord);
+});
+
 btnChangeLake.addEventListener('click', () => {
   stopTracking();
   legend.hidden = true;
   menuScreen.classList.remove('hidden');
-  menuStatus.textContent = '';
-  menuList.hidden = true;
+  searchNearbyAndRenderList();
 });
+
+// Show the 5 nearest lakes as soon as the page opens.
+searchNearbyAndRenderList();

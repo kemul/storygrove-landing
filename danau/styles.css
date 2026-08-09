@@ -250,20 +250,54 @@ html, body {
 }
 .menu-option-text small { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.4; }
 
+.menu-list-label {
+  margin: 22px 0 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 0.72rem; color: var(--ink-soft);
+}
 .menu-status {
   min-height: 1.2em; margin: 6px 0 0; font-size: 0.86rem; color: var(--ink-soft);
 }
 
-.menu-list { margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
+.menu-list { margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; }
 .menu-list-item {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-  padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(23,52,42,0.12);
-  background: #fff; cursor: pointer; text-align: left;
+  display: flex; align-items: stretch; gap: 8px;
+  border-radius: 12px; border: 1px solid rgba(23,52,42,0.12);
+  background: #fff; overflow: hidden;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
-.menu-list-item:hover { border-color: var(--glow); background: var(--paper-2); }
-.menu-list-item strong { font-family: 'Space Grotesk', sans-serif; font-size: 0.94rem; color: var(--pine-2); }
-.menu-list-item small { color: var(--ink-soft); font-size: 0.78rem; flex-shrink: 0; }
+.menu-list-item:hover { border-color: var(--glow); }
+.menu-list-main {
+  flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 12px 6px 12px 16px; border: none; background: none; cursor: pointer; text-align: left;
+}
+.menu-list-main:hover { background: var(--paper-2); }
+.menu-list-main strong { font-family: 'Space Grotesk', sans-serif; font-size: 0.94rem; color: var(--pine-2); }
+.menu-list-main small { color: var(--ink-soft); font-size: 0.78rem; flex-shrink: 0; }
+.menu-list-direction {
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  width: 44px; color: var(--glow); text-decoration: none;
+  border-left: 1px solid rgba(23,52,42,0.1);
+  transition: background 0.2s ease;
+}
+.menu-list-direction:hover { background: var(--pine-soft, var(--paper-2)); }
+
+/* ===== Other-lake indicators on the map ===== */
+.other-lake {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(246, 242, 230, 0.85); backdrop-filter: blur(4px);
+  color: var(--pine-2); border: 1.5px solid rgba(23,52,42,0.35);
+  cursor: pointer; box-shadow: 0 4px 10px -4px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.other-lake:hover { transform: scale(1.12); border-color: var(--glow); }
+.other-lake-tooltip {
+  font-family: 'Manrope', sans-serif !important; font-size: 0.78rem !important; font-weight: 600 !important;
+  background: rgba(14, 32, 25, 0.88) !important; color: var(--paper) !important;
+  border: none !important; border-radius: 8px !important; padding: 5px 10px !important;
+  box-shadow: 0 8px 18px -8px rgba(0,0,0,0.5) !important;
+}
+.other-lake-tooltip::before { display: none !important; }
 
 @media (max-width: 600px) {
   .badge span { display: none; }
