@@ -91,9 +91,11 @@ function buildHotspots(lake) {
   }));
 }
 
-const NEAR_THRESHOLD_M = 700;   // "considered near enough to track live" radius
-const CHECKPOINT_RADIUS_M = 30; // how close to a pillar point counts as "arrived"
-const MIN_LAKE_AREA_M2 = 1500;  // filters out tiny retention ponds that aren't real destinations
+const NEAR_THRESHOLD_M = 700;    // "considered near enough to track live" radius
+const CHECKPOINT_RADIUS_M = 30;  // how close to a pillar point counts as "arrived"
+const MIN_LAKE_AREA_M2 = 1500;   // filters out tiny retention ponds that aren't real destinations
+const GRID_DEG = 0.01;           // ~1.1km cells — search areas snap to this so nearby users share the same cached query
+const MAX_SEARCH_RADIUS_M = 15000;
 
 function haversineMeters(lat1, lon1, lat2, lon2) {
   const R = 6371000;
@@ -123,37 +125,73 @@ function polygonAreaM2(outline) {
   return Math.abs(area / 2);
 }
 
-async function fetchNearbyLakes(lat, lon, radiusM, limit) {
-  const query = `[out:json][timeout:20];(way["natural"="water"](around:${radiusM},${lat},${lon});relation["natural"="water"](around:${radiusM},${lat},${lon}););out geom;`;
-  const res = await fetch('https://overpass-api.de/api/interpreter', {
-    method: 'POST',
-    body: query,
-  });
-  if (!res.ok) throw new Error('overpass request failed');
+// Snap a [south,west,north,east] box outward to a coarse grid. Two searches
+// for the same neighborhood then produce byte-identical query strings, so
+// they land on the same cache entry — shared across every visitor, not just
+// re-visits by the same person.
+function snapBBox([s, w, n, e]) {
+  return [
+    Math.floor(s / GRID_DEG) * GRID_DEG,
+    Math.floor(w / GRID_DEG) * GRID_DEG,
+    Math.ceil(n / GRID_DEG) * GRID_DEG,
+    Math.ceil(e / GRID_DEG) * GRID_DEG,
+  ];
+}
+
+function bboxFromCenterRadius(lat, lon, radiusM) {
+  const latPad = radiusM / 111320;
+  const lonPad = radiusM / (111320 * Math.cos((lat * Math.PI) / 180));
+  return snapBBox([lat - latPad, lon - lonPad, lat + latPad, lon + lonPad]);
+}
+
+function bboxFromBounds(bounds, paddingM) {
+  const s = bounds.getSouth(), n = bounds.getNorth(), w = bounds.getWest(), e = bounds.getEast();
+  const latPad = paddingM / 111320;
+  const lonPad = paddingM / (111320 * Math.cos((((s + n) / 2) * Math.PI) / 180));
+  return snapBBox([s - latPad, w - lonPad, n + latPad, e + lonPad]);
+}
+
+function bboxContains(outer, inner) {
+  return !!outer && inner[0] >= outer[0] && inner[1] >= outer[1] && inner[2] <= outer[2] && inner[3] <= outer[3];
+}
+
+function bboxArea([s, w, n, e]) {
+  return Math.max(0, n - s) * Math.max(0, e - w);
+}
+
+// Routed through our own /api/overpass proxy (nginx proxy_cache in front of
+// the public Overpass API) so repeated or nearby searches are served from a
+// shared cache instead of every visitor hitting the upstream API directly.
+async function fetchLakesInBBox(bbox, refLat, refLon) {
+  const [s, w, n, e] = bbox;
+  const query = `[out:json][timeout:25];(way["natural"="water"](${s},${w},${n},${e});relation["natural"="water"](${s},${w},${n},${e}););out geom;`;
+  const res = await fetch('/api/overpass?data=' + encodeURIComponent(query));
+  if (!res.ok) throw new Error('overpass proxy failed');
   const data = await res.json();
 
-  const all = data.elements
+  return data.elements
     .filter((el) => el.geometry && el.geometry.length > 3)
     .map((el) => {
       const outline = el.geometry.map((p) => [p.lat, p.lon]);
-      const centerLat = outline.reduce((s, c) => s + c[0], 0) / outline.length;
-      const centerLon = outline.reduce((s, c) => s + c[1], 0) / outline.length;
+      const centerLat = outline.reduce((sum, c) => sum + c[0], 0) / outline.length;
+      const centerLon = outline.reduce((sum, c) => sum + c[1], 0) / outline.length;
       const name = el.tags && el.tags.name;
       return {
         id: el.id,
         name: name || null,
         outline,
         center: [centerLat, centerLon],
-        distance: haversineMeters(lat, lon, centerLat, centerLon),
+        distance: haversineMeters(refLat, refLon, centerLat, centerLon),
         area: polygonAreaM2(outline),
         isKenanga: el.id === 28994172,
       };
     })
     .filter((l) => l.area >= MIN_LAKE_AREA_M2);
+}
 
-  // Prefer named lakes; only pad with unnamed ones if we don't have enough.
-  const named = all.filter((l) => l.name).sort((a, b) => a.distance - b.distance);
-  const unnamed = all.filter((l) => !l.name).sort((a, b) => a.distance - b.distance);
+function prioritizeNamed(lakes, limit) {
+  const named = lakes.filter((l) => l.name).sort((a, b) => a.distance - b.distance);
+  const unnamed = lakes.filter((l) => !l.name).sort((a, b) => a.distance - b.distance);
   return named
     .concat(unnamed)
     .slice(0, limit)
@@ -192,7 +230,8 @@ let watchId = null;
 let currentLake = null;
 let nearbyLakesCache = [];
 let lastCoord = null;
-let otherLakeMarkers = [];
+let otherLakeLayers = [];
+let searchedBBox = null;
 
 const userIcon = L.divIcon({
   className: '',
@@ -312,35 +351,91 @@ function startSimulatedTracking(lake) {
 }
 
 // ===== Other-lake indicators (visible when zoomed out from the active lake) =====
-// Same marching-ants green outline as the active lake, just dimmer — real
-// shape, not a generic pin, so it reads as "another lake" at a glance.
+// A fixed-size 4-dot badge — same pulsing-light language as the active
+// lake's 4 pillars — so it stays legible at any zoom, unlike a polygon
+// outline that shrinks to nothing when zoomed out.
+function otherLakeIcon() {
+  const dots = PILLAR_META.map(
+    (p, i) => `<span class="lake-badge-dot" style="--c:${p.color}; --pos:${i}; --d:${i * 0.3}s"></span>`
+  ).join('');
+  return L.divIcon({
+    className: '',
+    html: `<div class="lake-badge">${dots}<span class="lake-badge-core"></span></div>`,
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+  });
+}
+
 function renderOtherLakeMarkers(activeLake, coord) {
-  otherLakeMarkers.forEach((m) => map.removeLayer(m));
-  otherLakeMarkers = [];
+  otherLakeLayers.forEach((m) => map.removeLayer(m));
+  otherLakeLayers = [];
   nearbyLakesCache
     .filter((l) => l.id !== activeLake.id)
     .forEach((lake) => {
+      const distText = lake.distance != null ? ` · ${Math.round(lake.distance)} m` : '';
+
       const outline = L.polygon(lake.outline, {
         color: '#5FCFA0',
-        weight: 2,
-        opacity: 0.55,
+        weight: 1.5,
+        opacity: 0.35,
         fillColor: '#5FCFA0',
-        fillOpacity: 0.06,
-        dashArray: '8 7',
-        className: 'lake-outline other-lake-outline',
+        fillOpacity: 0.04,
+        dashArray: '6 6',
+        interactive: false,
       }).addTo(map);
-      const distText = lake.distance != null ? ` · ${Math.round(lake.distance)} m` : '';
-      outline.bindTooltip(`${lake.name}${distText}`, {
+      otherLakeLayers.push(outline);
+
+      const badge = L.marker(lake.center, { icon: otherLakeIcon(), zIndexOffset: 400 }).addTo(map);
+      badge.bindTooltip(`${lake.name}${distText}`, {
         sticky: true,
         direction: 'top',
+        offset: [0, -18],
         className: 'other-lake-tooltip',
       });
-      outline.on('click', () => loadLake(lake, coord));
-      outline.on('mouseover', () => outline.setStyle({ opacity: 0.95, weight: 3, fillOpacity: 0.16 }));
-      outline.on('mouseout', () => outline.setStyle({ opacity: 0.55, weight: 2, fillOpacity: 0.06 }));
-      otherLakeMarkers.push(outline);
+      badge.on('click', () => loadLake(lake, coord));
+      otherLakeLayers.push(badge);
     });
 }
+
+// Grows the known-lakes pool to match whatever area is currently on screen,
+// so panning/zooming out surfaces more lakes instead of staying capped at
+// the original search radius.
+async function expandSearchToView() {
+  if (!currentLake) return;
+  const needed = bboxFromBounds(map.getBounds(), 300);
+  if (bboxContains(searchedBBox, needed)) return;
+  const merged = searchedBBox
+    ? [
+        Math.min(searchedBBox[0], needed[0]),
+        Math.min(searchedBBox[1], needed[1]),
+        Math.max(searchedBBox[2], needed[2]),
+        Math.max(searchedBBox[3], needed[3]),
+      ]
+    : needed;
+  const refLat = lastCoord ? lastCoord[0] : currentLake.center[0];
+  const refLon = lastCoord ? lastCoord[1] : currentLake.center[1];
+  if (bboxArea(merged) > bboxArea(bboxFromCenterRadius(refLat, refLon, MAX_SEARCH_RADIUS_M))) return;
+  try {
+    const found = await fetchLakesInBBox(merged, refLat, refLon);
+    searchedBBox = merged;
+    const existingIds = new Set(nearbyLakesCache.map((l) => l.id));
+    found.forEach((l) => {
+      if (!existingIds.has(l.id)) {
+        nearbyLakesCache.push(l);
+        existingIds.add(l.id);
+      }
+    });
+    renderOtherLakeMarkers(currentLake, lastCoord);
+  } catch (e) {
+    // Non-critical background enrichment — fail silently.
+  }
+}
+
+let expandDebounce;
+map.on('moveend zoomend', () => {
+  clearTimeout(expandDebounce);
+  expandDebounce = setTimeout(expandSearchToView, 700);
+});
 
 // ===== Loading a lake onto the map =====
 function loadLake(lake, userCoord) {
@@ -353,6 +448,7 @@ function loadLake(lake, userCoord) {
   currentLake = lake;
   lastCoord = userCoord || lastCoord;
   currentHotspots = buildHotspots(lake);
+  searchedBBox = null;
 
   lakePolygon = L.polygon(lake.outline, {
     color: '#5FCFA0',
@@ -392,6 +488,7 @@ function loadLake(lake, userCoord) {
     } else {
       startSimulatedTracking(lake);
     }
+    expandSearchToView();
   }, 2600);
 }
 
@@ -459,9 +556,10 @@ async function searchNearbyAndRenderList() {
   lastCoord = coord;
   menuStatus.textContent = 'Mencari danau di sekitarmu...';
   try {
-    const lakes = await fetchNearbyLakes(coord[0], coord[1], 6000, 5);
-    nearbyLakesCache = lakes.length ? lakes : [DANAU_KENANGA];
-    menuStatus.textContent = lakes.length ? '' : 'Tidak ditemukan danau bernama di sekitarmu — menampilkan Danau Kenanga.';
+    const bbox = bboxFromCenterRadius(coord[0], coord[1], 6000);
+    const found = await fetchLakesInBBox(bbox, coord[0], coord[1]);
+    nearbyLakesCache = found.length ? prioritizeNamed(found, 5) : [DANAU_KENANGA];
+    menuStatus.textContent = found.length ? '' : 'Tidak ditemukan danau bernama di sekitarmu — menampilkan Danau Kenanga.';
     renderLakeList(nearbyLakesCache, coord);
     return coord;
   } catch (e) {

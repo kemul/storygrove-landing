@@ -282,7 +282,36 @@ html, body {
 .menu-list-direction:hover { background: var(--pine-soft, var(--paper-2)); }
 
 /* ===== Other-lake indicators on the map ===== */
-.other-lake-outline { cursor: pointer; }
+/* Fixed-size 4-dot badge, same pulsing-light language as the active lake's
+   4 pillars, so it stays legible regardless of zoom (unlike a polygon
+   outline, which shrinks to nothing when zoomed out). */
+.lake-badge { width: 40px; height: 40px; position: relative; cursor: pointer; }
+.lake-badge-core {
+  position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--paper); transform: translate(-50%, -50%);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+}
+.lake-badge-dot {
+  position: absolute; top: 50%; left: 50%;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 8px 1px color-mix(in srgb, var(--c) 55%, transparent);
+}
+.lake-badge-dot:nth-child(1) { transform: translate(calc(-50% + 0px), calc(-50% - 12px)); }
+.lake-badge-dot:nth-child(2) { transform: translate(calc(-50% + 12px), calc(-50% + 0px)); }
+.lake-badge-dot:nth-child(3) { transform: translate(calc(-50% + 0px), calc(-50% + 12px)); }
+.lake-badge-dot:nth-child(4) { transform: translate(calc(-50% - 12px), calc(-50% + 0px)); }
+.lake-badge-dot::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  width: 7px; height: 7px; border-radius: 50%;
+  border: 1.3px solid var(--c);
+  transform: translate(-50%, -50%);
+  animation: badge-ping 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes badge-ping {
+  0% { width: 7px; height: 7px; opacity: 0.9; }
+  100% { width: 26px; height: 26px; opacity: 0; }
+}
 .other-lake-tooltip {
   font-family: 'Manrope', sans-serif !important; font-size: 0.78rem !important; font-weight: 600 !important;
   background: rgba(14, 32, 25, 0.88) !important; color: var(--paper) !important;
