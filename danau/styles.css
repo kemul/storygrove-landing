@@ -1,0 +1,143 @@
+:root {
+  --paper: #F6F2E6;
+  --paper-2: #EEE7D4;
+  --ink: #1B1812;
+  --ink-soft: #5C554A;
+  --pine: #17342A;
+  --pine-2: #0E2019;
+  --glow: #5FCFA0;
+  --glow-dim: rgba(95, 207, 160, 0.45);
+  --gold: #C08A3E;
+  --gold-soft: #F1E2C2;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%; overflow: hidden;
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: var(--pine-2);
+  color: var(--ink);
+}
+
+#map {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  background: var(--pine-2);
+}
+
+.leaflet-control-attribution {
+  font-family: 'Manrope', sans-serif; font-size: 0.68rem;
+  background: rgba(14, 32, 25, 0.55) !important; color: rgba(246,242,230,0.7) !important;
+  backdrop-filter: blur(4px);
+}
+.leaflet-control-attribution a { color: rgba(246,242,230,0.9) !important; }
+.leaflet-control-zoom a {
+  background: rgba(246, 242, 230, 0.92) !important; color: var(--pine-2) !important;
+  border: none !important;
+}
+.leaflet-control-zoom { border-radius: 10px !important; overflow: hidden; box-shadow: 0 8px 20px -8px rgba(0,0,0,0.4) !important; }
+
+/* ===== Lake outline animation ===== */
+.lake-outline {
+  animation: dashflow 22s linear infinite;
+}
+@keyframes dashflow {
+  to { stroke-dashoffset: -1000; }
+}
+
+/* ===== Hotspot marker ===== */
+.hotspot {
+  width: 22px; height: 22px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.hotspot::before, .hotspot::after {
+  content: ''; position: absolute; border-radius: 50%;
+  border: 1.5px solid var(--glow);
+  animation: ping 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+.hotspot::after { animation-delay: 1.3s; }
+@keyframes ping {
+  0% { width: 10px; height: 10px; opacity: 0.9; }
+  100% { width: 46px; height: 46px; opacity: 0; }
+}
+.hotspot-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 0 4px rgba(95,207,160,0.25), 0 0 14px 2px var(--glow-dim);
+}
+
+/* ===== Badge (brand link) ===== */
+.badge {
+  position: fixed; top: 20px; left: 20px; z-index: 500;
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 16px 9px 12px; border-radius: 999px;
+  background: rgba(246, 242, 230, 0.9); backdrop-filter: blur(8px);
+  color: var(--pine-2); text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem;
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.badge svg { color: var(--glow); flex-shrink: 0; }
+.badge:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5); }
+
+/* ===== Legend hint ===== */
+.legend {
+  position: fixed; bottom: 22px; left: 20px; z-index: 500;
+  padding: 12px 18px; border-radius: 14px;
+  background: rgba(14, 32, 25, 0.55); backdrop-filter: blur(8px);
+  color: var(--paper); pointer-events: none;
+  animation: fadeHint 1s ease 5s forwards;
+}
+.legend-title { margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; }
+.legend-sub { margin: 2px 0 0; font-size: 0.78rem; color: rgba(246,242,230,0.7); }
+@keyframes fadeHint { to { opacity: 0; transform: translateY(6px); } }
+
+/* ===== Popup card ===== */
+.popup-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(14, 32, 25, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.popup-overlay.open { opacity: 1; pointer-events: auto; }
+
+.popup-card {
+  position: fixed; z-index: 601;
+  left: 50%; bottom: 0; transform: translate(-50%, 100%);
+  width: min(420px, calc(100% - 40px));
+  margin-bottom: 24px;
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 30px 30px 26px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.popup-card.open { transform: translate(-50%, 0); }
+.popup-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: none; background: var(--paper-2); color: var(--ink-soft);
+  font-size: 1.2rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.popup-close:hover { background: var(--gold-soft); color: var(--pine-2); }
+.popup-kicker {
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.74rem; color: var(--gold); margin: 0 0 10px;
+}
+.popup-card h2 {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.35rem;
+  color: var(--pine-2); margin: 0 0 12px; letter-spacing: -0.01em;
+}
+.popup-card p#popupBody {
+  margin: 0; color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .badge span { display: none; }
+  .badge { padding: 10px; }
+  .legend { bottom: 18px; left: 16px; right: 16px; }
+  .popup-card { padding: 26px 24px 22px; }
+}
