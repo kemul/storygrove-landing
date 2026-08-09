@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StoryGrove — Story &amp; Play Studio</title>
+<meta name="description" content="StoryGrove adalah studio produk kreatif yang mengembangkan cerita, permainan, produk fisik, dan pengalaman digital untuk anak.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- NAV -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="34" height="34"><path d="M24 4c7 6 11 13 11 20a11 11 0 1 1-22 0c0-7 4-14 11-20Z" fill="var(--leaf)"/><path d="M24 20v24" stroke="var(--trunk)" stroke-width="3" stroke-linecap="round"/></svg>
+      </span>
+      StoryGrove
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#create">What We Create</a>
+      <a href="#works">How It Works</a>
+      <a href="#kici">KICI</a>
+      <a href="#collab">Collaboration</a>
+      <a href="#about">About</a>
+      <a href="#founders">Founders</a>
+      <a href="#contact" class="btn btn-small btn-primary">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-decor" aria-hidden="true">
+      <svg class="blob blob-1" viewBox="0 0 200 200"><path fill="var(--sun)" d="M45,-58C57,-49,64,-32,67,-14C70,4,69,24,59,39C49,54,30,64,10,67C-11,71,-32,68,-47,56C-63,44,-73,23,-73,1C-74,-20,-64,-41,-48,-53C-32,-65,-9,-70,11,-68C31,-67,33,-67,45,-58Z" transform="translate(100 100)"/></svg>
+      <svg class="blob blob-2" viewBox="0 0 200 200"><path fill="var(--coral)" d="M39,-51C51,-42,61,-28,64,-12C68,3,65,20,56,33C47,47,32,57,15,62C-2,66,-21,64,-38,55C-54,45,-68,29,-71,10C-75,-8,-68,-28,-55,-42C-42,-56,-24,-64,-5,-63C13,-63,27,-60,39,-51Z" transform="translate(100 100)"/></svg>
+      <svg class="squiggle" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 30 C 30 0, 60 60, 90 30 S 150 0, 180 30 S 240 60, 270 30 S 300 0, 300 30" stroke="var(--leaf)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div class="container hero-inner">
+      <p class="eyebrow reveal">Story &amp; Play Studio</p>
+      <h1 class="reveal">Stories to <span class="text-swash">read</span>, <span class="text-swash">play</span>, and <span class="text-swash">explore</span>.</h1>
+      <p class="hero-sub reveal">StoryGrove adalah studio produk kreatif yang mengembangkan cerita, permainan, produk fisik, dan pengalaman digital untuk anak.</p>
+      <p class="hero-lead reveal">Kami percaya teknologi tidak harus menjauhkan anak dari dunia nyata. Digunakan dengan tepat, teknologi justru dapat membuat cerita lebih hidup, memicu rasa ingin tahu, dan mengajak anak untuk membaca, bermain, membuat, bereksperimen, serta menjelajah.</p>
+      <div class="hero-cta reveal">
+        <a href="#create" class="btn btn-primary">Explore Our Work</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE BELIEVE -->
+  <section class="section believe">
+    <div class="container narrow">
+      <p class="kicker reveal">What We Believe</p>
+      <h2 class="reveal">Anak adalah semesta.</h2>
+      <p class="reveal">Kami percaya setiap anak membawa dunia yang berbeda — rasa ingin tahu, kekuatan, minat, cara berpikir, dan perjalanan tumbuhnya masing-masing.</p>
+      <p class="reveal">Karena itu, kami tidak ingin hanya memberi anak lebih banyak informasi. Kami ingin menciptakan pengalaman yang membuat mereka bertanya, mencoba, membuat, memilih, gagal dan mencoba lagi — lalu perlahan memahami bagaimana dunia nyata bekerja.</p>
+      <blockquote class="pull-quote reveal">“Technology should activate the real world, not replace it.”</blockquote>
+    </div>
+  </section>
+
+  <!-- WHAT WE CREATE -->
+  <section class="section" id="create">
+    <div class="container">
+      <p class="kicker reveal center">What We Create</p>
+      <h2 class="center reveal">Cerita, permainan, dan pengalaman yang bisa dijelajahi.</h2>
+      <div class="grid-cards">
+        <article class="card reveal">
+          <div class="card-icon" style="--tint:var(--leaf-soft)">
+            <svg viewBox="0 0 48 48"><path d="M8 10c6-3 12-3 16 1 4-4 10-4 16-1v26c-6-3-12-3-16 1-4-4-10-4-16-1Z" fill="none" stroke="var(--leaf-dark)" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 11v26" stroke="var(--leaf-dark)" stroke-width="2.5"/></svg>
+          </div>
+          <h3>Storybooks &amp; Publishing</h3>
+          <p>Buku cerita, buku pengetahuan, activity book, dan publikasi anak yang dirancang sebagai pengalaman, bukan hanya bahan bacaan.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" style="--tint:var(--coral-soft)">
+            <svg viewBox="0 0 48 48"><rect x="7" y="7" width="34" height="34" rx="6" fill="none" stroke="var(--coral-dark)" stroke-width="2.5"/><circle cx="17" cy="17" r="2.6" fill="var(--coral-dark)"/><circle cx="31" cy="17" r="2.6" fill="var(--coral-dark)"/><circle cx="17" cy="31" r="2.6" fill="var(--coral-dark)"/><circle cx="31" cy="31" r="2.6" fill="var(--coral-dark)"/></svg>
+          </div>
+          <h3>Play &amp; Learning Products</h3>
+          <p>Board game ringan, kartu, figur, exploration kit, learning kit, worksheet, serta berbagai objek fisik yang menjadi bagian dari cerita dan permainan.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" style="--tint:var(--sun-soft)">
+            <svg viewBox="0 0 48 48"><rect x="13" y="5" width="22" height="38" rx="4" fill="none" stroke="var(--sun-dark)" stroke-width="2.5"/><path d="M20 12h8M22 37h4" stroke="var(--sun-dark)" stroke-width="2.5" stroke-linecap="round"/><path d="M17 20l4 4-4 4" stroke="var(--sun-dark)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Digital Companion</h3>
+          <p>Pengalaman digital berbasis web yang dapat terhubung dengan produk fisik melalui QR atau mekanisme lainnya.</p>
+          <ul class="tag-list">
+            <li>Audio &amp; ambience</li><li>Animasi</li><li>Interactive story</li><li>Pilihan &amp; konsekuensi</li><li>Petunjuk aktivitas</li><li>Eksperimen</li><li>Progress</li><li>Achievement</li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" style="--tint:var(--leaf-soft)">
+            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="var(--leaf-dark)" stroke-width="2.5"/><path d="M24 7c5 5 5 29 0 34M9 24h30" stroke="var(--leaf-dark)" stroke-width="2" fill="none"/><path d="M13 14c6 3 16 3 22 0M13 34c6-3 16-3 22 0" stroke="var(--leaf-dark)" stroke-width="2" fill="none"/></svg>
+          </div>
+          <h3>Original IP &amp; Storyworld</h3>
+          <p>Kami mengembangkan karakter dan dunia cerita original yang dapat hidup dalam berbagai format — buku, permainan, animasi, figur, dan pengalaman interaktif.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE BUILD EXPERIENCES -->
+  <section class="section alt" id="works">
+    <div class="container">
+      <p class="kicker reveal center">How We Build Experiences</p>
+      <h2 class="center reveal">Read → Connect → Play → Do → Discover</h2>
+      <div class="flow reveal">
+        <div class="flow-step">
+          <span class="flow-num">1</span>
+          <h4>Read</h4>
+          <p>Cerita memulai perjalanan.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step">
+          <span class="flow-num">2</span>
+          <h4>Connect</h4>
+          <p>Produk fisik terhubung dengan pengalaman digital.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step">
+          <span class="flow-num">3</span>
+          <h4>Play</h4>
+          <p>Anak memilih, mencoba, bermain, dan berinteraksi.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step">
+          <span class="flow-num">4</span>
+          <h4>Do</h4>
+          <p>Cerita mengajak anak kembali ke dunia nyata untuk mengamati, membuat, dan bereksperimen.</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step">
+          <span class="flow-num">5</span>
+          <h4>Discover</h4>
+          <p>Hasil aktivitas membuka pengalaman, cerita, atau perjalanan berikutnya.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR APPROACH -->
+  <section class="section">
+    <div class="container">
+      <p class="kicker reveal center">Our Approach</p>
+      <h2 class="center reveal">Prinsip di balik setiap pengalaman yang kami buat.</h2>
+      <div class="approach-grid">
+        <div class="approach-item reveal">
+          <h4>Story First</h4>
+          <p>Teknologi bukan gimmick. Pengalaman selalu dimulai dari cerita, dunia, karakter, atau pertanyaan yang membuat anak ingin mengetahui lebih jauh.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h4>Physical + Digital</h4>
+          <p>Kami merancang produk fisik dan digital sebagai satu pengalaman yang saling melengkapi.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h4>Active Children</h4>
+          <p>Anak bukan hanya penonton. Mereka memilih, membuat, bergerak, mencoba, dan mengambil keputusan.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h4>Back to the Real World</h4>
+          <p>Layar adalah pintu, bukan tujuan akhir. Interaksi digital sebaiknya mendorong aktivitas nyata.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h4>Thoughtful Technology</h4>
+          <p>Kami menghindari mekanisme yang sengaja membuat anak terus berada di layar. Pengalaman digital dirancang memiliki tujuan, batas, dan akhir yang jelas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE ARE EXPLORING -->
+  <section class="section alt">
+    <div class="container narrow">
+      <p class="kicker reveal">What We Are Exploring</p>
+      <h2 class="reveal">Interactive Story &amp; Play</h2>
+      <p class="reveal">Storybook, board, kartu, figur, dan digital companion yang terhubung menjadi satu perjalanan cerita.</p>
+      <div class="example-box reveal">
+        Anak membaca cerita → memindai akses digital → karakter muncul melalui animasi atau audio → anak mendapat misi → menyelesaikannya menggunakan produk fisik atau benda di sekitarnya → hasilnya membuka kelanjutan cerita.
+      </div>
+
+      <h2 class="reveal" style="margin-top:3rem">Interactive Learning</h2>
+      <p class="reveal">Materi pembelajaran diubah menjadi pengalaman eksplorasi.</p>
+      <div class="compare reveal">
+        <div class="compare-not"><span>Bukan hanya</span> baca → jawab soal.</div>
+        <div class="compare-yes"><span>Tetapi</span> baca → dengarkan → amati → coba → temukan → refleksikan.</div>
+      </div>
+      <p class="reveal muted">Format ini dapat digunakan untuk topik sains, alam, lingkungan, teknologi, maupun pembelajaran berbasis proyek.</p>
+    </div>
+  </section>
+
+  <!-- KICI -->
+  <section class="section kici" id="kici">
+    <div class="hero-decor" aria-hidden="true">
+      <svg class="blob blob-3" viewBox="0 0 200 200"><path fill="var(--sun)" opacity="0.5" d="M45,-58C57,-49,64,-32,67,-14C70,4,69,24,59,39C49,54,30,64,10,67C-11,71,-32,68,-47,56C-63,44,-73,23,-73,1C-74,-20,-64,-41,-48,-53C-32,-65,-9,-70,11,-68C31,-67,33,-67,45,-58Z" transform="translate(100 100)"/></svg>
+    </div>
+    <div class="container narrow">
+      <p class="kicker reveal">Original World</p>
+      <h2 class="reveal">KICI</h2>
+      <p class="hero-sub reveal">An original world by StoryGrove.</p>
+      <p class="reveal">Di dunia setelah peradaban manusia berubah, Kici dan teman-temannya belajar membangun kembali kehidupan dengan memanfaatkan alam, pengetahuan, kreativitas, dan sisa teknologi dari dunia sebelumnya.</p>
+      <p class="reveal">Dunia KICI dirancang sebagai ruang untuk membicarakan:</p>
+      <ul class="pill-list reveal">
+        <li>Alam</li><li>Teknologi</li><li>Kreativitas</li><li>Problem solving</li><li>Keputusan &amp; konsekuensi</li><li>Kehidupan bersama</li><li>Membangun masa depan</li>
+      </ul>
+      <p class="reveal muted">Cerita KICI masih dalam pengembangan — lebih banyak akan segera hadir.</p>
+    </div>
+  </section>
+
+  <!-- COLLABORATION -->
+  <section class="section" id="collab">
+    <div class="container">
+      <p class="kicker reveal center">Collaboration</p>
+      <h2 class="center reveal">StoryGrove terbuka untuk mengembangkan pengalaman bersama.</h2>
+      <div class="grid-cards four">
+        <article class="card small reveal">
+          <h3>Schools &amp; Educators</h3>
+          <p>Mengubah materi pembelajaran menjadi buku, learning kit, atau pengalaman interaktif.</p>
+        </article>
+        <article class="card small reveal">
+          <h3>Brands &amp; CSR Programs</h3>
+          <p>Mengembangkan produk edukasi berbasis isu seperti lingkungan, air, sains, energi, teknologi, dan sustainability.</p>
+        </article>
+        <article class="card small reveal">
+          <h3>Authors &amp; Creators</h3>
+          <p>Membawa cerita dan IP ke bentuk buku, permainan, produk fisik, dan pengalaman digital.</p>
+        </article>
+        <article class="card small reveal">
+          <h3>Institutions &amp; Communities</h3>
+          <p>Menciptakan produk dan program yang dapat digunakan di sekolah maupun dalam aktivitas keluarga.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="section alt">
+    <div class="container">
+      <p class="kicker reveal center">Our Capabilities</p>
+      <div class="capability-grid">
+        <div class="capability-item reveal"><h4>Story &amp; IP Development</h4><p>Concept development, writing, character, worldbuilding, storytelling.</p></div>
+        <div class="capability-item reveal"><h4>Creative &amp; Art Direction</h4><p>Illustration, visual development, product identity, packaging.</p></div>
+        <div class="capability-item reveal"><h4>Physical Product Development</h4><p>Books, cards, board, kits, figures, learning materials.</p></div>
+        <div class="capability-item reveal"><h4>Interactive Experience</h4><p>UX, web companion, interactive content, gamification.</p></div>
+        <div class="capability-item reveal"><h4>Animation &amp; Content Production</h4><p>Animation, motion, audio, video, digital storytelling.</p></div>
+        <div class="capability-item reveal"><h4>Education Collaboration</h4><p>Content adaptation, learning experience design, expert and school validation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY STORYGROVE -->
+  <section class="section why">
+    <div class="container narrow center">
+      <p class="kicker reveal center">Why StoryGrove</p>
+      <div class="why-grid reveal">
+        <div class="why-item">
+          <h4>Stories create meaning.</h4>
+          <p>Cerita memberi alasan bagi anak untuk peduli dan ingin terus mengetahui.</p>
+        </div>
+        <div class="why-item">
+          <h4>Play creates experience.</h4>
+          <p>Anak memahami sesuatu lebih dalam ketika mereka ikut melakukan.</p>
+        </div>
+        <div class="why-item">
+          <h4>Technology creates possibilities.</h4>
+          <p>Teknologi memungkinkan cerita merespons, berubah, dan terhubung dengan dunia nyata.</p>
+        </div>
+      </div>
+      <p class="formula reveal">Story <span>+</span> Play <span>+</span> Technology</p>
+    </div>
+  </section>
+
+  <!-- ABOUT / VISION / MISSION -->
+  <section class="section about" id="about">
+    <div class="container narrow">
+      <p class="kicker reveal">About StoryGrove</p>
+      <h2 class="reveal">Anak hari ini tumbuh bersama teknologi.</h2>
+      <p class="reveal">Kami tidak ingin memisahkan mereka dari dunia tersebut. Kami ingin membantu menciptakan hubungan yang lebih aktif dan bermakna antara anak, teknologi, cerita, dan kehidupan nyata.</p>
+      <p class="reveal">Sebuah cerita dapat dimulai dari buku, berlanjut melalui board atau figur, hidup melalui audio dan animasi digital, kemudian mengajak anak menyelesaikan misi atau melakukan sesuatu di dunia nyata.</p>
+
+      <div class="vision-box reveal">
+        <p class="kicker">Vision</p>
+        <p class="vision-text">"We want technology to open more doors to the real world."</p>
+      </div>
+
+      <p class="kicker reveal" style="margin-top:3rem">Mission</p>
+      <ol class="mission-list reveal">
+        <li>Menciptakan cerita dan IP yang dekat dengan dunia anak.</li>
+        <li>Mengembangkan produk fisik yang mendorong anak membaca, bermain, membuat, dan bereksplorasi.</li>
+        <li>Menggunakan teknologi untuk memperkaya pengalaman, bukan menggantikan aktivitas nyata.</li>
+        <li>Menghubungkan kreator, teknologi, pendidikan, dan industri dalam pengembangan produk anak.</li>
+        <li>Mengembangkan produk yang dapat dinikmati keluarga sekaligus digunakan dalam lingkungan pendidikan.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FOUNDERS -->
+  <section class="section alt" id="founders">
+    <div class="container">
+      <p class="kicker reveal center">The Founders</p>
+      <h2 class="center reveal">Tiga orang tua &amp; kreator dengan satu pertanyaan yang sama.</h2>
+      <p class="center reveal founders-lead">Pengalaman seperti apa yang ingin kita berikan kepada anak-anak yang tumbuh di dunia hari ini?</p>
+      <div class="founders-grid">
+        <article class="founder-card reveal">
+          <div class="founder-avatar" aria-hidden="true">YW</div>
+          <h4>Yogantara Wibawa</h4>
+          <p class="founder-role">Co-Founder · Creative &amp; Product</p>
+        </article>
+        <article class="founder-card reveal">
+          <div class="founder-avatar" aria-hidden="true">YM</div>
+          <h4>Yadi Mulyadi</h4>
+          <p class="founder-role">Co-Founder · Business &amp; Partnership</p>
+        </article>
+        <article class="founder-card reveal">
+          <div class="founder-avatar" aria-hidden="true">MJ</div>
+          <h4>Muttaqin Jusuf</h4>
+          <p class="founder-role">Co-Founder · Technology &amp; Growth</p>
+        </article>
+      </div>
+      <p class="founders-quote reveal">"StoryGrove was founded by three parents and creators from different backgrounds in storytelling, technology, business, and education — brought together by a shared interest in creating better experiences for children growing up with technology."</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container narrow center">
+      <p class="kicker reveal center">Get in Touch</p>
+      <h2 class="reveal">Let's build the next world together.</h2>
+      <p class="reveal">Punya cerita, program, atau ide kolaborasi untuk anak-anak? Kami senang mendengarnya.</p>
+      <a href="mailto:hello@storygrove.id" class="btn btn-primary btn-large reveal">hello@storygrove.id</a>
+      <p class="reveal muted" style="margin-top:2rem">Depok, West Jawa, Indonesia</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="26" height="26"><path d="M24 4c7 6 11 13 11 20a11 11 0 1 1-22 0c0-7 4-14 11-20Z" fill="var(--leaf)"/><path d="M24 20v24" stroke="var(--trunk)" stroke-width="3" stroke-linecap="round"/></svg>
+      </span>
+      StoryGrove
+    </div>
+    <p class="footer-tagline">Story &amp; Play Studio — Children's Media &amp; Product Studio</p>
+    <p class="footer-meta">PT Story Grove Studio · Depok, West Java, Indonesia</p>
+    <p class="footer-copy">© <span id="year"></span> StoryGrove. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
