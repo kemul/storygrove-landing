@@ -50,10 +50,11 @@ html, body {
   width: 22px; height: 22px; position: relative;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
+  color: var(--accent, var(--glow));
 }
 .hotspot::before, .hotspot::after {
   content: ''; position: absolute; border-radius: 50%;
-  border: 1.5px solid var(--glow);
+  border: 1.5px solid currentColor;
   animation: ping 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
 }
 .hotspot::after { animation-delay: 1.3s; }
@@ -63,8 +64,36 @@ html, body {
 }
 .hotspot-dot {
   width: 12px; height: 12px; border-radius: 50%;
-  background: var(--glow);
-  box-shadow: 0 0 0 4px rgba(95,207,160,0.25), 0 0 14px 2px var(--glow-dim);
+  background: currentColor;
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 25%, transparent),
+              0 0 14px 2px color-mix(in srgb, currentColor 45%, transparent);
+  transition: box-shadow 0.3s ease;
+}
+.hotspot.visited .hotspot-dot {
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 35%, transparent),
+              0 0 0 7px var(--paper),
+              0 0 18px 3px color-mix(in srgb, currentColor 60%, transparent);
+}
+.hotspot.visited::before, .hotspot.visited::after { animation: none; opacity: 0; }
+
+/* ===== "You are here" marker ===== */
+.you-here {
+  width: 20px; height: 20px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.you-here::before {
+  content: ''; position: absolute; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(62, 143, 160, 0.25);
+  animation: youhere-pulse 2.2s ease-out infinite;
+}
+@keyframes youhere-pulse {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+.you-here-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fff; border: 3px solid #3E8FA0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
 
 /* ===== Badge (brand link) ===== */
@@ -87,11 +116,29 @@ html, body {
   padding: 12px 18px; border-radius: 14px;
   background: rgba(14, 32, 25, 0.55); backdrop-filter: blur(8px);
   color: var(--paper); pointer-events: none;
-  animation: fadeHint 1s ease 5s forwards;
 }
 .legend-title { margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; }
 .legend-sub { margin: 2px 0 0; font-size: 0.78rem; color: rgba(246,242,230,0.7); }
-@keyframes fadeHint { to { opacity: 0; transform: translateY(6px); } }
+.progress {
+  margin: 8px 0 0; padding-top: 8px; border-top: 1px solid rgba(246,242,230,0.18);
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.02em; color: var(--glow);
+}
+
+/* ===== Toast (checkpoint reached) ===== */
+.toast {
+  position: fixed; top: 20px; left: 50%; z-index: 700;
+  transform: translate(-50%, -140%);
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border-radius: 999px;
+  background: rgba(14, 32, 25, 0.88); backdrop-filter: blur(8px);
+  color: var(--paper); font-size: 0.88rem; font-weight: 600;
+  box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show { transform: translate(-50%, 0); }
+.toast-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
 /* ===== Popup card ===== */
 .popup-overlay {
@@ -124,15 +171,27 @@ html, body {
 }
 .popup-close:hover { background: var(--gold-soft); color: var(--pine-2); }
 .popup-kicker {
+  display: flex; align-items: center; gap: 7px;
   font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
   font-size: 0.74rem; color: var(--gold); margin: 0 0 10px;
 }
+.popup-icon { display: flex; }
 .popup-card h2 {
   font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.35rem;
   color: var(--pine-2); margin: 0 0 12px; letter-spacing: -0.01em;
 }
-.popup-card p#popupBody {
-  margin: 0; color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6;
+#popupBody p {
+  margin: 0 0 16px; color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6;
+}
+.observation {
+  background: var(--paper-2); border-radius: 14px; padding: 16px 18px;
+}
+.observation-label {
+  display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 0.7rem; color: var(--pine-2); margin-bottom: 6px;
+}
+.observation p {
+  margin: 0; color: var(--ink); font-size: 0.92rem; line-height: 1.55;
 }
 
 @media (max-width: 600px) {
