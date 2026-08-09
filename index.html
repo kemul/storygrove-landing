@@ -8,8 +8,8 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 
@@ -42,6 +42,15 @@
 <main>
   <!-- HERO -->
   <section class="hero">
+    <div class="glow-field" aria-hidden="true">
+      <span class="glow-orb glow-orb-1"></span>
+      <span class="glow-orb glow-orb-2"></span>
+      <svg class="growth-line" viewBox="0 0 500 500" fill="none">
+        <circle cx="250" cy="250" r="90" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+        <circle cx="250" cy="250" r="150" stroke="currentColor" stroke-width="0.6" opacity="0.22"/>
+        <circle cx="250" cy="250" r="210" stroke="currentColor" stroke-width="0.6" opacity="0.12"/>
+      </svg>
+    </div>
     <div class="container hero-inner">
       <div class="hero-main reveal">
         <p class="eyebrow">Company Profile — Story &amp; Play Studio</p>
@@ -203,6 +212,10 @@
 
   <!-- KICI -->
   <section class="section kici" id="kici">
+    <div class="glow-field" aria-hidden="true">
+      <span class="glow-orb glow-orb-3"></span>
+      <div class="dot-field"></div>
+    </div>
     <div class="container narrow">
       <p class="section-index reveal">06 — Original World</p>
       <h2 class="reveal">KICI</h2>
@@ -369,6 +382,6 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>
