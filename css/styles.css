@@ -1077,19 +1077,19 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 .footer-links a:hover, .footer-links a:focus-visible { color: var(--orange-soft); }
 
 .footer-co-creation {
-  margin-top: 1.3rem;
+  margin-top: 1.6rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.7rem;
 }
 .footer-co-creation-label {
   font-size: 0.78rem;
   color: rgba(250, 246, 237, 0.5);
 }
-.footer-co-creation-logos { display: flex; gap: 0.5rem; }
+.footer-co-creation-logos { display: flex; gap: 0.9rem; }
 .footer-co-creation-logos img {
-  width: 36px;
-  height: 36px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid rgba(250, 246, 237, 0.25);
