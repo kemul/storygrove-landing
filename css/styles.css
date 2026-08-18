@@ -920,6 +920,51 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   color: var(--teal-deep);
 }
 
+.collab-partners {
+  margin-bottom: 2.4rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--line);
+}
+.collab-partners-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(20, 52, 46, 0.5);
+  margin-bottom: 1.4rem;
+}
+.collab-partners-logos {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1.6rem, 5vw, 3.2rem);
+  flex-wrap: wrap;
+}
+.partner-logo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+.partner-logo img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.35s var(--ease-out);
+}
+.partner-logo:hover img { transform: translateY(-3px); }
+.partner-logo figcaption {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  text-align: center;
+  max-width: 14ch;
+}
+
 /* ============================================================
    NEWSLETTER
    ============================================================ */
