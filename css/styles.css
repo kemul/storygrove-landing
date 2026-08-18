@@ -1076,28 +1076,24 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 }
 .footer-links a:hover, .footer-links a:focus-visible { color: var(--orange-soft); }
 
-.footer-partners {
-  margin-top: 3rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid rgba(250, 246, 237, 0.16);
-  text-align: center;
-}
-.footer-partners-label {
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(250, 246, 237, 0.5);
-  margin-bottom: 1.4rem;
-}
-.footer-partners-logos {
+.footer-co-creation {
+  margin-top: 1.3rem;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: clamp(1.6rem, 5vw, 3.2rem);
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
 }
-.footer-partners .partner-logo figcaption { color: rgba(250, 246, 237, 0.72); }
+.footer-co-creation-label {
+  font-size: 0.78rem;
+  color: rgba(250, 246, 237, 0.5);
+}
+.footer-co-creation-logos { display: flex; gap: 0.5rem; }
+.footer-co-creation-logos img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(250, 246, 237, 0.25);
+}
 
 .footer-copy {
   margin-top: 2rem;
