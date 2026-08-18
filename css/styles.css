@@ -1076,8 +1076,31 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 }
 .footer-links a:hover, .footer-links a:focus-visible { color: var(--orange-soft); }
 
-.footer-copy {
+.footer-partners {
   margin-top: 3rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(250, 246, 237, 0.16);
+  text-align: center;
+}
+.footer-partners-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250, 246, 237, 0.5);
+  margin-bottom: 1.4rem;
+}
+.footer-partners-logos {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1.6rem, 5vw, 3.2rem);
+  flex-wrap: wrap;
+}
+.footer-partners .partner-logo figcaption { color: rgba(250, 246, 237, 0.72); }
+
+.footer-copy {
+  margin-top: 2rem;
   padding-top: 1.4rem;
   border-top: 1px solid rgba(250, 246, 237, 0.16);
   font-size: 0.9rem;
