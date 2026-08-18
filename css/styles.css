@@ -218,7 +218,14 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 90;
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+}
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .header-inner {
@@ -267,7 +274,8 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 .nav-list a.is-active { color: var(--teal); }
 
 /* scrolled state */
-.site-header.is-scrolled {
+.site-header.is-scrolled::before {
+  opacity: 1;
   background: rgba(250, 246, 237, 0.86);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
