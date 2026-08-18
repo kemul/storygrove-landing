@@ -118,7 +118,8 @@
   }, { rootMargin: '-40% 0px -55% 0px' });
 
   sectionIds.forEach(function (href) {
-    var el = document.querySelector(href);
+    var el;
+    try { el = document.querySelector(href); } catch (err) { el = null; }
     if (el) sectionObserver.observe(el);
   });
 
@@ -210,13 +211,14 @@
     }
   };
 
-  function modalProductHTML(p) {
+  function modalProductHTML(p, key) {
     return (
       '<div class="modal-media"><img src="' + p.img + '" srcset="' + p.imgSm + ' 640w, ' + p.img + ' 1100w" sizes="520px" alt="' + p.alt + '" width="1100" height="825"></div>' +
       '<h3 id="modal-title">' + p.title + '</h3>' +
       '<span class="modal-status ' + p.statusClass + '">' + p.status + '</span>' +
       '<p>' + p.desc + '</p>' +
-      '<p class="modal-related">' + p.related + '</p>'
+      '<p class="modal-related">' + p.related + '</p>' +
+      '<a class="btn btn-primary modal-preorder-btn" href="preorder.html?produk=' + key + '">Pre-order ' + p.title + '</a>'
     );
   }
 
@@ -271,8 +273,9 @@
   /* product cards */
   document.querySelectorAll('.product-card').forEach(function (card) {
     function open() {
-      var p = PRODUCTS[card.getAttribute('data-product')];
-      if (p) openModal(modalProductHTML(p));
+      var key = card.getAttribute('data-product');
+      var p = PRODUCTS[key];
+      if (p) openModal(modalProductHTML(p, key));
     }
     card.addEventListener('click', open);
     card.addEventListener('keydown', function (e) {
@@ -283,8 +286,9 @@
   /* programmatic open (feature CTA) */
   document.querySelectorAll('[data-open-product]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var p = PRODUCTS[btn.getAttribute('data-open-product')];
-      if (p) openModal(modalProductHTML(p));
+      var key = btn.getAttribute('data-open-product');
+      var p = PRODUCTS[key];
+      if (p) openModal(modalProductHTML(p, key));
     });
   });
 
@@ -301,7 +305,7 @@
   var journeySection = document.getElementById('cara');
   var journeyTrack = document.getElementById('journey-track');
   var journeyProgress = document.getElementById('journey-progress');
-  var journeySteps = Array.prototype.slice.call(journeyTrack.querySelectorAll('.journey-step'));
+  var journeySteps = journeyTrack ? Array.prototype.slice.call(journeyTrack.querySelectorAll('.journey-step')) : [];
   var isMobileJourney = window.matchMedia('(max-width: 767px)');
 
   function setJourneyProgress(count) {
@@ -444,4 +448,6 @@
 
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  window.STORYGROVE_PRODUCTS = PRODUCTS;
 })();

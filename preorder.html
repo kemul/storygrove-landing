@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-order — StoryGrove</title>
+  <meta name="description" content="Pre-order produk StoryGrove — Buku Cerita, Family Talk, Play & Board, Digital Companion, dan Learning Kit.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/logo-symbol.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="preorder-page">
+  <a class="skip-link" href="#main">Langsung ke konten</a>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html#beranda" aria-label="StoryGrove — kembali ke beranda">
+        <img src="assets/logo-primary.png" alt="" width="320" height="80" class="brand-logo">
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Navigasi utama">
+        <ul class="nav-list">
+          <li><a href="index.html#dunia">Dunia Kami</a></li>
+          <li><a href="index.html#produk">Produk</a></li>
+          <li><a href="index.html#kici">Kici</a></li>
+          <li><a href="index.html#tentang">Tentang</a></li>
+          <li><a href="index.html#kolaborasi">Kolaborasi</a></li>
+        </ul>
+        <a href="#preorder-form" class="btn btn-primary btn-sm nav-cta">Pre-order</a>
+      </nav>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Buka menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= PRE-ORDER HERO ================= -->
+    <section class="hero preorder-hero">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Pre-Order</p>
+          <h1>Jadi yang pertama memilikinya.</h1>
+          <p class="section-sub">Pilih produk yang ingin kamu pesan lebih dulu — kami kabari lewat WhatsApp begitu siap.</p>
+        </header>
+
+        <!-- product tabs -->
+        <div class="preorder-tabs" id="preorder-tabs" role="tablist" aria-label="Pilih produk" data-reveal>
+          <button type="button" class="preorder-tab" data-target="storybook" role="tab">Buku Cerita</button>
+          <button type="button" class="preorder-tab" data-target="familytalk" role="tab">Family Talk</button>
+          <button type="button" class="preorder-tab" data-target="games" role="tab">Play &amp; Board</button>
+          <button type="button" class="preorder-tab" data-target="digital" role="tab">Digital Companion</button>
+          <button type="button" class="preorder-tab" data-target="kit" role="tab">Learning Kit</button>
+        </div>
+
+        <!-- ============= PANEL: Buku Cerita ============= -->
+        <div class="preorder-panel" id="panel-storybook" data-panel>
+          <div class="preorder-layout">
+            <div class="preorder-gallery">
+              <img src="assets/storybook.jpg" srcset="assets/storybook-sm.jpg 640w, assets/storybook.jpg 1100w" sizes="(max-width: 900px) 90vw, 520px" alt="Belajar Bersama Alam: Danau — StoryGrove" width="1100" height="825">
+            </div>
+            <div class="preorder-info">
+              <span class="modal-status is-soon">Segera hadir</span>
+              <h2>Belajar Bersama Alam: Danau</h2>
+              <p class="preorder-tagline">Jelajah · Amati · Pahami · Jaga</p>
+              <p>Menjelajah, mengenal, dan menjaga danau Indonesia — kit edukasi yang mengajak anak mengamati alam secara langsung, bukan hanya membaca tentangnya.</p>
+
+              <ul class="preorder-specs">
+                <li><strong>Untuk anak</strong> 7+ tahun</li>
+                <li><strong>Ukuran buku</strong> 240 × 170 mm, 24 halaman isi + cover</li>
+                <li><strong>Isi kit</strong> 1 Explore Book, 1 Field Journal (jurnal lapangan), 5 lembar aktivitas &amp; kerajinan</li>
+                <li><strong>Bahan</strong> art carton 260–310 gsm, finishing laminasi doff (opsional)</li>
+                <li><strong>Kemasan</strong> folder / pocket sleeve, ± 250 × 180 mm</li>
+                <li><strong>Fokus belajar</strong> Observasi, Pengetahuan, Peduli Alam</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============= PANEL: Family Talk ============= -->
+        <div class="preorder-panel" id="panel-familytalk" data-panel hidden>
+          <div class="preorder-layout">
+            <div class="preorder-gallery">
+              <img src="assets/familytalk.jpg" srcset="assets/familytalk-sm.jpg 640w, assets/familytalk.jpg 1100w" sizes="(max-width: 900px) 90vw, 520px" alt="Family Talk — kartu percakapan keluarga StoryGrove" width="1100" height="825">
+            </div>
+            <div class="preorder-info">
+              <span class="modal-status is-live">Sudah tersedia</span>
+              <h2>Family Talk</h2>
+              <p>Satu deck kartu untuk membuka cerita dan percakapan seru bersama keluarga. Lahir dari keinginan membuat waktu bersama terasa lebih dekat, ringan, dan menyenangkan.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============= PANEL: Play & Board ============= -->
+        <div class="preorder-panel" id="panel-games" data-panel hidden>
+          <div class="preorder-layout">
+            <div class="preorder-gallery">
+              <img src="assets/games.jpg" srcset="assets/games-sm.jpg 640w, assets/games.jpg 1100w" sizes="(max-width: 900px) 90vw, 520px" alt="Permainan papan dan kartu StoryGrove" width="1100" height="825">
+            </div>
+            <div class="preorder-info">
+              <span class="modal-status is-soon">Segera hadir</span>
+              <h2>Play &amp; Board</h2>
+              <p>Permainan yang mengajak anak memilih, mencoba, dan bekerja sama — seru dimainkan bersama tanpa layar.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============= PANEL: Digital Companion ============= -->
+        <div class="preorder-panel" id="panel-digital" data-panel hidden>
+          <div class="preorder-layout">
+            <div class="preorder-gallery">
+              <img src="assets/digital.jpg" srcset="assets/digital-sm.jpg 640w, assets/digital.jpg 1100w" sizes="(max-width: 900px) 90vw, 520px" alt="Digital Companion StoryGrove di perangkat" width="1100" height="825">
+            </div>
+            <div class="preorder-info">
+              <span class="modal-status is-soft">Sedang dikembangkan</span>
+              <h2>Digital Companion</h2>
+              <p>Pengalaman digital yang membuat cerita merespons — memberikan petunjuk, menunjukkan yang tidak terlihat, dan menjaga petualangan tetap berjalan.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============= PANEL: Learning Kit ============= -->
+        <div class="preorder-panel" id="panel-kit" data-panel hidden>
+          <div class="preorder-layout">
+            <div class="preorder-gallery">
+              <img src="assets/kit.jpg" srcset="assets/kit-sm.jpg 640w, assets/kit.jpg 1100w" sizes="(max-width: 900px) 90vw, 520px" alt="Learning Kit — aktivitas dan eksperimen StoryGrove" width="1100" height="825">
+            </div>
+            <div class="preorder-info">
+              <span class="modal-status is-soon">Segera hadir</span>
+              <h2>Learning Kit</h2>
+              <p>Aktivitas dan eksperimen yang membuat belajar terasa seperti petualangan — bahan yang bisa disentuh, dicoba, dan dikotori.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============= PRE-ORDER FORM ============= -->
+        <div class="preorder-form-wrap" id="preorder-form" data-reveal>
+          <h2>Isi data pre-order</h2>
+          <p class="preorder-form-sub">Kami akan meneruskan pesananmu lewat WhatsApp — bukan pesanan otomatis, jadi kamu tetap bisa tanya-tanya dulu.</p>
+
+          <form class="preorder-form" id="preorder-order-form" novalidate>
+            <input type="hidden" id="preorder-product" value="storybook">
+            <div class="form-row">
+              <label for="preorder-name">Nama</label>
+              <input type="text" id="preorder-name" name="nama" placeholder="Nama kamu" autocomplete="name" required>
+            </div>
+            <div class="form-row">
+              <label for="preorder-contact">Nomor WhatsApp</label>
+              <input type="tel" id="preorder-contact" name="kontak" placeholder="08xx xxxx xxxx" autocomplete="tel" required>
+            </div>
+            <div class="form-row">
+              <label for="preorder-qty">Jumlah</label>
+              <input type="number" id="preorder-qty" name="jumlah" min="1" value="1" required>
+            </div>
+            <div class="form-row form-row-full">
+              <label for="preorder-note">Catatan (opsional)</label>
+              <textarea id="preorder-note" name="catatan" rows="3" placeholder="Warna, alamat kirim, pertanyaan lain..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg preorder-submit">Kirim Pre-order via WhatsApp</button>
+            <p class="preorder-form-status" id="preorder-form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo" aria-hidden="true">
+            <img src="assets/logo-symbol.png" alt="" width="90" height="92">
+          </span>
+          <p class="footer-name">StoryGrove</p>
+          <p class="footer-desc">Story &amp; Play Studio<br>Depok, Indonesia</p>
+        </div>
+        <nav class="footer-links" aria-label="Tautan media sosial">
+          <ul>
+            <li><a href="https://www.instagram.com/storygrove.studios/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="mailto:halo@storygrove.id">Email</a></li>
+            <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-links" aria-label="Tautan legal">
+          <ul>
+            <li><a href="index.html#">Privacy</a></li>
+            <li><a href="index.html#">Terms</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-partners">
+        <p class="footer-partners-label">Co-Creation Partners</p>
+        <div class="footer-partners-logos">
+          <figure class="partner-logo">
+            <img src="assets/partner-lnf.png" alt="Lendo Novo Foundation" width="160" height="160" loading="lazy">
+            <figcaption>Lendo Novo Foundation</figcaption>
+          </figure>
+          <figure class="partner-logo">
+            <img src="assets/partner-sou.png" alt="School of Universe" width="160" height="160" loading="lazy">
+            <figcaption>School of Universe</figcaption>
+          </figure>
+        </div>
+      </div>
+      <p class="footer-copy">© <span id="year">2026</span> StoryGrove. Setiap anak adalah semesta.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/preorder.js" defer></script>
+</body>
+</html>
