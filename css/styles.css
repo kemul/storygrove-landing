@@ -408,6 +408,27 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   object-position: center;
 }
 
+.hero-sound-toggle {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(14, 59, 51, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--white);
+  transition: transform 0.25s var(--ease-out), background-color 0.25s ease;
+}
+.hero-sound-toggle:hover,
+.hero-sound-toggle:focus-visible { background: rgba(14, 59, 51, 0.78); transform: scale(1.06); }
+
 /* ----- Hero load animation (JS adds .is-loaded) ----- */
 .js .hero-eyebrow,
 .js .hero-sub,

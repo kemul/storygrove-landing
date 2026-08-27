@@ -62,7 +62,18 @@
         </div>
         <div class="hero-media">
           <figure class="hero-frame">
-            <img src="assets/hero.jpg" alt="Dunia StoryGrove — buku, kartu, dan petualangan dalam satu hamparan" width="1900" height="814" class="hero-img" fetchpriority="high">
+            <video
+              id="heroVideo"
+              class="hero-img"
+              src="assets/kici-process.mp4"
+              poster="assets/kici-process-poster.jpg"
+              autoplay muted loop playsinline
+              aria-label="Proses kreatif di balik Kici dan Pasukan Bumi — dari sketsa di buku catatan sampai ilustrasi digital">
+            </video>
+            <button type="button" class="hero-sound-toggle" id="heroSoundToggle" aria-label="Aktifkan suara video" aria-pressed="false">
+              <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            </button>
           </figure>
         </div>
       </div>
@@ -221,14 +232,34 @@
         </header>
 
         <div class="kici-stage">
-          <video
-            class="kici-video"
-            src="assets/kici-process.mp4"
-            poster="assets/kici-process-poster.jpg"
-            autoplay muted loop playsinline
-            aria-label="Proses kreatif di balik Kici dan Pasukan Bumi — dari sketsa di buku catatan sampai ilustrasi digital">
-          </video>
-          <span class="kici-video-badge">Di balik layar — proses kreatif Kici</span>
+          <div class="kici-layer kici-layer-bg" data-parallax="bg">
+            <img src="assets/kici-world.jpg"
+                 srcset="assets/kici-world-sm.jpg 900w, assets/kici-world.jpg 1500w"
+                 sizes="(max-width: 768px) 120vw, 1500px"
+                 alt="" aria-hidden="true"
+                 width="1500" height="844" loading="lazy">
+          </div>
+          <div class="kici-layer kici-layer-art" data-parallax="fg">
+            <img src="assets/kici-illust.jpg"
+                 srcset="assets/kici-illust-sm.jpg 900w, assets/kici-illust.jpg 1500w"
+                 sizes="(max-width: 768px) 130vw, 1500px"
+                 alt="Kici, kelinci biru bertualang bersama Pasukan Bumi di dunia yang tumbuh kembali"
+                 width="1500" height="844" loading="lazy">
+
+            <!-- hotspots -->
+            <button type="button" class="hotspot hotspot-kici" data-character="kici" aria-label="Kici — Farmer &amp; Explorer">
+              <span class="hotspot-dot" aria-hidden="true"></span>
+              <span class="hotspot-label">Kici — Farmer &amp; Explorer</span>
+            </button>
+            <button type="button" class="hotspot hotspot-onyit" data-character="onyit" aria-label="Onyit — Mechanic">
+              <span class="hotspot-dot" aria-hidden="true"></span>
+              <span class="hotspot-label">Onyit — Mechanic</span>
+            </button>
+            <button type="button" class="hotspot hotspot-miam" data-character="miam" aria-label="Miam — Scout">
+              <span class="hotspot-dot" aria-hidden="true"></span>
+              <span class="hotspot-label">Miam — Scout</span>
+            </button>
+          </div>
         </div>
 
         <div class="kici-copy" data-reveal>

@@ -27,6 +27,24 @@
     });
   });
 
+  /* ---------- hero video sound toggle ---------- */
+  /* Autoplay only works muted, so the video starts silent and this button
+     lets people opt in to sound with a real click (which browsers allow). */
+
+  var heroVideo = document.getElementById('heroVideo');
+  var heroSoundToggle = document.getElementById('heroSoundToggle');
+  if (heroVideo && heroSoundToggle) {
+    heroSoundToggle.addEventListener('click', function () {
+      var unmuting = heroVideo.muted;
+      heroVideo.muted = !unmuting;
+      heroVideo.play().catch(function () {});
+      heroSoundToggle.setAttribute('aria-pressed', String(unmuting));
+      heroSoundToggle.setAttribute('aria-label', unmuting ? 'Matikan suara video' : 'Aktifkan suara video');
+      heroSoundToggle.querySelector('.icon-muted').hidden = unmuting;
+      heroSoundToggle.querySelector('.icon-unmuted').hidden = !unmuting;
+    });
+  }
+
   /* ---------- header + mobile nav ---------- */
 
   var header = document.getElementById('site-header');
