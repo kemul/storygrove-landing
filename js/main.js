@@ -150,18 +150,7 @@
       imgSm: 'assets/games-sm.jpg',
       alt: 'Permainan papan dan kartu StoryGrove',
       desc: 'Permainan yang mengajak anak memilih, mencoba, dan bekerja sama — seru dimainkan bersama tanpa layar.',
-      related: 'Terkait dengan <strong>Family Talk</strong>: keduanya dibangun dari semangat bermain yang sama.'
-    },
-    familytalk: {
-      title: 'Family Talk',
-      tag: 'Family Talk',
-      status: 'Sudah tersedia',
-      statusClass: 'is-live',
-      img: 'assets/familytalk.jpg',
-      imgSm: 'assets/familytalk-sm.jpg',
-      alt: 'Family Talk — kartu percakapan keluarga StoryGrove',
-      desc: 'Satu deck kartu untuk membuka cerita dan percakapan seru bersama keluarga. Lahir dari keinginan membuat waktu bersama terasa lebih dekat, ringan, dan menyenangkan.',
-      related: 'Tersedia di dunia nyata — dan terus kami kembangkan lewat <strong>Play & Board</strong>.'
+      related: 'Dibangun dari semangat yang sama dengan <strong>Buku Cerita</strong>: dicoba, bukan cuma dibaca.'
     },
     digital: {
       title: 'Digital Companion',

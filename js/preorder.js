@@ -8,7 +8,6 @@
 
   var PRODUCT_TITLES = {
     storybook: 'Buku Cerita — Belajar Bersama Alam: Danau',
-    familytalk: 'Family Talk',
     games: 'Play & Board',
     digital: 'Digital Companion',
     kit: 'Learning Kit'

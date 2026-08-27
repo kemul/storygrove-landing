@@ -637,6 +637,30 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 .kici-layer-art { z-index: 1; }
 .kici-layer-art img { object-position: center 62%; }
 
+.kici-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #0A2A25;
+}
+
+.kici-video-badge {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1.2rem;
+  z-index: 2;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(10, 42, 37, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--cream);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
 /* hotspots */
 .hotspot {
   position: absolute;
@@ -1350,6 +1374,9 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   .footer-brand { flex-direction: column; align-items: flex-start; padding-bottom: 1.8rem; }
   .footer-co-creation-logos img { width: 64px; height: 64px; }
   .footer-copy { margin-top: 2rem; }
+
+  /* kici video */
+  .kici-video-badge { left: 0.8rem; bottom: 0.8rem; font-size: 0.72rem; padding: 0.4rem 0.8rem; }
 
   /* modal */
   .modal-content { padding: 1.8rem 1.4rem; }
