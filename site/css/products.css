@@ -1,0 +1,974 @@
+.product-page h1 {
+  font-size: clamp(44px, 5.6vw, 73px);
+  font-weight: 600;
+  line-height: 1.05
+}
+
+.product-page h1 em {
+  font-family: Georgia, serif;
+  font-weight: 400
+}
+
+.product-page .section-title {
+  font-size: clamp(29px, 3.8vw, 44px)
+}
+
+.product-page .eyebrow {
+  margin-bottom: 18px
+}
+
+.kici-hero {
+  height: 530px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #335542;
+  color: var(--paper)
+}
+
+.kici-hero-world {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 75% 61%;
+  z-index: -2
+}
+
+.kici-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #17372ced 0%, #17372cba 25%, #17372c22 66%, transparent);
+  z-index: -1
+}
+
+.kici-intro {
+  padding-top: 72px
+}
+
+.kici-intro h1 {
+  max-width: 600px
+}
+
+.kici-intro>p:not(.eyebrow) {
+  font-size: 19px;
+  line-height: 1.5;
+  margin-block: 20px 25px
+}
+
+.kici-intro .button {
+  background: var(--paper);
+  color: var(--ink)
+}
+
+.product-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 65px;
+  padding-block: 55px
+}
+
+.product-story p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 22px;
+  max-width: 510px
+}
+
+.product-story .status-note {
+  font-size: 12px;
+  border-left: 2px solid var(--orange);
+  padding-left: 13px
+}
+
+.crew-art {
+  border-radius: 16px;
+  overflow: hidden;
+  transform: rotate(2deg);
+  border: 8px solid #eee6d9
+}
+
+.crew-art img {
+  width: 100%
+}
+
+.kici-sketchbook {
+  padding-top: 15px
+}
+
+.world-gallery {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 22px;
+  align-items: stretch
+}
+
+.world-full {
+  border-radius: 14px;
+  overflow: hidden
+}
+
+.world-full img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+
+.character-sheet {
+  background: #edddba;
+  border: 8px solid #f0e5d3;
+  transform: rotate(-2deg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 6px;
+  box-shadow: 0 6px 15px #193e3515
+}
+
+.character-sheet img {
+  width: 100%
+}
+
+.character-sheet figcaption {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 15px;
+  text-align: center
+}
+
+.product-note {
+  padding-block: 45px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 16px 60px
+}
+
+.product-note h2 {
+  font-size: 31px;
+  font-weight: 550;
+  max-width: 350px
+}
+
+.product-note p {
+  color: var(--muted);
+  font-size: 15px
+}
+
+.product-note .text-link {
+  grid-column: 2
+}
+
+.return-home {
+  padding-block: 30px 45px;
+  text-align: center;
+  border-top: 1px solid var(--line)
+}
+
+.return-home p {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 14px
+}
+
+.return-button {
+  padding: 19px 30px;
+  font-size: 17px;
+  min-width: min(420px, 100%)
+}
+
+.ark-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 45px;
+  align-items: center;
+  padding-block: 40px
+}
+
+.ark-hero h1 {
+  font-size: clamp(40px, 5.5vw, 68px)
+}
+
+.ark-hero h1 em {
+  color: #43866c
+}
+
+.ark-hero>div>p:not(.eyebrow) {
+  max-width: 430px;
+  margin-top: 23px;
+  font-size: 17px;
+  color: var(--muted)
+}
+
+.ark-hero>div>.series-note {
+  font-size: 13px !important;
+  font-weight: 600;
+  color: var(--ink) !important;
+  margin-top: 18px !important
+}
+
+.ark-hero .button {
+  margin-top: 24px
+}
+
+.ark-cover-stage {
+  height: 435px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 24px 100px 24px 24px
+}
+
+.ark-cover-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .28;
+  z-index: -1
+}
+
+.ark-cover {
+  height: 84%;
+  width: auto;
+  max-width: 86%;
+  object-fit: contain;
+  transform: rotate(5deg);
+  box-shadow: -9px 12px 0 #365a4130, 0 18px 30px #364a302b;
+  border-radius: 3px
+}
+
+.kit-section {
+  padding-block: 30px 45px
+}
+
+.kit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 23px
+}
+
+.kit-grid article>img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px
+}
+
+.kit-grid h3 {
+  font-size: 24px;
+  margin-top: 18px
+}
+
+.kit-grid p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 10px
+}
+
+.companion-section {
+  background: #e1eadc;
+  padding-block: 45px
+}
+
+.companion-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 55px;
+  align-items: center
+}
+
+.companion-grid p {
+  font-size: 15px;
+  margin-top: 20px;
+  color: var(--muted)
+}
+
+.companion-visual {
+  height: 390px;
+  position: relative
+}
+
+.app-screen {
+  position: absolute;
+  left: 2%;
+  top: 0;
+  width: 38%;
+  height: 100%;
+  overflow: hidden;
+  border: 7px solid #263d33;
+  border-radius: 22px;
+  transform: rotate(-5deg);
+  box-shadow: 0 10px 25px #193e3526
+}
+
+.app-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top
+}
+
+.companion-video {
+  position: absolute;
+  width: 75%;
+  right: 0;
+  bottom: 35px;
+  border: 6px solid var(--paper);
+  transform: rotate(3deg);
+  box-shadow: 0 10px 25px #193e3526
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: start;
+  margin-top: 25px
+}
+
+.detail-actions .text-link {
+  font-size: 12px
+}
+
+.jejak-intro {
+  padding-block: 50px 40px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 25px
+}
+
+.jejak-intro h1 {
+  font-size: clamp(44px, 5.5vw, 68px)
+}
+
+.jejak-intro p:not(.eyebrow) {
+  font-size: 18px;
+  margin-top: 18px;
+  color: var(--muted)
+}
+
+.activities {
+  padding-block: 15px 45px
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px
+}
+
+.activity-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform .25s
+}
+
+.activity-card:hover {
+  transform: translateY(-4px)
+}
+
+.activity-art {
+  height: 145px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #dfe9d9
+}
+
+.numbers-art span,
+.numbers-art b {
+  font-size: 25px;
+  color: #557c58
+}
+
+.numbers-art b {
+  background: #db7144;
+  color: white;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center
+}
+
+.game-art {
+  background: #eecf9c
+}
+
+.game-art span {
+  background: #456b4c;
+  border-radius: 8px;
+  width: 47px;
+  height: 47px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 25px;
+  box-shadow: 0 5px 0 #28472e
+}
+
+.game-art span:last-child {
+  background: #d8763d;
+  transform: translateY(-20px)
+}
+
+.math-art {
+  background: #dae8e7
+}
+
+.math-art span {
+  font-size: 30px;
+  color: #628e88
+}
+
+.math-art strong {
+  font-size: 80px;
+  line-height: 1;
+  padding-inline: 10px
+}
+
+.activity-copy {
+  padding: 24px
+}
+
+.activity-copy h3 {
+  font-size: 24px;
+  min-height: 54px
+}
+
+.activity-copy>p:not(.product-category) {
+  font-size: 14px;
+  color: var(--muted);
+  margin-block: 12px 20px;
+  min-height: 68px
+}
+
+.freebies-section {
+  background: #efe5d0;
+  padding-block: 45px
+}
+
+.freebies-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 70px;
+  align-items: center
+}
+
+.worksheet-stack {
+  position: relative;
+  padding: 0 35px;
+  margin: auto;
+  max-width: 380px
+}
+
+.worksheet-stack::before {
+  content: '';
+  position: absolute;
+  inset: 10px 35px 0;
+  background: #fffdf7;
+  transform: rotate(-7deg);
+  box-shadow: 0 10px 20px #51412e18
+}
+
+.worksheet-stack img {
+  position: relative;
+  max-height: 400px;
+  width: auto;
+  border: 1px solid #d3d1c6;
+  box-shadow: 0 10px 20px #51412e18;
+  transform: rotate(3deg)
+}
+
+.worksheet-stack>span {
+  position: absolute;
+  bottom: 13px;
+  left: 15px;
+  transform: rotate(-4deg);
+  padding: 8px 16px;
+  background: #375b41;
+  color: white;
+  font-size: 12px;
+  border-radius: 5px
+}
+
+.freebies-intro {
+  font-size: 18px;
+  margin-top: 15px
+}
+
+.worksheet-list {
+  list-style: none;
+  padding: 0;
+  margin: 22px 0
+}
+
+.worksheet-list li {
+  border-top: 1px solid #a7ac9455;
+  padding: 12px 0
+}
+
+.worksheet-list strong {
+  font-size: 15px;
+  display: block
+}
+
+.worksheet-list span {
+  font-size: 13px;
+  color: var(--muted)
+}
+
+.download-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px
+}
+
+@media(max-width:800px) {
+  .product-story {
+    gap: 30px;
+    padding-block: 35px
+  }
+
+  .product-story p {
+    font-size: 14px
+  }
+
+  .kici-hero {
+    height: 470px
+  }
+
+  .kici-intro {
+    padding-top: 60px
+  }
+
+  .world-gallery {
+    gap: 15px
+  }
+
+  .character-sheet {
+    padding: 10px
+  }
+
+  .product-note {
+    gap: 15px 30px
+  }
+
+  .product-note h2 {
+    font-size: 27px
+  }
+
+  .ark-hero {
+    gap: 30px
+  }
+
+  .ark-cover-stage {
+    height: 360px
+  }
+
+  .ark-hero>div>p:not(.eyebrow) {
+    font-size: 15px
+  }
+
+  .kit-grid {
+    gap: 15px
+  }
+
+  .kit-grid article>img {
+    height: 150px
+  }
+
+  .kit-grid h3 {
+    font-size: 22px
+  }
+
+  .companion-grid {
+    gap: 25px
+  }
+
+  .companion-visual {
+    height: 320px
+  }
+
+  .activity-grid {
+    gap: 12px
+  }
+
+  .activity-copy {
+    padding: 18px
+  }
+
+  .activity-copy h3 {
+    font-size: 21px
+  }
+
+  .activity-art {
+    padding: 15px;
+    gap: 5px
+  }
+
+  .numbers-art span,
+  .numbers-art b {
+    font-size: 21px
+  }
+
+  .activity-copy>p:not(.product-category) {
+    min-height: 86px
+  }
+
+  .freebies-grid {
+    gap: 30px
+  }
+
+  .jejak-intro {
+    align-items: center
+  }
+
+  .jejak-intro p:not(.eyebrow) {
+    font-size: 16px
+  }
+}
+
+@media(max-width:600px) {
+  .product-page .eyebrow {
+    font-size: 10px;
+    margin-bottom: 14px
+  }
+
+  .kici-hero {
+    height: 470px
+  }
+
+  .kici-hero-world {
+    object-position: 60% bottom;
+    opacity: .9
+  }
+
+  .kici-hero::after {
+    background: linear-gradient(180deg, #17372cef, #17372c33 68%, transparent)
+  }
+
+  .kici-intro {
+    padding-top: 36px
+  }
+
+  .product-page h1 {
+    font-size: 43px
+  }
+
+  .kici-intro>p:not(.eyebrow) {
+    font-size: 15px;
+    margin-block: 15px 20px
+  }
+
+  .kici-intro .button {
+    font-size: 12px;
+    min-height: 41px
+  }
+
+  .product-story {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-block: 32px
+  }
+
+  .product-page .section-title {
+    font-size: 31px
+  }
+
+  .product-story p {
+    margin-top: 16px
+  }
+
+  .crew-art {
+    max-width: 430px;
+    transform: rotate(1deg);
+    border-width: 5px
+  }
+
+  .world-gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px
+  }
+
+  .world-full img {
+    min-height: 230px
+  }
+
+  .character-sheet {
+    border-width: 4px
+  }
+
+  .character-sheet figcaption {
+    font-size: 11px
+  }
+
+  .product-note {
+    display: block;
+    padding-block: 30px
+  }
+
+  .product-note h2 {
+    font-size: 27px;
+    max-width: 330px
+  }
+
+  .product-note p {
+    font-size: 14px;
+    margin-top: 15px
+  }
+
+  .product-note .text-link {
+    margin-top: 20px;
+    font-size: 13px
+  }
+
+  .return-home {
+    padding-block: 25px 32px
+  }
+
+  .return-button {
+    font-size: 15px;
+    width: 100%;
+    min-width: 0;
+    min-height: 59px
+  }
+
+  .ark-hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-block: 30px
+  }
+
+  .ark-hero h1 {
+    font-size: 43px
+  }
+
+  .ark-hero>div>p:not(.eyebrow) {
+    font-size: 15px;
+    margin-top: 17px
+  }
+
+  .ark-cover-stage {
+    height: 300px
+  }
+
+  .ark-cover {
+    height: 85%
+  }
+
+  .ark-hero .button {
+    margin-top: 20px
+  }
+
+  .kit-section {
+    padding-block: 10px 30px
+  }
+
+  .kit-grid {
+    grid-template-columns: 1fr;
+    gap: 22px
+  }
+
+  .kit-grid article {
+    display: grid;
+    grid-template-columns: 44% 1fr;
+    gap: 8px 16px
+  }
+
+  .kit-grid article>img {
+    height: 140px;
+    grid-row: span 2
+  }
+
+  .kit-grid h3 {
+    font-size: 23px;
+    margin-top: 7px
+  }
+
+  .kit-grid p {
+    font-size: 13px;
+    margin-top: 0
+  }
+
+  .companion-section {
+    padding-block: 30px
+  }
+
+  .companion-grid {
+    grid-template-columns: 1fr;
+    gap: 28px
+  }
+
+  .companion-visual {
+    height: 310px;
+    max-width: 440px;
+    width: 100%;
+    margin: auto
+  }
+
+  .companion-grid p {
+    font-size: 14px;
+    margin-top: 15px
+  }
+
+  .companion-grid .button {
+    font-size: 13px;
+    padding-inline: 17px
+  }
+
+  .jejak-intro {
+    display: block;
+    padding-block: 30px
+  }
+
+  .jejak-intro h1 {
+    font-size: 43px
+  }
+
+  .jejak-intro p:not(.eyebrow) {
+    font-size: 15px;
+    margin-top: 15px
+  }
+
+  .jejak-intro .button {
+    margin-top: 20px;
+    font-size: 13px;
+    padding: 9px 16px;
+    min-height: 42px
+  }
+
+  .activities {
+    padding-block: 5px 30px
+  }
+
+  .activity-grid {
+    grid-template-columns: 1fr;
+    gap: 12px
+  }
+
+  .activity-card {
+    display: grid;
+    grid-template-columns: 31% 69%
+  }
+
+  .activity-art {
+    height: 100%;
+    min-height: 193px;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 8px;
+    padding: 13px
+  }
+
+  .numbers-art span,
+  .numbers-art b {
+    font-size: 18px
+  }
+
+  .numbers-art b {
+    width: 40px;
+    height: 40px
+  }
+
+  .game-art span {
+    width: 32px;
+    height: 32px;
+    font-size: 19px
+  }
+
+  .game-art span:last-child {
+    transform: none
+  }
+
+  .math-art strong {
+    font-size: 58px
+  }
+
+  .math-art span {
+    font-size: 24px
+  }
+
+  .activity-copy {
+    padding: 17px
+  }
+
+  .activity-copy h3 {
+    font-size: 23px;
+    min-height: 0
+  }
+
+  .activity-copy>p:not(.product-category) {
+    font-size: 13px;
+    min-height: 0;
+    margin-block: 10px 13px
+  }
+
+  .activity-copy .text-link {
+    font-size: 12px
+  }
+
+  .activity-copy .product-category {
+    font-size: 10px
+  }
+
+  .freebies-section {
+    padding-block: 30px
+  }
+
+  .freebies-grid {
+    grid-template-columns: 1fr;
+    gap: 28px
+  }
+
+  .worksheet-stack {
+    max-width: 270px;
+    padding-inline: 30px
+  }
+
+  .worksheet-stack img {
+    max-height: 245px
+  }
+
+  .worksheet-stack>span {
+    font-size: 11px
+  }
+
+  .freebies-intro {
+    font-size: 16px
+  }
+
+  .worksheet-list {
+    margin-block: 17px
+  }
+
+  .download-note {
+    font-size: 11px
+  }
+
+  .freebies-grid .button {
+    font-size: 13px
+  }
+}
+
+.ark-cover {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  height: 84%;
+  width: auto;
+  max-width: 86%;
+  transform: translateX(-50%) rotate(5deg)
+}

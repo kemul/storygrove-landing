@@ -1,0 +1,1116 @@
+/* Editorial depth, clear content, and compact product previews. */
+.nature-page main {
+  position: relative;
+  isolation: isolate;
+}
+
+.nature-page main::before,
+.nature-page main::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  left: 0;
+  right: 0;
+}
+
+.nature-page main::before {
+  top: var(--landscape-start, 0px);
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, #ffffffba 29%, #ffffffba 70%, transparent), url('../assets/alamku-illustration.webp') center top / 100% auto no-repeat;
+  opacity: .20;
+  mask-image: linear-gradient(180deg, transparent, #000 90px, #000 78%, transparent);
+}
+
+.nature-page main::after {
+  bottom: 0;
+  height: 760px;
+  background: url('../assets/lake-page-background.webp') center bottom / cover no-repeat;
+  opacity: .10;
+  mask-image: linear-gradient(180deg, transparent, #000 48%, #000 80%, transparent);
+}
+
+.studio-home main {
+  --landscape-start: 560px;
+}
+
+.kici-page main {
+  --landscape-start: 530px;
+}
+
+.kici-page main::before {
+  opacity: .13;
+}
+
+.nature-page .products-section {
+  background: #e3eaddbd;
+}
+
+.nature-page .companion-section {
+  background: #e1eadc9e;
+}
+
+.nature-page .freebies-section {
+  background: #efe5d0b8;
+}
+
+.nature-page .build-together {
+  background: #e6ecddd9;
+}
+
+@media (min-width:1600px) {
+  .studio-home main {
+    --landscape-start: 610px;
+  }
+}
+
+@media (max-width:800px) {
+  .kici-page main {
+    --landscape-start: 470px;
+  }
+}
+
+@media (max-width:600px) {
+  .studio-home main {
+    --landscape-start: 570px;
+  }
+
+  .nature-page main::before {
+    background-size: 100% 100%, 100% 1600px;
+    opacity: .16;
+    mask-image: linear-gradient(180deg, transparent, #000 100px, #000 1300px, transparent 1700px);
+  }
+
+  .nature-page main::after {
+    height: 1000px;
+    background-size: auto 100%;
+    opacity: .08;
+  }
+}
+
+@media (max-width:360px) {
+  .studio-home main {
+    --landscape-start: 550px;
+  }
+}
+
+.hero-content>p:not(.eyebrow) {
+  max-width: 480px;
+}
+
+.section-heading>p {
+  max-width: 440px;
+}
+
+.values {
+  position: relative;
+}
+
+.values::before {
+  content: '';
+  position: absolute;
+  width: 90px;
+  height: 60px;
+  left: 0;
+  bottom: 23px;
+  background: radial-gradient(ellipse at 28% 60%, #9db399 0 16%, transparent 17%), radial-gradient(ellipse at 66% 32%, #d9bc82 0 18%, transparent 19%);
+  opacity: .6;
+  transform: rotate(-17deg);
+  pointer-events: none;
+}
+
+.capability-grid {
+  grid-template-rows: 260px 260px 290px;
+}
+
+.card-play,
+.card-class,
+.card-collab {
+  grid-column: span 4;
+}
+
+.card-play,
+.card-class {
+  display: flex;
+  flex-direction: column;
+  background: #e1e9df;
+}
+
+.card-play>img,
+.card-class>img {
+  position: static;
+  width: 100%;
+  height: 140px;
+  flex: 0 0 140px;
+  object-fit: cover;
+  transform: none;
+  mix-blend-mode: normal;
+}
+
+.card-play>img {
+  object-position: 50% 50%;
+  border-bottom: 5px solid #e1e9df;
+}
+
+.card-class {
+  background: #f0e1d8;
+}
+
+.card-class>img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-play .capability-copy,
+.card-class .capability-copy {
+  position: static;
+  padding: 19px 22px;
+  background: transparent;
+  display: block;
+}
+
+.card-play .capability-copy h3,
+.card-class .capability-copy h3 {
+  font-size: 24px;
+}
+
+.card-collab .capability-copy {
+  padding: 23px;
+}
+
+.card-collab .capability-copy h3 {
+  font-size: 25px;
+}
+
+.card-collab::after {
+  background: linear-gradient(0deg, #173e35fa, #173e35a6 55%, #173e3528);
+}
+
+.card-detail-link {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 6px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.card-digital .capability-copy {
+  padding-block: 15px;
+}
+
+.ar-preview {
+  bottom: 111px;
+}
+
+.film-grid figure {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.film-grid .video-frame {
+  border-radius: 0;
+}
+
+.film-grid figcaption {
+  padding: 18px 21px 22px;
+  margin: 0;
+}
+
+.film-grid figcaption strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.film-grid figcaption p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.partners {
+  display: block;
+  padding-block: 48px;
+}
+
+.partners .section-title {
+  font-size: clamp(32px, 4.1vw, 52px);
+  font-weight: 650;
+}
+
+.partner-logos {
+  justify-content: center;
+  gap: 90px;
+  padding-top: 22px;
+}
+
+.partner-logos img {
+  width: 168px;
+  height: 85px;
+}
+
+.partner-mark:last-child img {
+  width: 102px;
+}
+
+.contact-invitation {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-align: center;
+  padding-block: 40px;
+  margin-top: 22px;
+  background: #244a3e;
+  color: var(--paper);
+}
+
+.contact-invitation::before,
+.contact-invitation::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.contact-invitation::before {
+  background: url('../assets/scene-foreground-small.webp') center 46%/cover;
+  opacity: .2;
+  transform: scaleX(-1);
+}
+
+.contact-invitation::after {
+  background: radial-gradient(ellipse at center, #244a3e 12%, #244a3ee0 50%, transparent 90%);
+}
+
+.contact-invitation .eyebrow {
+  color: #c6d7b5;
+}
+
+.contact-invitation h2 {
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.07;
+  margin-block: 10px 14px;
+}
+
+.contact-invitation h2 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  color: #d6dda6;
+}
+
+.contact-invitation p:not(.eyebrow) {
+  max-width: 490px;
+  margin-inline: auto;
+  font-size: 14px;
+  color: #e0e7d9;
+}
+
+.contact-invitation .button {
+  margin-top: 22px;
+  background: #f5ecda;
+  color: #193e35;
+}
+
+.jejak-product-logo {
+  position: absolute;
+  width: 76%;
+  height: auto;
+  top: 22px;
+  left: 12%;
+  z-index: 2;
+}
+
+.jejak-stage .worksheet-mini {
+  display: none;
+}
+
+.jejak-stage .number-path {
+  bottom: 22px;
+  opacity: .7;
+}
+
+.jejak-wordmark {
+  max-width: 360px;
+}
+
+.jejak-wordmark img {
+  width: 100%;
+  height: auto;
+}
+
+.development-label {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .03em;
+  color: #55775b;
+  margin-bottom: 17px;
+}
+
+.development-label::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #d38947;
+}
+
+.build-together {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: space-between;
+  background: #e6ecdd;
+  padding: 34px 40px;
+  margin-block: 32px;
+  border-radius: 5px 42px 5px 5px;
+  border-left: 4px solid #9aaa77;
+}
+
+.build-together>div {
+  max-width: 660px;
+}
+
+.build-together h2 {
+  font-size: 31px;
+  font-weight: 550;
+}
+
+.build-together p:not(.development-label) {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 13px;
+}
+
+.build-together .button {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.concept-section {
+  padding-block: 40px 25px;
+}
+
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.concept-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.concept-motion {
+  position: relative;
+  aspect-ratio: 1;
+  background: white;
+  display: grid;
+  place-items: center;
+}
+
+.concept-motion img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.concept-card figcaption {
+  border-top: 1px solid var(--line);
+  padding: 15px 18px;
+}
+
+.concept-card figcaption strong {
+  font-size: 17px;
+  display: block;
+}
+
+.concept-card figcaption span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.game-exploration {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 45px;
+  align-items: center;
+  padding-block: 35px;
+}
+
+.game-exploration figure {
+  transform: rotate(-1.2deg);
+  background: #e5e8d9;
+  border: 7px solid #e5e8d9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.game-exploration img {
+  width: 100%;
+  height: auto;
+}
+
+.game-exploration figcaption {
+  font-size: 11px;
+  padding: 7px 7px 2px;
+}
+
+.game-exploration h2 {
+  font-size: 36px;
+  font-weight: 550;
+}
+
+.game-exploration p:not(.eyebrow) {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 17px;
+}
+
+.game-exploration .status-note {
+  font-size: 12px !important;
+}
+
+.ark-partnership {
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  gap: 45px;
+  align-items: center;
+  border-block: 1px solid var(--line);
+  padding-block: 25px;
+  margin-bottom: 15px;
+}
+
+.ark-partnership img {
+  width: 145px;
+  max-height: 110px;
+  object-fit: contain;
+}
+
+.ark-partnership h2 {
+  font-size: 26px;
+  font-weight: 550;
+}
+
+.ark-partnership p {
+  font-size: 15px;
+  max-width: 760px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.phone-duo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  position: relative;
+}
+
+.phone-duo::before {
+  content: '';
+  position: absolute;
+  inset: 25% 15% 15%;
+  background: #b9d3c0;
+  border-radius: 50%;
+  transform: rotate(-15deg);
+  opacity: .6;
+}
+
+.phone-duo figure {
+  width: 43%;
+  max-width: 185px;
+  position: relative;
+  border: 5px solid #31453e;
+  border-radius: 23px;
+  overflow: hidden;
+  box-shadow: 0 14px 22px #193e3524;
+  transform: rotate(-6deg) translateY(-9px);
+  background: #dff8fc;
+}
+
+.phone-duo figure:nth-child(2) {
+  transform: rotate(5deg) translateY(16px);
+}
+
+.phone-duo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.companion-grid .development-label {
+  margin: 0 0 16px;
+  font-size: 11px;
+  color: #436348;
+}
+
+.companion-preview-grid {
+  grid-template-columns: .85fr 1.15fr;
+  gap: 60px;
+}
+
+.companion-section .section-heading {
+  align-items: center;
+}
+
+.companion-section .section-heading>p {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.companion-demo h3 {
+  font-size: 23px;
+  margin-top: 22px;
+}
+
+.companion-demo p {
+  margin-top: 12px;
+}
+
+.companion-demo .preview-disclaimer {
+  font-size: 12px;
+  border-left: 2px solid #819e70;
+  padding-left: 13px;
+}
+
+@media (max-width:800px) {
+  .companion-preview-grid {
+    gap: 28px;
+  }
+}
+
+@media (max-width:600px) {
+  .companion-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .companion-section .section-heading>p {
+    font-size: 14px;
+  }
+
+  .companion-preview-grid .phone-duo {
+    padding-block: 10px 20px;
+  }
+
+  .companion-preview-grid .phone-duo figure {
+    max-width: 118px;
+  }
+
+  .companion-demo h3 {
+    font-size: 22px;
+    margin-top: 17px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .capability-grid {
+    grid-template-rows: 260px 260px 300px;
+  }
+
+  .card-play .capability-copy,
+  .card-class .capability-copy,
+  .card-collab .capability-copy {
+    padding: 17px;
+  }
+
+  .card-play .capability-copy h3,
+  .card-class .capability-copy h3,
+  .card-collab .capability-copy h3 {
+    font-size: 22px;
+  }
+
+  .build-together {
+    gap: 25px;
+    padding: 28px;
+  }
+
+  .game-exploration {
+    gap: 28px;
+  }
+
+  .concept-grid {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 800px) {
+  .hero-content>p:not(.eyebrow) {
+    max-width: 370px;
+  }
+
+  .values::before {
+    display: none;
+  }
+
+  .capability-grid {
+    grid-template-rows: 245px 245px 315px;
+  }
+
+  .card-play>img,
+  .card-class>img {
+    height: 125px;
+    flex-basis: 125px;
+  }
+
+  .card-play .capability-copy h3,
+  .card-class .capability-copy h3,
+  .card-collab .capability-copy h3 {
+    font-size: 21px;
+  }
+
+  .partner-logos {
+    gap: 55px;
+  }
+
+  .partner-logos img {
+    width: 130px;
+    height: 70px;
+  }
+
+  .partner-mark:last-child img {
+    width: 85px;
+  }
+
+  .build-together {
+    display: block;
+  }
+
+  .build-together .button {
+    margin-top: 22px;
+  }
+
+  .concept-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .concept-motion {
+    aspect-ratio: 4/3;
+  }
+
+  .game-exploration h2 {
+    font-size: 29px;
+  }
+
+  .phone-duo {
+    gap: 14px;
+    padding: 12px;
+  }
+
+  .phone-duo figure {
+    border-width: 4px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: clamp(30px, 8.2vw, 43px);
+  }
+
+  .hero-content>p:not(.eyebrow) {
+    max-width: 335px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .capability-grid {
+    grid-template-rows: 370px 270px minmax(275px, auto) 172px;
+  }
+
+  .card-play,
+  .card-class {
+    grid-column: auto;
+  }
+
+  .card-collab {
+    grid-column: 1/-1;
+  }
+
+  .card-play>img,
+  .card-class>img {
+    height: 115px;
+    flex-basis: 115px;
+  }
+
+  .card-play .capability-copy,
+  .card-class .capability-copy {
+    padding: 14px;
+  }
+
+  .card-play .capability-copy h3,
+  .card-class .capability-copy h3 {
+    font-size: 20px;
+    line-height: 1.13;
+  }
+
+  .card-play .capability-copy p,
+  .card-class .capability-copy p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .card-collab .capability-copy {
+    max-width: 310px;
+    padding: 20px;
+  }
+
+  .card-collab .capability-copy h3 {
+    font-size: 23px;
+  }
+
+  .card-collab .capability-copy p {
+    max-width: 260px;
+  }
+
+  .card-collab::after {
+    background: linear-gradient(90deg, #173e35f2, #173e35ac 75%, #173e3544);
+  }
+
+  .collage-app {
+    width: 25%;
+    height: 79%;
+    left: 22%;
+    border-width: 3px !important;
+    border-radius: 13px !important;
+  }
+
+  .books-collage .collage-app {
+    bottom: 1%;
+  }
+
+  .collage-app img {
+    object-fit: fill;
+  }
+
+  .ar-preview {
+    bottom: 144px;
+  }
+
+  .card-digital .capability-copy {
+    min-height: 144px;
+    padding: 14px;
+  }
+
+  .card-detail-link {
+    font-size: 11px;
+  }
+
+  .film-grid {
+    gap: 12px;
+  }
+
+  .film-grid figcaption {
+    padding: 13px 12px 16px;
+  }
+
+  .film-grid figcaption strong {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .film-grid figcaption p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .partners {
+    padding-block: 32px;
+  }
+
+  .partners .section-title {
+    font-size: 34px;
+  }
+
+  .partner-logos {
+    gap: 22px;
+    padding-top: 12px;
+  }
+
+  .partner-logos img {
+    width: 96px;
+    height: 62px;
+  }
+
+  .partner-mark:last-child img {
+    width: 62px;
+  }
+
+  .contact-invitation {
+    padding-block: 30px;
+    margin-top: 0;
+  }
+
+  .contact-invitation h2 {
+    font-size: 34px;
+  }
+
+  .contact-invitation p:not(.eyebrow) {
+    max-width: 310px;
+    font-size: 13px;
+  }
+
+  .contact-invitation .button {
+    font-size: 13px;
+    min-height: 45px;
+  }
+
+  .jejak-product-logo {
+    width: 96%;
+    left: 2%;
+    top: 30%;
+  }
+
+  .jejak-stage .number-path {
+    bottom: 20px;
+    transform: rotate(-6deg);
+  }
+
+  .jejak-wordmark {
+    max-width: 285px;
+  }
+
+  .product-page .jejak-intro .eyebrow {
+    font-size: 10px;
+  }
+
+  .build-together {
+    padding: 23px;
+    margin-block: 26px;
+    border-radius: 5px 30px 5px 5px;
+  }
+
+  .build-together h2 {
+    font-size: 27px;
+  }
+
+  .build-together p:not(.development-label) {
+    font-size: 13px;
+  }
+
+  .build-together .development-label {
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .concept-section {
+    padding-block: 28px 10px;
+  }
+
+  .concept-card figcaption {
+    padding: 12px;
+  }
+
+  .concept-card figcaption strong {
+    font-size: 16px;
+  }
+
+  .concept-card figcaption span {
+    font-size: 11px;
+  }
+
+  .game-exploration {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-block: 26px;
+  }
+
+  .game-exploration h2 {
+    font-size: 30px;
+  }
+
+  .game-exploration p:not(.eyebrow) {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
+  .ark-partnership {
+    grid-template-columns: 65px 1fr;
+    gap: 18px;
+    padding-block: 23px;
+  }
+
+  .ark-partnership img {
+    width: 65px;
+  }
+
+  .ark-partnership h2 {
+    font-size: 23px;
+  }
+
+  .ark-partnership p {
+    font-size: 13px;
+  }
+
+  .phone-duo {
+    max-width: 365px;
+    margin-inline: auto;
+    width: 100%;
+    padding: 22px 12px;
+  }
+
+  .phone-duo figure {
+    max-width: 142px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-content>p:not(.eyebrow) {
+    font-size: 12.5px;
+  }
+
+  .card-class .capability-copy h3 {
+    font-size: 18px;
+  }
+
+  .card-play .capability-copy,
+  .card-class .capability-copy {
+    padding-inline: 11px;
+  }
+
+  .capability-grid {
+    grid-template-rows: 370px 270px minmax(290px, auto) 185px;
+  }
+
+  .partner-logos {
+    gap: 12px;
+  }
+
+  .partner-logos img {
+    width: 84px;
+  }
+}
+
+/* Keep the application screenshot legible at every screen width. */
+.books-collage .collage-app {
+  width: 120px;
+  height: 266px;
+  max-width: none;
+  bottom: 0;
+}
+
+.books-collage .collage-app img {
+  object-fit: fill;
+}
+
+/* White canvas, with color coming from the artwork and quiet green surfaces. */
+.nature-page .freebies-section { background: #e9f3eead; }
+.nature-page .products-section { background: #e5f0e6ad; }
+.nature-page .build-together { background: #edf5efd9; }
+.card-books { background: #edf2eb; }
+.alamku-stage { background: #e9f5ed; }
+.jejak-stage { background: #dcece2; }
+.contact-invitation .button { background: #fff; }
+
+/* The echo is decorative; screen readers only announce the foreground title. */
+.section-title {
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
+  max-width: 100%;
+  padding-bottom: .32em;
+}
+.title-front { position: relative; }
+.title-echo {
+  position: absolute;
+  inset: .48em 0 auto;
+  z-index: -1;
+  color: var(--ink);
+  opacity: .11;
+  transform: scale(1.16);
+  transform-origin: left top;
+  pointer-events: none;
+  user-select: none;
+}
+.section-heading,
+.companion-section .section-heading { display: block; }
+.section-heading > p {
+  max-width: 620px;
+  margin-top: 17px;
+  line-height: 1.65;
+}
+.section-heading { margin-bottom: 32px; }
+.values { align-items: start; }
+.partner-mark { display: grid; place-items: center; padding: 14px; }
+.partner-mark img { width: 168px; height: 85px; object-fit: contain; }
+.partner-mark:last-child img { width: 102px; }
+
+/* Tease the atmosphere without exposing the kit or application structure. */
+.ark-teaser-logo { width: 56%; max-height: 280px; object-fit: contain; mix-blend-mode: multiply; }
+.ark-page .ark-cover-backdrop { opacity: .5; }
+.phone-teaser { max-width: 310px; margin-inline: auto; }
+.phone-teaser figure { width: 68%; max-width: 175px; }
+.phone-teaser::before { inset: 22% 12% 12%; }
+
+/* Independent translate/scale preserves every collage's original rotation. */
+.motion-card {
+  --lift: 0px;
+  transition: transform .45s cubic-bezier(.2,.75,.2,1), box-shadow .45s;
+}
+.motion-art {
+  translate: calc(var(--pointer-x, 0px) * var(--depth, 1)) calc((var(--scroll-shift, 0px) + var(--pointer-y, 0px) - var(--pop, 0px)) * var(--depth, 1));
+  scale: var(--art-scale, 1);
+  transition: translate .5s cubic-bezier(.2,.75,.2,1), scale .5s cubic-bezier(.2,.75,.2,1);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .motion-card {
+    transform: perspective(1000px) translateY(var(--lift)) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  }
+  .motion-card:hover, .motion-card:focus-within {
+    --lift: -7px;
+    --pop: 7px;
+    --art-scale: 1.035;
+    box-shadow: 0 18px 36px #193e3520;
+  }
+  .partner-mark:hover { --art-scale: 1.09; box-shadow: none; }
+  .film-grid figure:has(video.is-playing) { transform: none; --art-scale: 1; }
+  .film-grid figure:has(video.is-playing) .motion-art { translate: none; }
+  .motion-card:has(.play-button:focus-visible), .motion-card:has(.motion-toggle:focus-visible) {
+    --tilt-x: 0deg; --tilt-y: 0deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-card { transform: none !important; }
+  .motion-art { translate: none; scale: none; }
+}
+@media (max-width: 800px) {
+  .partner-mark { padding: 8px; }
+  .partner-mark img { width: 130px; height: 70px; }
+  .partner-mark:last-child img { width: 85px; }
+}
+@media (max-width: 600px) {
+  .section-title, .product-page .section-title, .partners .section-title {
+    font-size: clamp(27px, 8vw, 34px);
+  }
+  .title-echo { transform: none; top: .52em; opacity: .12; }
+  .section-heading > p { margin-top: 12px; font-size: 13px; }
+  .section-heading { margin-bottom: 24px; }
+  .partner-logos { gap: 12px; }
+  .partner-mark { padding: 4px; }
+  .partner-mark img { width: 84px; height: 62px; }
+  .partner-mark:last-child img { width: 60px; }
+  .phone-teaser figure { max-width: 145px !important; }
+  .jejak-product-logo { width: 86%; left: 7%; top: 24%; }
+}
+
+@media (max-width: 600px) {
+  .books-collage .collage-app {
+    left: 18%;
+  }
+}

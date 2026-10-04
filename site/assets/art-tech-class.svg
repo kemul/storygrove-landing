@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280">
+  <rect width="520" height="280" fill="#e8c4b3"/>
+  <circle cx="431" cy="53" r="90" fill="#dca88f"/>
+  <g transform="translate(94 34) rotate(-8 100 100)">
+    <rect width="182" height="207" rx="5" fill="#fcf8ed"/>
+    <path d="M35 163Q82 48 147 164Z" fill="#9ebda6"/><circle cx="128" cy="62" r="23" fill="#e4ba6e"/>
+    <path d="m42 180 94-5" stroke="#567a67" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(256 83) rotate(7)">
+    <rect width="183" height="132" rx="10" fill="#244a40"/>
+    <rect x="10" y="10" width="163" height="103" rx="4" fill="#dbe4d3"/>
+    <path d="m61 41-19 16 19 16m57-32 19 16-19 16m-23-23-13 46" stroke="#376659" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-14 132h211l-13 14H0Z" fill="#61897a"/>
+  </g>
+  <g transform="translate(238 16) rotate(21)"><path d="M0 0h15v125H0Z" fill="#ce633f"/><path d="m0 125 7.5 23 7.5-23" fill="#f9e4b9"/><path d="m5 141 2.5 7 2.5-7" fill="#244a40"/></g>
+  <path d="m440 224 6 15 16 3-13 10 1 16-13-10-15 6 6-16-8-13 16 1Z" fill="#fcf8ed"/>
+</svg>

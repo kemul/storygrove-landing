@@ -1,185 +1,102 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jejak Tumbuh — Storygrove</title>
-  <meta name="description" content="Jejak Tumbuh adalah ruang latihan visual Storygrove untuk try out, numerasi, dan aktivitas belajar yang bisa disesuaikan untuk sekolah.">
-  <meta property="og:title" content="Jejak Tumbuh — Storygrove">
-  <meta property="og:description" content="Ruang latihan visual untuk anak mencoba, memilih jawaban, melihat hasil, dan belajar dari pembahasan.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="id_ID">
-  <meta property="og:image" content="../assets/og.png">
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-  <link rel="stylesheet" href="../css/jejak-tumbuh.css">
-</head>
-<body class="learning-page">
-  <header class="learning-header">
-    <a class="learning-brand" href="../index.html" aria-label="Storygrove">
-      <img src="../assets/storygrove-logo.png" alt="Storygrove">
-    </a>
-    <nav aria-label="Navigasi Jejak Tumbuh">
-      <a href="../index.html">Studio</a>
-      <a href="#ruang-belajar">Ruang belajar</a>
-      <a href="#ruang-bermain">Ruang bermain</a>
-      <a href="mailto:halo@storygrove.id">Kerja sama sekolah</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="learning-hero">
-      <div class="learning-hero__copy">
-        <p class="learning-kicker">Jejak Tumbuh</p>
-        <h1>Ruang latihan yang terasa seperti menjelajah.</h1>
-        <p>Anak bisa mengerjakan try out, melihat waktu, memilih jawaban, lalu belajar dari pembahasan setelah selesai. Setiap modul bisa dibuat khusus untuk sekolah, kelas, atau tema belajar tertentu.</p>
-        <div class="learning-actions">
-          <a class="learning-button" href="tryout-matematika-6/index.html">Coba Try Out Matematika VI</a>
-          <a class="learning-text-link" href="#ruang-bermain">Lihat ruang bermain</a>
+  <head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Jejak Tumbuh — Storygrove</title><meta name="description" content="Aktivitas belajar yang bisa langsung dicoba: garis bilangan, membuat game, latihan matematika, dan worksheet gratis siap cetak."><meta property="og:title" content="Jejak Tumbuh — Storygrove"><meta property="og:description" content="Aktivitas belajar yang bisa langsung dicoba: garis bilangan, membuat game, latihan matematika, dan worksheet gratis siap cetak."><meta property="og:image" content="https://storygrove.id/assets/og.png"><link rel="icon" href="../assets/favicon.svg"><link rel="stylesheet" href="../css/revisions.css"><link rel="stylesheet" href="../css/products.css">
+    <link rel="stylesheet" href="../css/refinements.css">
+  </head>
+  <body class="product-page nature-page">
+    <a class="skip-link" href="#content">Lewati navigasi</a>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="Storygrove, beranda"><img src="../assets/storygrove-logo.webp" width="260" height="90" alt="Storygrove"></a>
+      <nav id="main-navigation" aria-label="Navigasi produk">
+        <a href="../index.html">Studio</a>
+        <details class="product-menu">
+          <summary>Our products <span aria-hidden="true">⌄</span></summary>
+          <div class="product-dropdown">
+            <a href="../kici/index.html">Kici dan Pasukan Bumi</a><a href="../alamku-ruang-kelasku/index.html">Alamku Ruang Kelasku</a><a href="../jejak-tumbuh/index.html">Jejak Tumbuh</a>
+          </div>
+        </details>
+        <a href="mailto:halo@storygrove.id">Contact us</a>
+      </nav>
+      <a class="header-cta" href="../index.html">← Storygrove</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Buka menu"><span></span><span></span></button>
+    </header>
+    <main id="content">
+      <section class="jejak-intro shell">
+        <div>
+          <p class="eyebrow">Learning activities · Dalam pengembangan</p><h1 class="jejak-wordmark"><img src="../assets/jejak-tumbuh-logo.svg" alt="Jejak Tumbuh" width="400" height="188"></h1><p>Ruang latihan dan bermain untuk anak.<br>Pilih aktivitas, coba sendiri, lalu ceritakan yang ditemukan.</p>
         </div>
-      </div>
-      <div class="learning-hero__scene" aria-hidden="true">
-        <div class="trail-card trail-card--score">
-          <span>Skor latihan</span>
-          <strong>82%</strong>
-          <i></i>
+        <a class="button button-secondary" href="#freebies">Worksheet gratis ↓</a>
+      </section>
+      <section class="activities shell" id="ruang-belajar">
+        <div class="section-heading">
+          <h2 class="section-title"><span class="title-echo" aria-hidden="true">Try &amp; learn<span class="title-dot">.</span></span><span class="title-front">Try &amp; learn<span class="title-dot">.</span></span></h2><p>Pilih yang ingin dicoba hari ini.</p>
         </div>
-        <div class="trail-card trail-card--timer">
-          <span>Sisa waktu</span>
-          <strong>18:24</strong>
+        <div class="activity-grid">
+          <a class="activity-card" href="bilangan-positif-negatif/index.html">
+          <div class="activity-art numbers-art" aria-hidden="true">
+            <span>−2</span><span>−1</span><b>0</b><span>+1</span><span>+2</span>
+          </div>
+          <div class="activity-copy">
+            <p class="product-category">Numerasi</p><h3>Bermain garis bilangan</h3><p>Lihat cara penjumlahan dan pengurangan bekerja lewat langkah maju dan mundur.</p><span class="text-link">Coba aktivitas ↗</span>
+          </div>
+          </a>
+          <a class="activity-card" id="ruang-bermain" href="coding-game/index.html">
+          <div class="activity-art game-art" aria-hidden="true">
+            <span>→</span><span>→</span><span>↓</span><span>✦</span>
+          </div>
+          <div class="activity-copy">
+            <p class="product-category">Logika &amp; kreativitas</p><h3>Buat game sendiri</h3><p>Susun jalan, letakkan koin, lalu mainkan level buatanmu. Ubah dan coba lagi.</p><span class="text-link">Mulai membuat ↗</span>
+          </div>
+          </a>
+          <a class="activity-card" href="tryout-matematika-6/index.html">
+          <div class="activity-art math-art" aria-hidden="true">
+            <span>½</span><span>×</span><strong>6</strong><span>+</span>
+          </div>
+          <div class="activity-copy">
+            <p class="product-category">Matematika · Kelas 6 SD</p><h3>Latihan soal</h3><p>Kerjakan soal, lihat hasilnya, lalu pelajari pembahasan untuk bagian yang belum dipahami.</p><span class="text-link">Mulai latihan ↗</span>
+          </div>
+          </a>
         </div>
-        <div class="trail-board">
-          <div class="trail-board__top"></div>
-          <div class="trail-board__question"></div>
-          <div class="trail-board__choices"><i></i><i></i><i></i><i></i></div>
+      </section>
+      <section class="freebies-section" id="freebies">
+        <div class="shell freebies-grid">
+          <div class="worksheet-stack">
+            <img src="../assets/worksheet-preview.webp" alt="Pratinjau lembar aktivitas Jelajah Sekitarku dengan ruang menggambar dan mencatat" width="595" height="842" loading="lazy"><span>Gratis · PDF A4</span>
+          </div>
+          <div>
+            <h2 class="section-title"><span class="title-echo" aria-hidden="true">Little discoveries<span class="title-dot">.</span></span><span class="title-front">Little discoveries<span class="title-dot">.</span></span></h2><p class="freebies-intro">Tiga worksheet untuk menjelajah tanpa layar.</p>
+            <ul class="worksheet-list">
+              <li>
+                <strong>Jelajah sekitarku</strong><span>Amati dan gambar tiga temuan kecil.</span>
+              </li>
+              <li>
+                <strong>Hitung temuanmu</strong><span>Catat jumlah, lalu bandingkan.</span>
+              </li>
+              <li>
+                <strong>Cerita sehelai daun</strong><span>Buat cerita dengan gambar dan kata-katamu.</span>
+              </li>
+            </ul>
+            <a class="button" href="../assets/downloads/jejak-tumbuh-worksheet.pdf" download>Unduh 3 worksheet gratis ↓</a><p class="download-note">3 halaman · A4 · Hemat tinta · Tanpa pendaftaran</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section class="product-note shell">
+        <h2>Temani prosesnya.</h2><p>Biarkan anak mencoba dengan caranya. Saat menemui kesulitan, tanyakan apa yang sudah mereka lakukan dan apa yang ingin dicoba berikutnya. Hasil akhir bukan satu-satunya hal yang bisa dibicarakan.</p><a class="text-link" href="mailto:halo@storygrove.id?subject=Aktivitas%20belajar%20untuk%20sekolah">Bicarakan kebutuhan aktivitas sekolah ↗</a>
+      </section>
+      <section class="build-together shell">
+        <div>
+          <p class="development-label">Dalam tahap pengembangan</p><h2>Bertumbuh bersama.</h2><p>Jejak Tumbuh masih terus dikembangkan. Kami mengajak pendidik, orang tua, dan komunitas untuk berbagi kebutuhan serta merancang aktivitas yang membantu anak mengenali kemampuannya, di layar maupun di dunia nyata.</p>
+        </div>
+        <a class="button" href="mailto:halo@storygrove.id?subject=Kolaborasi%20Jejak%20Tumbuh">Mari berkolaborasi ↗</a>
+      </section>
 
-    <section class="learning-band" aria-label="Alur belajar">
-      <span>Pilih modul</span>
-      <i></i>
-      <span>Kerjakan soal</span>
-      <i></i>
-      <span>Lihat hasil</span>
-      <i></i>
-      <span>Ulangi dengan variasi baru</span>
-    </section>
-
-    <section class="module-section" id="ruang-belajar" aria-labelledby="module-title">
-      <div class="module-heading">
-        <p class="learning-kicker">Ruang belajar</p>
-        <h2 id="module-title">Modul bisa berdiri sendiri atau dibuat per sekolah.</h2>
-        <p>Prototype ini memakai struktur data terpisah agar materi lain bisa ditambahkan case by case: numerasi, literasi, project kit, sampai asesmen kecil untuk kelas.</p>
-      </div>
-
-      <div class="module-grid">
-        <a class="module-card module-card--featured" href="tryout-matematika-6/index.html">
-          <div class="module-card__visual" aria-hidden="true">
-            <span>VI</span>
-            <b>90</b>
-            <small>menit</small>
-          </div>
-          <div>
-            <p>Try out visual</p>
-            <h3>Matematika SD Kelas 6</h3>
-            <span>Soal setara dari topik numerasi: operasi bilangan, pecahan, perbandingan, satuan, geometri, data, dan peluang.</span>
-          </div>
-        </a>
-
-        <a class="module-card" href="bilangan-positif-negatif/index.html">
-          <div class="number-ladder" aria-hidden="true">
-            <span>-6</span><span>-2</span><span>0</span><span>4</span><span>9</span>
-          </div>
-          <div>
-            <p>Latihan konsep</p>
-            <h3>Bilangan Positif &amp; Negatif</h3>
-            <span>Latihan garis bilangan untuk penjumlahan dan pengurangan bilangan bulat, sudah masuk sebagai halaman Storygrove.</span>
-          </div>
-        </a>
-
-        <article class="module-card module-card--soon">
-          <div class="module-card__visual module-card__visual--school" aria-hidden="true">
-            <span>Custom</span>
-            <b>?</b>
-          </div>
-          <div>
-            <p>Case by case</p>
-            <h3>Paket Sekolah</h3>
-            <span>Bank soal, durasi, tema visual, dan pembahasan bisa disesuaikan untuk kebutuhan kelas atau try out sekolah.</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="play-section" id="ruang-bermain" aria-labelledby="play-title">
-      <div class="module-heading">
-        <p class="learning-kicker">Ruang bermain</p>
-        <h2 id="play-title">Belajar coding lewat dunia kecil yang bisa dimainkan.</h2>
-        <p>Terinspirasi dari alur Code Petualang: anak mulai dari cerita, kebun, lalu game builder. Setiap dunia tetap terasa seperti bermain, sementara konsep coding masuk pelan-pelan lewat misi.</p>
-      </div>
-
-      <div class="play-grid">
-        <article class="play-card play-card--featured">
-          <div class="petualang-preview" aria-hidden="true">
-            <span class="petualang-top"></span>
-            <span class="petualang-world petualang-world--story"></span>
-            <span class="petualang-world petualang-world--garden"></span>
-            <span class="petualang-world petualang-world--game"></span>
-            <span class="petualang-bag"></span>
-          </div>
-          <div>
-            <p>Payung bermain</p>
-            <h3>Code Petualang</h3>
-            <span>Satu ruang untuk memilih dunia, melihat saran mentor, dan membawa konsep yang sudah dikuasai dari satu game ke game lain.</span>
-          </div>
-        </article>
-
-        <article class="play-card">
-          <div class="story-preview" aria-hidden="true">
-            <span class="story-scene"></span>
-            <span class="story-character"></span>
-            <span class="story-bubble">Halo!</span>
-          </div>
-          <div>
-            <p>Mudah</p>
-            <h3>Story Koding</h3>
-            <span>Anak menyusun adegan dan dialog sederhana. Cocok untuk mengenalkan urutan, event, dan teks melalui cerita.</span>
-          </div>
-        </article>
-
-        <article class="play-card">
-          <div class="garden-preview" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-          </div>
-          <div>
-            <p>Sedang</p>
-            <h3>Code Garden</h3>
-            <span>Anak menanam, menyiram, dan membaca pola di kebun grid. Loop dan kondisi masuk lewat misi visual.</span>
-          </div>
-        </article>
-
-        <a class="play-card play-card--builder" href="coding-game/index.html">
-          <div class="code-map-preview" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <div>
-            <p>Mockup bisa dimainkan</p>
-            <h3>Game Builder</h3>
-            <span>Anak menyusun jalan, menaruh koin dan panah bergerak, lalu memainkan level kecil yang dibuat sendiri.</span>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="learning-footer">
-    <img src="../assets/storygrove-logo.png" alt="Storygrove">
-    <p>Jejak Tumbuh adalah eksperimen pembelajaran visual dari Storygrove.</p>
-    <a href="mailto:halo@storygrove.id">halo@storygrove.id</a>
-  </footer>
-</body>
+      <section class="return-home shell">
+        <p>Masih ada cerita lainnya.</p><a class="button return-button" href="../index.html">← Kembali ke Storygrove</a>
+      </section>
+    </main>
+    <footer class="footer shell">
+      <a href="../index.html"><img src="../assets/storygrove-logo.webp" alt="Storygrove" width="150" height="52" loading="lazy"></a><p>© 2026 Storygrove</p><a href="mailto:halo@storygrove.id">halo@storygrove.id</a>
+    </footer>
+    <script src="../js/main.js" defer></script>
+  </body>
 </html>

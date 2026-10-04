@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 188" role="img" aria-labelledby="title">
+  <title id="title">Jejak Tumbuh — tunas dalam jejak langkah</title>
+  <g fill="#193e35" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="-3.5">
+    <text x="22" y="79" font-size="88">jejak</text>
+    <text x="18" y="170" font-size="98">tumbuh</text>
+  </g>
+  <!-- A single flowing leaf forms the sole; two small leaves suggest the toes. -->
+  <g transform="scale(1 .86)" fill="none" stroke="#193e35" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M329 29C303 20 274 36 260 61C249 81 249 101 262 110C272 117 285 113 294 105C280 105 271 98 275 88C279 77 288 65 299 60C309 55 318 57 322 66C323 51 326 39 329 29Z"/>
+    <path d="M254 93C266 92 275 83 280 69C287 49 304 35 324 31" stroke-width="1.5"/>
+    <path d="M257 103C264 111 278 114 291 106" stroke-width="1.3"/>
+    <path d="M275 88C278 91 282 91 286 86" stroke-width="1.4"/>
+    <path d="M315 22C312 10 321 3 335 3C335 15 327 23 315 22Z"/>
+    <path d="M316 21L333 5" stroke-width="1.3"/>
+    <path d="M340 38C340 27 351 24 364 22C363 37 353 45 342 41"/>
+    <path d="M343 39C352 35 358 29 363 23" stroke-width="1.3"/>
+    <path d="M293 24C288 21 287 17 289 13C293 15 295 19 293 24Z" stroke-width="1.4"/>
+    <path d="M338 52C342 49 347 49 350 51C346 55 342 55 338 52Z" stroke-width="1.4"/>
+  </g>
+</svg>
