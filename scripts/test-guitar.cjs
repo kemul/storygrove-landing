@@ -11,7 +11,8 @@ test('Standard open strings run from low E2 to high E4', () => {
 });
 
 test('Chord diagrams and audio describe the same major/minor notes', () => {
-  const expected = { Em: [4, 7, 11], Am: [0, 4, 9], G: [2, 7, 11], D: [2, 6, 9] };
+  const expected = { Em: [4, 7, 11], Am: [0, 4, 9], G: [2, 7, 11], D: [2, 6, 9], C: [0, 4, 7], A: [1, 4, 9], E: [4, 8, 11], Dm: [2, 5, 9] };
+  assert.deepEqual(Object.keys(guitar.chords), Object.keys(expected));
   for (const [name, classes] of Object.entries(expected)) {
     const notes = guitar.notesForChord(name);
     assert.deepEqual([...new Set(notes.map(n => n.midi % 12))].sort((a, b) => a - b), classes);
@@ -23,6 +24,21 @@ test('Chord diagrams and audio describe the same major/minor notes', () => {
   assert.equal(guitar.notesForChord('Em').length, 6);
   assert.equal(guitar.notesForChord('Am').length, 5);
   assert.equal(guitar.notesForChord('D').length, 4);
+});
+
+test('New open chords have the exact frets, fingers, bass strings, and pitches', () => {
+  const expected = {
+    C: { frets: [-1, 3, 2, 0, 1, 0], fingers: [0, 3, 2, 0, 1, 0], midi: [48, 52, 55, 60, 64] },
+    A: { frets: [-1, 0, 2, 2, 2, 0], fingers: [0, 0, 1, 2, 3, 0], midi: [45, 52, 57, 61, 64] },
+    E: { frets: [0, 2, 2, 1, 0, 0], fingers: [0, 2, 3, 1, 0, 0], midi: [40, 47, 52, 56, 59, 64] },
+    Dm: { frets: [-1, -1, 0, 2, 3, 1], fingers: [0, 0, 0, 2, 3, 1], midi: [50, 57, 62, 65] }
+  };
+  for (const [name, chord] of Object.entries(expected)) {
+    assert.deepEqual(guitar.chords[name].frets, chord.frets);
+    assert.deepEqual(guitar.chords[name].fingers, chord.fingers);
+    assert.deepEqual(guitar.notesForChord(name).map(n => n.midi), chord.midi);
+    assert.equal(guitar.fingersForChord(name).length, 3);
+  }
 });
 
 test('Down pattern strums only quarter notes, alternate includes the up strokes', () => {
@@ -41,6 +57,25 @@ test('Practice has four count-in beats and exactly four four-beat bars', () => {
     assert.equal(steps[40].done, true);
     assert.equal(steps[40].chord, null);
   }
+});
+
+test('Practice progressions cover every chord without invalid chord names', () => {
+  const covered = new Set();
+  for (const sequence of Object.values(guitar.progressions)) {
+    assert.equal(sequence.length, 4);
+    for (const name of sequence) {
+      assert.ok(guitar.chords[name], `Unknown chord: ${name}`);
+      covered.add(name);
+    }
+  }
+  assert.deepEqual([...covered].sort(), Object.keys(guitar.chords).sort());
+});
+
+test('Page chord buttons and practice choices match the available guitar data', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../site/jejak-tumbuh/belajar-gitar/index.html'), 'utf8');
+  assert.deepEqual([...html.matchAll(/data-chord="([^"]+)"/g)].map(m => m[1]), Object.keys(guitar.chords));
+  assert.deepEqual([...html.matchAll(/<option value="([^"]+)"/g)].map(m => m[1]), Object.keys(guitar.progressions));
+  assert.ok(html.includes('8 chord dasar'));
 });
 
 test('All open strings and chord pitches have a local acoustic recording', () => {

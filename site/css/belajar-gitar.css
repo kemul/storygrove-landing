@@ -79,6 +79,7 @@
 .mini-task h4 { font-size: 14px; margin: 0 }
 .task-marker { color: #615377; display: block; margin-bottom: 6px }
 .chord-picker, .rhythm-select { display: flex; gap: 8px; padding-bottom: 20px }
+.chord-picker { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 464px }
 .chord-picker button { background: #fff; border: 1px solid #dce4df; border-radius: 6px; min-width: 86px; padding: 9px 15px; font-size: 20px; font-weight: 650 }
 .chord-picker small { font-size: 11px; display: block; font-weight: 400; color: #63736d }
 .chord-picker [aria-pressed="true"], .rhythm-select [aria-pressed="true"] { background: #e6efea; border-color: #63866b }
@@ -182,7 +183,7 @@
   .posture-section { margin-top: 12px }
   .chord-layout { grid-template-columns: 1fr; gap: 20px }
   .chord-visual { width: 250px; margin-inline: auto }
-  .chord-picker { gap: 6px; justify-content: space-between }
+  .chord-picker { gap: 6px }
   .chord-picker button { flex: 1; min-width: 0; padding: 8px 9px; font-size: 19px }
   .chord-picker small { font-size: 10px }
   .chord-name { padding-top: 0 }

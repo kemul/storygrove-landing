@@ -15,7 +15,8 @@ https://creativecommons.org/licenses/by/3.0/
 https://creativecommons.org/licenses/by/3.0/legalcode
 
 Files copied unchanged from samples/guitar-acoustic/:
-E2.mp3, G2.mp3, A2.mp3, B2.mp3, D3.mp3, E3.mp3, G3.mp3,
-A3.mp3, B3.mp3, C4.mp3, D4.mp3, E4.mp3, Fs4.mp3, G4.mp3.
+E2.mp3, G2.mp3, A2.mp3, B2.mp3, C3.mp3, D3.mp3, E3.mp3,
+G3.mp3, Gs3.mp3, A3.mp3, B3.mp3, C4.mp3, Cs4.mp3, D4.mp3,
+E4.mp3, F4.mp3, Fs4.mp3, G4.mp3.
 Playback volume and note duration are adjusted in the browser.
 Attribution does not imply endorsement of Storygrove by the authors.

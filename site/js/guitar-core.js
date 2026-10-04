@@ -12,13 +12,22 @@
     Em: { name: 'E minor', frets: [0, 2, 2, 0, 0, 0], fingers: [0, 2, 3, 0, 0, 0], strum: 'Petik keenam senar' },
     Am: { name: 'A minor', frets: [-1, 0, 2, 2, 1, 0], fingers: [0, 0, 2, 3, 1, 0], strum: 'Mulai dari senar 5 (A)' },
     G: { name: 'G mayor', frets: [3, 2, 0, 0, 0, 3], fingers: [2, 1, 0, 0, 0, 3], strum: 'Petik keenam senar' },
-    D: { name: 'D mayor', frets: [-1, -1, 0, 2, 3, 2], fingers: [0, 0, 0, 1, 3, 2], strum: 'Mulai dari senar 4 (D)' }
+    D: { name: 'D mayor', frets: [-1, -1, 0, 2, 3, 2], fingers: [0, 0, 0, 1, 3, 2], strum: 'Mulai dari senar 4 (D)' },
+    C: { name: 'C mayor', frets: [-1, 3, 2, 0, 1, 0], fingers: [0, 3, 2, 0, 1, 0], strum: 'Mulai dari senar 5 (A)' },
+    A: { name: 'A mayor', frets: [-1, 0, 2, 2, 2, 0], fingers: [0, 0, 1, 2, 3, 0], strum: 'Mulai dari senar 5 (A)' },
+    E: { name: 'E mayor', frets: [0, 2, 2, 1, 0, 0], fingers: [0, 2, 3, 1, 0, 0], strum: 'Petik keenam senar' },
+    Dm: { name: 'D minor', frets: [-1, -1, 0, 2, 3, 1], fingers: [0, 0, 0, 2, 3, 1], strum: 'Mulai dari senar 4 (D)' }
   };
-  const progressions = { easy: ['Em', 'Am', 'Em', 'Am'], next: ['Em', 'G', 'D', 'Am'] };
+  const progressions = {
+    easy: ['Em', 'Am', 'Em', 'Am'], next: ['Em', 'G', 'D', 'Am'],
+    cMajor: ['C', 'G', 'Am', 'C'], aMajor: ['A', 'D', 'E', 'A'],
+    minor: ['Am', 'Dm', 'E', 'Am']
+  };
   const acousticSamples = {
     40: 'E2.mp3', 43: 'G2.mp3', 45: 'A2.mp3', 47: 'B2.mp3',
-    50: 'D3.mp3', 52: 'E3.mp3', 55: 'G3.mp3', 57: 'A3.mp3',
-    59: 'B3.mp3', 60: 'C4.mp3', 62: 'D4.mp3', 64: 'E4.mp3',
+    48: 'C3.mp3', 50: 'D3.mp3', 52: 'E3.mp3', 55: 'G3.mp3',
+    56: 'Gs3.mp3', 57: 'A3.mp3', 59: 'B3.mp3', 60: 'C4.mp3',
+    61: 'Cs4.mp3', 62: 'D4.mp3', 64: 'E4.mp3', 65: 'F4.mp3',
     66: 'Fs4.mp3', 67: 'G4.mp3'
   };
   function notesForChord(name, direction = 'down') {
