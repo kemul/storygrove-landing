@@ -1,0 +1,134 @@
+:root {
+  --paper: #F6F2E6;
+  --paper-2: #EEE7D4;
+  --ink: #1B1812;
+  --ink-soft: #5C554A;
+  --pine: #17342A;
+  --pine-2: #0E2019;
+  --glow: #5FCFA0;
+  --glow-dim: rgba(95, 207, 160, 0.45);
+  --gold: #C08A3E;
+  --gold-soft: #F1E2C2;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; min-height: 100%;
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: radial-gradient(120% 100% at 50% 0%, #16352a 0%, var(--pine-2) 55%);
+  color: var(--paper);
+}
+
+.badge {
+  position: fixed; top: 20px; left: 20px; z-index: 500;
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 16px 9px 12px; border-radius: 999px;
+  background: rgba(246, 242, 230, 0.9); backdrop-filter: blur(8px);
+  color: var(--pine-2); text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem;
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.badge svg { color: var(--glow); flex-shrink: 0; }
+.badge:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5); }
+
+.ar-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 96px 20px 64px;
+}
+
+.ar-head { text-align: center; margin-bottom: 24px; }
+.ar-eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--glow);
+}
+.ar-title {
+  margin: 0 0 10px;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  color: var(--paper);
+}
+.ar-sub {
+  margin: 0 auto; max-width: 46ch;
+  color: rgba(246, 242, 230, 0.7);
+  font-size: 0.98rem; line-height: 1.6;
+}
+.ar-sub em { color: var(--gold-soft); font-style: normal; }
+
+.ar-viewer {
+  display: block;
+  width: 100%;
+  height: min(58vh, 460px);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(246,242,230,0.06), rgba(246,242,230,0.02));
+  box-shadow: 0 24px 60px -24px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(246,242,230,0.08);
+  --poster-color: transparent;
+}
+
+.ar-cta {
+  position: absolute;
+  bottom: 18px; left: 50%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 22px; border-radius: 999px; border: none;
+  background: var(--gold); color: var(--pine-2);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.94rem;
+  cursor: pointer;
+  box-shadow: 0 14px 30px -12px rgba(0,0,0,0.55);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.ar-cta:hover { transform: translateX(-50%) translateY(-1px); background: #d29a4a; }
+.ar-cta-icon { display: inline-flex; }
+
+.ar-progress {
+  width: 60%; height: 4px; border-radius: 4px;
+  background: rgba(246,242,230,0.16);
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+.ar-progress-bar { width: 0%; height: 100%; background: var(--glow); transition: width 0.2s ease; }
+model-viewer[loaded] .ar-progress { display: none; }
+
+.ar-hint {
+  margin: 18px auto 0; max-width: 42ch; text-align: center;
+  font-size: 0.86rem; color: rgba(246, 242, 230, 0.55);
+}
+
+.ar-facts {
+  margin-top: 40px;
+  display: grid; gap: 12px;
+}
+.fact {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px 18px; border-radius: 16px;
+  background: rgba(246, 242, 230, 0.06);
+  border: 1px solid rgba(246, 242, 230, 0.08);
+}
+.fact-icon { font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.fact-title {
+  margin: 0 0 4px;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.96rem;
+  color: var(--paper);
+}
+.fact-desc { margin: 0; font-size: 0.86rem; line-height: 1.55; color: rgba(246, 242, 230, 0.65); }
+
+.toast {
+  position: fixed; top: 20px; left: 50%; z-index: 700;
+  transform: translate(-50%, -140%);
+  max-width: calc(100% - 40px);
+  padding: 12px 20px; border-radius: 999px;
+  background: rgba(14, 32, 25, 0.92); backdrop-filter: blur(8px);
+  color: var(--paper); font-size: 0.85rem; font-weight: 600; text-align: center;
+  box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.toast.show { transform: translate(-50%, 0); }
+
+@media (max-width: 480px) {
+  .badge span { display: none; }
+  .badge { padding: 10px; }
+  .ar-wrap { padding: 84px 16px 48px; }
+  .ar-viewer { height: 52vh; border-radius: 16px; }
+}

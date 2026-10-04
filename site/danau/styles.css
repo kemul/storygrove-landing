@@ -1,0 +1,372 @@
+:root {
+  --paper: #F6F2E6;
+  --paper-2: #EEE7D4;
+  --ink: #1B1812;
+  --ink-soft: #5C554A;
+  --pine: #17342A;
+  --pine-2: #0E2019;
+  --glow: #5FCFA0;
+  --glow-dim: rgba(95, 207, 160, 0.45);
+  --gold: #C08A3E;
+  --gold-soft: #F1E2C2;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%; overflow: hidden;
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: var(--pine-2);
+  color: var(--ink);
+}
+
+#map {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  background: var(--pine-2);
+}
+
+.leaflet-control-attribution {
+  font-family: 'Manrope', sans-serif; font-size: 0.68rem;
+  background: rgba(14, 32, 25, 0.55) !important; color: rgba(246,242,230,0.7) !important;
+  backdrop-filter: blur(4px);
+}
+.leaflet-control-attribution a { color: rgba(246,242,230,0.9) !important; }
+.leaflet-control-zoom a {
+  background: rgba(246, 242, 230, 0.92) !important; color: var(--pine-2) !important;
+  border: none !important;
+}
+.leaflet-control-zoom { border-radius: 10px !important; overflow: hidden; box-shadow: 0 8px 20px -8px rgba(0,0,0,0.4) !important; }
+
+/* ===== Lake outline animation ===== */
+.lake-outline {
+  animation: dashflow 22s linear infinite;
+}
+@keyframes dashflow {
+  to { stroke-dashoffset: -1000; }
+}
+
+/* ===== Hotspot marker ===== */
+.hotspot {
+  width: 22px; height: 22px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--accent, var(--glow));
+}
+.hotspot::before, .hotspot::after {
+  content: ''; position: absolute; border-radius: 50%;
+  border: 1.5px solid currentColor;
+  animation: ping 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+.hotspot::after { animation-delay: 1.3s; }
+@keyframes ping {
+  0% { width: 10px; height: 10px; opacity: 0.9; }
+  100% { width: 46px; height: 46px; opacity: 0; }
+}
+.hotspot-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 25%, transparent),
+              0 0 14px 2px color-mix(in srgb, currentColor 45%, transparent);
+  transition: box-shadow 0.3s ease;
+}
+.hotspot.visited .hotspot-dot {
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 35%, transparent),
+              0 0 0 7px var(--paper),
+              0 0 18px 3px color-mix(in srgb, currentColor 60%, transparent);
+}
+.hotspot.visited::before, .hotspot.visited::after { animation: none; opacity: 0; }
+
+/* ===== "You are here" marker ===== */
+.you-here {
+  width: 20px; height: 20px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.you-here::before {
+  content: ''; position: absolute; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(62, 143, 160, 0.25);
+  animation: youhere-pulse 2.2s ease-out infinite;
+}
+@keyframes youhere-pulse {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+.you-here-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fff; border: 3px solid #3E8FA0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+/* ===== Badge (brand link) ===== */
+.badge {
+  position: fixed; top: 20px; left: 20px; z-index: 500;
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 16px 9px 12px; border-radius: 999px;
+  background: rgba(246, 242, 230, 0.9); backdrop-filter: blur(8px);
+  color: var(--pine-2); text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem;
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.badge svg { color: var(--glow); flex-shrink: 0; }
+.badge:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5); }
+
+/* ===== Legend hint ===== */
+.legend {
+  position: fixed; bottom: 22px; left: 20px; z-index: 500;
+  padding: 12px 18px; border-radius: 14px;
+  background: rgba(14, 32, 25, 0.55); backdrop-filter: blur(8px);
+  color: var(--paper); pointer-events: none;
+}
+.legend-title { margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; }
+.legend-sub { margin: 2px 0 0; font-size: 0.78rem; color: rgba(246,242,230,0.7); }
+.progress {
+  margin: 8px 0 0; padding-top: 8px; border-top: 1px solid rgba(246,242,230,0.18);
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.02em; color: var(--glow);
+}
+
+/* ===== Toast (checkpoint reached) ===== */
+.toast {
+  position: fixed; top: 20px; left: 50%; z-index: 700;
+  transform: translate(-50%, -140%);
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border-radius: 999px;
+  background: rgba(14, 32, 25, 0.88); backdrop-filter: blur(8px);
+  color: var(--paper); font-size: 0.88rem; font-weight: 600;
+  box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show { transform: translate(-50%, 0); }
+.toast-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+/* ===== Popup card ===== */
+.popup-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(14, 32, 25, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.popup-overlay.open { opacity: 1; pointer-events: auto; }
+
+.popup-card {
+  position: fixed; z-index: 601;
+  left: 50%; bottom: 0; transform: translate(-50%, 100%);
+  width: min(420px, calc(100% - 40px));
+  margin-bottom: 24px;
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 30px 30px 26px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.popup-card.open { transform: translate(-50%, 0); }
+.popup-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: none; background: var(--paper-2); color: var(--ink-soft);
+  font-size: 1.2rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.popup-close:hover { background: var(--gold-soft); color: var(--pine-2); }
+.popup-kicker {
+  display: flex; align-items: center; gap: 7px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.74rem; color: var(--gold); margin: 0 0 10px;
+}
+.popup-icon { display: flex; }
+.popup-card h2 {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.35rem;
+  color: var(--pine-2); margin: 0 0 12px; letter-spacing: -0.01em;
+}
+#popupBody p {
+  margin: 0 0 16px; color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6;
+}
+.observation {
+  background: var(--paper-2); border-radius: 14px; padding: 16px 18px;
+}
+.observation-label {
+  display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 0.7rem; color: var(--pine-2); margin-bottom: 6px;
+}
+.observation p {
+  margin: 0; color: var(--ink); font-size: 0.92rem; line-height: 1.55;
+}
+
+.legend-change {
+  margin-top: 8px; padding: 0; border: none; background: none;
+  color: var(--gold-soft); font-size: 0.74rem; font-weight: 700;
+  text-decoration: underline; cursor: pointer; pointer-events: auto;
+}
+
+/* ===== Start menu ===== */
+.menu-screen {
+  position: fixed; inset: 0; z-index: 800;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: radial-gradient(120% 120% at 20% 0%, rgba(23,52,42,0.55), rgba(14,32,25,0.82));
+  backdrop-filter: blur(3px);
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.menu-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.menu-card {
+  width: min(440px, 100%);
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 34px 30px 28px;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+}
+.menu-eyebrow {
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.72rem; color: var(--gold); margin: 0 0 10px;
+}
+.menu-title {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.7rem;
+  color: var(--pine-2); margin: 0 0 10px; letter-spacing: -0.01em;
+}
+.menu-desc {
+  margin: 0 0 24px; color: var(--ink-soft); font-size: 0.94rem; line-height: 1.55;
+}
+
+.menu-option {
+  width: 100%; display: flex; align-items: center; gap: 14px;
+  text-align: left; padding: 16px 18px; margin-bottom: 10px;
+  border: 1px solid rgba(23,52,42,0.14); border-radius: 16px;
+  background: var(--paper-2); cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.menu-option:hover { border-color: var(--glow); transform: translateY(-1px); }
+.menu-option-icon {
+  flex-shrink: 0; width: 38px; height: 38px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; color: var(--pine-2);
+  border: 1px solid rgba(23,52,42,0.14);
+}
+.menu-option-text { display: flex; flex-direction: column; gap: 3px; }
+.menu-option-text strong {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem; color: var(--pine-2);
+}
+.menu-option-text small { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.4; }
+
+.menu-list-label {
+  margin: 22px 0 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 0.72rem; color: var(--ink-soft);
+}
+.menu-status {
+  min-height: 1.2em; margin: 6px 0 0; font-size: 0.86rem; color: var(--ink-soft);
+}
+
+.menu-list { margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; }
+.menu-list-item {
+  display: flex; align-items: stretch; gap: 8px;
+  border-radius: 12px; border: 1px solid rgba(23,52,42,0.12);
+  background: #fff; overflow: hidden;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.menu-list-item:hover { border-color: var(--glow); }
+.menu-list-main {
+  flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 12px 6px 12px 16px; border: none; background: none; cursor: pointer; text-align: left;
+}
+.menu-list-main:hover { background: var(--paper-2); }
+.menu-list-main strong { font-family: 'Space Grotesk', sans-serif; font-size: 0.94rem; color: var(--pine-2); }
+.menu-list-main small { color: var(--ink-soft); font-size: 0.78rem; flex-shrink: 0; }
+.menu-list-direction {
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  width: 44px; color: var(--glow); text-decoration: none;
+  border-left: 1px solid rgba(23,52,42,0.1);
+  transition: background 0.2s ease;
+}
+.menu-list-direction:hover { background: var(--pine-soft, var(--paper-2)); }
+
+/* ===== Other-lake indicators on the map ===== */
+/* Fixed-size 4-dot badge, same pulsing-light language as the active lake's
+   4 pillars, so it stays legible regardless of zoom (unlike a polygon
+   outline, which shrinks to nothing when zoomed out). */
+.lake-badge { width: 44px; height: 44px; position: relative; cursor: pointer; }
+.lake-badge::before {
+  /* Guarantees contrast against any terrain — light rooftops, dark water,
+     dense foliage — instead of relying on the dots alone to read clearly. */
+  content: ''; position: absolute; inset: 6px; border-radius: 50%;
+  background: rgba(14, 32, 25, 0.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+.lake-badge-core {
+  position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--paper); transform: translate(-50%, -50%);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+}
+.lake-badge-dot {
+  position: absolute; top: 50%; left: 50%;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 8px 1px color-mix(in srgb, var(--c) 55%, transparent);
+}
+.lake-badge-dot:nth-child(1) { transform: translate(calc(-50% + 0px), calc(-50% - 12px)); }
+.lake-badge-dot:nth-child(2) { transform: translate(calc(-50% + 12px), calc(-50% + 0px)); }
+.lake-badge-dot:nth-child(3) { transform: translate(calc(-50% + 0px), calc(-50% + 12px)); }
+.lake-badge-dot:nth-child(4) { transform: translate(calc(-50% - 12px), calc(-50% + 0px)); }
+.lake-badge-dot::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  width: 7px; height: 7px; border-radius: 50%;
+  border: 1.3px solid var(--c);
+  transform: translate(-50%, -50%);
+  animation: badge-ping 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes badge-ping {
+  0% { width: 7px; height: 7px; opacity: 0.9; }
+  100% { width: 26px; height: 26px; opacity: 0; }
+}
+.other-lake-tooltip {
+  font-family: 'Manrope', sans-serif !important; font-size: 0.78rem !important; font-weight: 600 !important;
+  background: rgba(14, 32, 25, 0.88) !important; color: var(--paper) !important;
+  border: none !important; border-radius: 8px !important; padding: 5px 10px !important;
+  box-shadow: 0 8px 18px -8px rgba(0,0,0,0.5) !important;
+}
+.other-lake-tooltip::before { display: none !important; }
+
+/* ===== "Danau di sekitarmu" panel ===== */
+.lakes-panel {
+  position: fixed; top: 72px; right: 20px; z-index: 500;
+  width: 240px; max-width: calc(100% - 40px);
+  padding: 14px 16px; border-radius: 14px;
+  background: rgba(14, 32, 25, 0.72); backdrop-filter: blur(8px);
+  color: var(--paper); box-shadow: 0 10px 24px -12px rgba(0,0,0,0.45);
+  transition: opacity 0.2s ease;
+}
+.lakes-panel.loading { opacity: 0.65; }
+.lakes-panel-count {
+  margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.86rem;
+}
+.lakes-panel-list {
+  display: flex; flex-direction: column; gap: 4px;
+  max-height: 220px; overflow-y: auto;
+}
+.lakes-panel-row {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 7px 8px; border: none; border-radius: 8px;
+  background: none; color: var(--paper); cursor: pointer; text-align: left;
+  transition: background 0.15s ease;
+}
+.lakes-panel-row:hover { background: rgba(246, 242, 230, 0.12); }
+.lakes-panel-dot {
+  flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--glow); box-shadow: 0 0 6px 1px var(--glow-dim);
+}
+.lakes-panel-row strong {
+  flex: 1; font-size: 0.82rem; font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.lakes-panel-row small { flex-shrink: 0; font-size: 0.72rem; color: rgba(246,242,230,0.65); }
+
+@media (max-width: 600px) {
+  .badge span { display: none; }
+  .badge { padding: 10px; }
+  .legend { bottom: 18px; left: 16px; right: 16px; }
+  .popup-card { padding: 26px 24px 22px; }
+  .menu-card { padding: 28px 22px 24px; }
+  .lakes-panel { top: 130px; right: 14px; width: 190px; }
+  .lakes-panel-list { max-height: 160px; }
+}
