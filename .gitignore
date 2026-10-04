@@ -1,0 +1,33 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Local archives and backups
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.bak
+*.backup
+
+# Logs and temporary files
+*.log
+.tmp/
+tmp/
+.cache/
+
+# Dependency folders if the site is rebuilt from source later
+node_modules/
+dist/
+build/
