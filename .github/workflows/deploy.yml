@@ -1,0 +1,145 @@
+name: Deploy production
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - site/**
+      - nginx.conf
+      - .github/workflows/deploy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: storygrove-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Hostinger VPS
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://storygrove.id/
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate deployable files
+        run: |
+          set -euo pipefail
+          test -d site
+          test -f site/index.html
+          test -f nginx.conf
+          tar -czf "$RUNNER_TEMP/storygrove-deploy.tgz" site nginx.conf
+          tar -tzf "$RUNNER_TEMP/storygrove-deploy.tgz" >/dev/null
+
+      - name: Configure SSH
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+          SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.HOSTINGER_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          : "${SSH_HOST:?Missing HOSTINGER_SSH_HOST secret}"
+          : "${SSH_USER:?Missing HOSTINGER_SSH_USER secret}"
+          : "${SSH_KEY:?Missing HOSTINGER_SSH_KEY secret}"
+          SSH_PORT="${SSH_PORT:-22}"
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/storygrove_deploy_key
+          chmod 600 ~/.ssh/storygrove_deploy_key
+
+          touch ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          if [ -n "${SSH_KNOWN_HOSTS:-}" ]; then
+            printf '%s\n' "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+          else
+            ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+          fi
+
+          echo "SSH_PORT=$SSH_PORT" >> "$GITHUB_ENV"
+          echo "SSH_KEY_PATH=$HOME/.ssh/storygrove_deploy_key" >> "$GITHUB_ENV"
+
+      - name: Upload release package
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+        run: |
+          set -euo pipefail
+          scp -P "$SSH_PORT" -i "$SSH_KEY_PATH" \
+            "$RUNNER_TEMP/storygrove-deploy.tgz" \
+            "$SSH_USER@$SSH_HOST:/tmp/storygrove-deploy-$GITHUB_SHA.tgz"
+
+      - name: Install release on server
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+        run: |
+          set -euo pipefail
+          ssh -p "$SSH_PORT" -i "$SSH_KEY_PATH" "$SSH_USER@$SSH_HOST" \
+            "REMOTE_PACKAGE='/tmp/storygrove-deploy-$GITHUB_SHA.tgz' RELEASE_SHA='$GITHUB_SHA' bash -s" <<'EOF'
+          set -euo pipefail
+
+          APP_DIR="/docker/storygrove"
+          SITE_DIR="$APP_DIR/site"
+          NGINX_CONF="$APP_DIR/nginx.conf"
+          RELEASE_DIR="$APP_DIR/releases/$RELEASE_SHA"
+          BACKUP_DIR="$APP_DIR/backups"
+          BACKUP_FILE="$BACKUP_DIR/storygrove-backup-$(date +%Y%m%d-%H%M%S)-${RELEASE_SHA:0:7}.tgz"
+
+          if [ ! -d "$APP_DIR" ]; then
+            echo "Missing $APP_DIR on server"
+            exit 1
+          fi
+          if [ ! -f "$REMOTE_PACKAGE" ]; then
+            echo "Missing uploaded package: $REMOTE_PACKAGE"
+            exit 1
+          fi
+
+          rm -rf "$RELEASE_DIR"
+          mkdir -p "$RELEASE_DIR" "$BACKUP_DIR" "$SITE_DIR"
+          tar -xzf "$REMOTE_PACKAGE" -C "$RELEASE_DIR"
+          test -d "$RELEASE_DIR/site"
+          test -f "$RELEASE_DIR/nginx.conf"
+
+          tar -czf "$BACKUP_FILE" -C "$APP_DIR" site nginx.conf
+
+          restore_previous_release() {
+            echo "Deployment failed; restoring previous release from $BACKUP_FILE"
+            find "$SITE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+            tar -xzf "$BACKUP_FILE" -C "$APP_DIR"
+            docker exec storygrove-web nginx -s reload || true
+          }
+          trap restore_previous_release ERR
+
+          if command -v rsync >/dev/null 2>&1; then
+            rsync -a --delete "$RELEASE_DIR/site/" "$SITE_DIR/"
+          else
+            find "$SITE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+            cp -a "$RELEASE_DIR/site/." "$SITE_DIR/"
+          fi
+
+          cp "$RELEASE_DIR/nginx.conf" "$NGINX_CONF"
+          docker exec storygrove-web nginx -t
+          docker exec storygrove-web nginx -s reload
+          trap - ERR
+
+          rm -f "$REMOTE_PACKAGE"
+          find "$APP_DIR/releases" -mindepth 1 -maxdepth 1 -type d | sort | head -n -5 | xargs -r rm -rf
+          find "$BACKUP_DIR" -type f -name 'storygrove-backup-*.tgz' | sort | head -n -10 | xargs -r rm -f
+          echo "Deployed $RELEASE_SHA"
+          EOF
+
+      - name: Verify public site
+        run: |
+          set -euo pipefail
+          curl --fail --show-error --silent --location --retry 5 --retry-delay 5 https://storygrove.id/ >/dev/null
+          curl --fail --show-error --silent --location --retry 5 --retry-delay 5 https://www.storygrove.id/ >/dev/null
