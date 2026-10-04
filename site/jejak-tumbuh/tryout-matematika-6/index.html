@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Try Out Matematika Kelas 6 — Jejak Tumbuh</title>
+  <meta name="description" content="Prototype try out Matematika SD kelas 6 dengan timer custom, pilihan jawaban, hasil, dan pembahasan.">
+  <meta property="og:title" content="Try Out Matematika Kelas 6 — Jejak Tumbuh">
+  <meta property="og:description" content="Latihan soal visual dengan durasi custom, hasil, dan pembahasan.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:image" content="../../assets/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/jejak-tumbuh.css">
+</head>
+<body class="quiz-page">
+  <header class="learning-header">
+    <a class="learning-brand" href="../../index.html" aria-label="Storygrove">
+      <img src="../../assets/storygrove-logo.png" alt="Storygrove">
+    </a>
+    <nav aria-label="Navigasi try out">
+      <a href="../index.html">Jejak Tumbuh</a>
+      <a href="../../index.html">Studio</a>
+      <a href="mailto:halo@storygrove.id">Kerja sama sekolah</a>
+    </nav>
+  </header>
+
+  <main class="quiz-shell" data-quiz-app>
+    <section class="quiz-intro" data-screen="setup">
+      <div class="quiz-intro__copy">
+        <p class="learning-kicker">Try Out Numerasi VI</p>
+        <h1>Matematika kelas 6 dengan timer, latihan ulang, dan pembahasan.</h1>
+        <p>Soal dibuat setara dengan tipe try out di scan: bilangan, pecahan, perbandingan, satuan, bangun ruang, koordinat, data, dan peluang. Jika jawaban belum tepat, anak melihat cara hitungnya lalu mendapat soal setara di nomor yang sama.</p>
+      </div>
+
+      <form class="setup-panel" data-setup-form>
+        <div class="setup-panel__header">
+          <span>Pengaturan sesi</span>
+          <strong>Prototype lokal</strong>
+        </div>
+        <label>
+          Nama anak
+          <input type="text" name="studentName" placeholder="Tulis nama" autocomplete="name">
+        </label>
+        <div class="setup-grid">
+          <label>
+            Durasi
+            <select name="duration">
+              <option value="30">30 menit</option>
+              <option value="60">60 menit</option>
+              <option value="90" selected>90 menit</option>
+              <option value="120">120 menit</option>
+            </select>
+          </label>
+          <label>
+            Jumlah soal
+            <select name="questionCount">
+              <option value="10">10 soal</option>
+              <option value="15">15 soal</option>
+              <option value="20" selected>20 soal</option>
+              <option value="25">25 soal</option>
+            </select>
+          </label>
+        </div>
+        <button class="learning-button" type="submit">Mulai try out</button>
+        <p class="setup-note">Timer per soal dihitung dari durasi dibagi jumlah soal. Selama waktu soal masih ada, jawaban salah akan diberi pembahasan lalu diganti soal setara di nomor yang sama.</p>
+      </form>
+    </section>
+
+    <section class="quiz-workspace is-hidden" data-screen="quiz" aria-live="polite">
+      <aside class="quiz-sidebar">
+        <div class="timer-card">
+          <span>Total waktu</span>
+          <strong data-total-time>90:00</strong>
+        </div>
+        <div class="timer-card timer-card--question">
+          <span>Soal ini</span>
+          <strong data-question-time>04:30</strong>
+        </div>
+        <div class="progress-card">
+          <span data-progress-label>Soal 1 dari 20</span>
+          <div class="progress-track"><i data-progress-bar></i></div>
+        </div>
+        <div class="question-map" data-question-map aria-label="Peta soal"></div>
+      </aside>
+
+      <article class="question-stage">
+        <div class="question-stage__top">
+          <div>
+            <p data-question-topic>Bilangan</p>
+            <h2 data-question-title>Soal 1</h2>
+          </div>
+          <span data-student-badge>Jejak Tumbuh</span>
+        </div>
+
+        <div class="question-layout">
+          <div class="question-visual" data-question-visual></div>
+          <div class="question-content">
+            <p class="question-context" data-question-context></p>
+            <h3 data-question-text></h3>
+            <div class="answer-list" data-answer-list></div>
+            <div class="practice-feedback is-hidden" data-practice-feedback></div>
+          </div>
+        </div>
+
+        <div class="quiz-controls">
+          <button class="ghost-button" type="button" data-prev>← Sebelumnya</button>
+          <button class="ghost-button" type="button" data-next>Berikutnya →</button>
+          <button class="learning-button" type="button" data-finish>Selesai &amp; lihat hasil</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="result-screen is-hidden" data-screen="result">
+      <div class="result-hero">
+        <p class="learning-kicker">Hasil Try Out</p>
+        <h2 data-result-title>Bagus, sesi selesai.</h2>
+        <div class="result-score">
+          <strong data-score-percent>0%</strong>
+          <span data-score-detail>0 dari 0 benar</span>
+        </div>
+      </div>
+
+      <div class="result-grid">
+        <article class="result-panel">
+          <h3>Ringkasan topik</h3>
+          <div data-topic-summary></div>
+        </article>
+        <article class="result-panel result-panel--wide">
+          <h3>Pembahasan yang perlu dilihat</h3>
+          <div class="review-list" data-review-list></div>
+        </article>
+      </div>
+
+      <div class="result-actions">
+        <button class="ghost-button" type="button" data-review-mode>Review jawaban</button>
+        <button class="ghost-button" type="button" data-restart-same>Ulangi set ini</button>
+        <button class="learning-button" type="button" data-restart-new>Buat set berbeda</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../js/math-6-bank.js" defer></script>
+  <script src="../../js/jejak-quiz.js" defer></script>
+</body>
+</html>

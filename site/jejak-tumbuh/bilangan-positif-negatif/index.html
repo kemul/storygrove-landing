@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilangan Positif &amp; Negatif — Jejak Tumbuh</title>
+  <meta name="description" content="Latihan bilangan positif dan negatif dengan garis bilangan visual di Jejak Tumbuh Storygrove.">
+  <meta property="og:title" content="Bilangan Positif & Negatif — Jejak Tumbuh">
+  <meta property="og:description" content="Latihan penjumlahan dan pengurangan bilangan bulat dengan garis bilangan visual.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:image" content="../../assets/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/jejak-tumbuh.css">
+</head>
+<body class="integer-page">
+  <header class="learning-header">
+    <a class="learning-brand" href="../../index.html" aria-label="Storygrove">
+      <img src="../../assets/storygrove-logo.png" alt="Storygrove">
+    </a>
+    <nav aria-label="Navigasi latihan bilangan">
+      <a href="../index.html">Jejak Tumbuh</a>
+      <a href="../tryout-matematika-6/index.html">Try Out VI</a>
+      <a href="../../index.html">Studio</a>
+    </nav>
+  </header>
+
+  <main class="integer-shell" data-integer-app>
+    <section class="integer-hero">
+      <div>
+        <p class="learning-kicker">Latihan konsep</p>
+        <h1>Bilangan positif &amp; negatif dengan garis bilangan.</h1>
+        <p>Anak langsung menghitung ekspresi bilangan bulat, lalu melihat gerak di garis bilangan. Ke kanan berarti nilai bertambah, ke kiri berarti nilai berkurang. Setelah menjawab, garis bilangan bergerak dan menjelaskan langkahnya.</p>
+      </div>
+      <form class="integer-controls" data-integer-controls>
+        <label>
+          Tingkat
+          <select name="difficulty">
+            <option value="easy">Mudah (-10 sampai 10)</option>
+            <option value="medium" selected>Sedang (-20 sampai 20)</option>
+            <option value="hard">Menantang (-50 sampai 50)</option>
+          </select>
+        </label>
+        <label>
+          Jenis soal
+          <select name="operation">
+            <option value="mixed" selected>Campuran + dan -</option>
+            <option value="add">Penjumlahan</option>
+            <option value="subtract">Pengurangan</option>
+          </select>
+        </label>
+        <button class="ghost-button" type="button" data-reset-integer>Ulang dari awal</button>
+      </form>
+    </section>
+
+    <section class="integer-stats" aria-label="Statistik latihan">
+      <div><span>Soal</span><strong data-integer-count>1</strong></div>
+      <div><span>Benar</span><strong data-integer-correct>0</strong></div>
+      <div><span>Skor</span><strong data-integer-score>0%</strong></div>
+    </section>
+
+    <section class="integer-card">
+      <div class="integer-question">
+        <p>Hitung hasilnya</p>
+        <h2 data-integer-question>-4 + 7 = ?</h2>
+      </div>
+      <div class="number-line-wrap">
+        <div class="number-line" data-number-line aria-label="Garis bilangan"></div>
+      </div>
+      <p class="integer-hint" data-integer-hint>Gunakan garis bilangan untuk membantu menghitung.</p>
+      <div class="integer-steps" data-integer-steps aria-live="polite"></div>
+    </section>
+
+    <form class="integer-answer" data-integer-form>
+      <label for="integer-answer">Jawaban kamu</label>
+      <div>
+        <input id="integer-answer" name="answer" type="number" inputmode="numeric" placeholder="Ketik jawaban" autocomplete="off">
+        <button class="learning-button" type="submit" data-check-integer>Cek jawaban</button>
+        <button class="ghost-button is-hidden" type="button" data-next-integer>Soal berikutnya →</button>
+      </div>
+      <p data-integer-feedback aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script src="../../js/integer-line.js" defer></script>
+</body>
+</html>

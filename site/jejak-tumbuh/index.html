@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jejak Tumbuh — Storygrove</title>
+  <meta name="description" content="Jejak Tumbuh adalah ruang latihan visual Storygrove untuk try out, numerasi, dan aktivitas belajar yang bisa disesuaikan untuk sekolah.">
+  <meta property="og:title" content="Jejak Tumbuh — Storygrove">
+  <meta property="og:description" content="Ruang latihan visual untuk anak mencoba, memilih jawaban, melihat hasil, dan belajar dari pembahasan.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:image" content="../assets/og.png">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/jejak-tumbuh.css">
+</head>
+<body class="learning-page">
+  <header class="learning-header">
+    <a class="learning-brand" href="../index.html" aria-label="Storygrove">
+      <img src="../assets/storygrove-logo.png" alt="Storygrove">
+    </a>
+    <nav aria-label="Navigasi Jejak Tumbuh">
+      <a href="../index.html">Studio</a>
+      <a href="#ruang-belajar">Ruang belajar</a>
+      <a href="mailto:halo@storygrove.id">Kerja sama sekolah</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="learning-hero">
+      <div class="learning-hero__copy">
+        <p class="learning-kicker">Jejak Tumbuh</p>
+        <h1>Ruang latihan yang terasa seperti menjelajah.</h1>
+        <p>Anak bisa mengerjakan try out, melihat waktu, memilih jawaban, lalu belajar dari pembahasan setelah selesai. Setiap modul bisa dibuat khusus untuk sekolah, kelas, atau tema belajar tertentu.</p>
+        <div class="learning-actions">
+          <a class="learning-button" href="tryout-matematika-6/index.html">Coba Try Out Matematika VI</a>
+          <a class="learning-text-link" href="#ruang-belajar">Lihat modul lain</a>
+        </div>
+      </div>
+      <div class="learning-hero__scene" aria-hidden="true">
+        <div class="trail-card trail-card--score">
+          <span>Skor latihan</span>
+          <strong>82%</strong>
+          <i></i>
+        </div>
+        <div class="trail-card trail-card--timer">
+          <span>Sisa waktu</span>
+          <strong>18:24</strong>
+        </div>
+        <div class="trail-board">
+          <div class="trail-board__top"></div>
+          <div class="trail-board__question"></div>
+          <div class="trail-board__choices"><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="learning-band" aria-label="Alur belajar">
+      <span>Pilih modul</span>
+      <i></i>
+      <span>Kerjakan soal</span>
+      <i></i>
+      <span>Lihat hasil</span>
+      <i></i>
+      <span>Ulangi dengan variasi baru</span>
+    </section>
+
+    <section class="module-section" id="ruang-belajar" aria-labelledby="module-title">
+      <div class="module-heading">
+        <p class="learning-kicker">Ruang belajar</p>
+        <h2 id="module-title">Modul bisa berdiri sendiri atau dibuat per sekolah.</h2>
+        <p>Prototype ini memakai struktur data terpisah agar materi lain bisa ditambahkan case by case: numerasi, literasi, project kit, sampai asesmen kecil untuk kelas.</p>
+      </div>
+
+      <div class="module-grid">
+        <a class="module-card module-card--featured" href="tryout-matematika-6/index.html">
+          <div class="module-card__visual" aria-hidden="true">
+            <span>VI</span>
+            <b>90</b>
+            <small>menit</small>
+          </div>
+          <div>
+            <p>Try out visual</p>
+            <h3>Matematika SD Kelas 6</h3>
+            <span>Soal setara dari topik numerasi: operasi bilangan, pecahan, perbandingan, satuan, geometri, data, dan peluang.</span>
+          </div>
+        </a>
+
+        <a class="module-card" href="bilangan-positif-negatif/index.html">
+          <div class="number-ladder" aria-hidden="true">
+            <span>-6</span><span>-2</span><span>0</span><span>4</span><span>9</span>
+          </div>
+          <div>
+            <p>Latihan konsep</p>
+            <h3>Bilangan Positif &amp; Negatif</h3>
+            <span>Latihan garis bilangan untuk penjumlahan dan pengurangan bilangan bulat, sudah masuk sebagai halaman Storygrove.</span>
+          </div>
+        </a>
+
+        <article class="module-card module-card--soon">
+          <div class="module-card__visual module-card__visual--school" aria-hidden="true">
+            <span>Custom</span>
+            <b>?</b>
+          </div>
+          <div>
+            <p>Case by case</p>
+            <h3>Paket Sekolah</h3>
+            <span>Bank soal, durasi, tema visual, dan pembahasan bisa disesuaikan untuk kebutuhan kelas atau try out sekolah.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="learning-footer">
+    <img src="../assets/storygrove-logo.png" alt="Storygrove">
+    <p>Jejak Tumbuh adalah eksperimen pembelajaran visual dari Storygrove.</p>
+    <a href="mailto:halo@storygrove.id">halo@storygrove.id</a>
+  </footer>
+</body>
+</html>

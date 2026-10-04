@@ -610,6 +610,133 @@ img { display: block; max-width: 100%; }
 .product-copy li { padding: 7px 12px; border: 1px solid rgba(255,255,255,.32); border-radius: 999px; font-size: 9px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
 .product-learning .product-copy li { border-color: rgba(21,58,52,.28); }
 
+.learning-entry {
+  position: relative;
+  min-height: 360px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, .66fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 74px);
+  margin-top: 14px;
+  padding: clamp(26px, 4vw, 52px);
+  overflow: hidden;
+  border-radius: 22px;
+  color: var(--ink);
+  background: linear-gradient(130deg, #fffdf7 0%, #d9efeb 54%, #f4c64d 100%);
+  box-shadow: 0 28px 68px rgba(4,32,29,.16);
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
+}
+.learning-entry:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 36px 84px rgba(4,32,29,.24);
+}
+.learning-entry::after {
+  content: "↗";
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 46px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  background: var(--ink);
+  font-size: 19px;
+  font-weight: 850;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.learning-entry:hover::after { transform: rotate(45deg); }
+.learning-entry__copy {
+  max-width: 860px;
+}
+.learning-entry__copy span {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .66;
+}
+.learning-entry__copy h3 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 62px);
+  line-height: .98;
+  letter-spacing: -.052em;
+}
+.learning-entry__copy p {
+  max-width: 650px;
+  margin: 18px 0 0;
+  color: rgba(21,58,52,.76);
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.55;
+}
+.learning-entry__mock {
+  position: relative;
+  min-height: 265px;
+  border-radius: 20px;
+  background: rgba(255,253,247,.75);
+  border: 1px solid rgba(21,58,52,.13);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.48);
+}
+.mock-timer {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  min-width: 145px;
+  padding: 17px;
+  border-radius: 17px;
+  color: white;
+  background: var(--teal);
+}
+.mock-timer span {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+.mock-timer b {
+  display: block;
+  margin-top: 8px;
+  font-size: 35px;
+  line-height: 1;
+  letter-spacing: -.06em;
+}
+.mock-question {
+  position: absolute;
+  right: 24px;
+  top: 72px;
+  width: min(52%, 280px);
+  display: grid;
+  gap: 10px;
+}
+.mock-question i {
+  height: 54px;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid rgba(21,58,52,.12);
+}
+.mock-question i:nth-child(2) { width: 87%; }
+.mock-question i:nth-child(3) { width: 72%; background: #fff2c1; }
+.mock-dots {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 9px;
+}
+.mock-dots span {
+  width: 38px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: var(--paper);
+  border: 1px solid rgba(21,58,52,.14);
+}
+.mock-dots span:first-child { background: var(--ink); }
+
 .process-section { padding-block: clamp(96px, 12vw, 170px); }
 .process-section .section-heading { margin-bottom: clamp(58px, 7vw, 100px); }
 .process-list {
@@ -721,6 +848,7 @@ footer p { margin: 0; font-size: 14px; line-height: 1.55; }
   .card-digital .capability-copy { right: 47%; }
   .phone-mock { width: 49%; right: -5%; }
   .products-grid { grid-template-columns: 1fr 1fr; }
+  .learning-entry { grid-template-columns: 1fr; }
   .process-list { grid-template-columns: repeat(2, 1fr); }
   .process-list li:nth-child(2) { border-right: 0; }
   .process-list li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -792,6 +920,13 @@ footer p { margin: 0; font-size: 14px; line-height: 1.55; }
   .card-digital .capability-copy h3,
   .card-collab .capability-copy h3 { font-size: 38px; }
   .products-grid { width: calc(100% - 40px); }
+  .learning-entry {
+    width: calc(100% - 40px);
+    min-height: 0;
+    border-radius: 16px;
+  }
+  .learning-entry__mock { min-height: 250px; }
+  .learning-entry__copy h3 { font-size: clamp(34px, 10vw, 48px); }
   .product-card { min-height: 500px; border-radius: 16px; }
   .product-media-wrap,
   .product-logo-stage { height: 270px; }
