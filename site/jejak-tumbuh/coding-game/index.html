@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Builder — Jejak Tumbuh</title>
+  <meta name="description" content="Prototype Game Builder Jejak Tumbuh untuk anak SD: bikin level petualangan, lalu mainkan game kecil buatan sendiri.">
+  <meta property="og:title" content="Game Builder — Jejak Tumbuh">
+  <meta property="og:description" content="Anak membuat level sederhana, menaruh koin dan rintangan bergerak, lalu memainkan level buatannya.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:image" content="../../assets/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/jejak-tumbuh.css">
+</head>
+<body class="coding-page">
+  <header class="learning-header">
+    <a class="learning-brand" href="../../index.html" aria-label="Storygrove">
+      <img src="../../assets/storygrove-logo.png" alt="Storygrove">
+    </a>
+    <nav aria-label="Navigasi game builder">
+      <a href="../index.html">Jejak Tumbuh</a>
+      <a href="../tryout-matematika-6/index.html">Try Out VI</a>
+      <a href="../bilangan-positif-negatif/index.html">Bilangan</a>
+      <a href="index.html">Game Builder</a>
+      <a href="../../index.html">Studio</a>
+    </nav>
+  </header>
+
+  <main class="coding-shell" data-coding-game>
+    <section class="coding-hero">
+      <div>
+        <p class="learning-kicker">Game Builder</p>
+        <h1>Bikin level petualangan.</h1>
+        <p>Bantu Piko sampai ke bendera. Anak menyusun jalan, menaruh koin, menempatkan panah yang bergerak naik-turun, lalu memainkan level buatannya sendiri.</p>
+      </div>
+      <div class="coding-hero__panel" aria-hidden="true">
+        <div class="mini-level">
+          <span class="mini-sun"></span>
+          <span class="mini-ground"></span>
+          <span class="mini-platform"></span>
+          <span class="mini-player"></span>
+          <span class="mini-coin"></span>
+          <span class="mini-arrow"></span>
+          <span class="mini-flag"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="coding-workspace">
+      <aside class="coding-panel">
+        <section>
+          <p class="learning-kicker">1 / Level</p>
+          <h2>Bangun level</h2>
+          <div class="tile-palette" data-tile-palette>
+            <button type="button" class="is-active" data-tool="grass"><i class="tile-swatch tile-grass"></i>Tanah</button>
+            <button type="button" data-tool="sky"><i class="tile-swatch tile-sky"></i>Langit</button>
+            <button type="button" data-tool="platform"><i class="tile-swatch tile-platform"></i>Pijakan</button>
+            <button type="button" data-tool="coin"><i class="tile-swatch tile-coin"></i>Koin</button>
+            <button type="button" data-tool="start"><i class="tile-swatch tile-start"></i>Start</button>
+            <button type="button" data-tool="goal"><i class="tile-swatch tile-goal"></i>Bendera</button>
+            <button type="button" data-tool="arrow"><i class="tile-swatch tile-arrow"></i>Panah</button>
+          </div>
+          <div class="coding-actions">
+            <button class="ghost-button" type="button" data-preset-map>Level contoh</button>
+            <button class="ghost-button" type="button" data-clear-map>Kosongkan</button>
+          </div>
+        </section>
+
+        <section class="adventure-note">
+          <p class="learning-kicker">2 / Cerita</p>
+          <h2>Misi Piko</h2>
+          <p>Piko ingin sampai ke bendera sebelum panah penjaga menyentuhnya. Koin boleh diambil sebagai tantangan tambahan.</p>
+          <ul>
+            <li>Tanah dan pijakan bisa dilewati.</li>
+            <li>Langit kosong belum bisa diinjak.</li>
+            <li>Panah selalu bergerak naik-turun.</li>
+          </ul>
+        </section>
+      </aside>
+
+      <section class="coding-stage">
+        <div class="coding-stage__top">
+          <div>
+            <p class="learning-kicker" data-mode-label>Mode edit</p>
+            <h2 data-game-title>Level kecilku</h2>
+          </div>
+          <div class="coding-stage__buttons">
+            <button class="ghost-button" type="button" data-edit-mode>Edit level</button>
+            <button class="learning-button" type="button" data-play-mode>Mainkan</button>
+          </div>
+        </div>
+
+        <div class="game-board" data-game-board aria-label="Editor map coding game"></div>
+
+        <div class="play-panel">
+          <div class="game-status" data-game-status>
+            <span>Koin</span>
+            <strong>0/0</strong>
+            <small>Nyawa 3</small>
+          </div>
+
+          <div class="move-pad" aria-label="Kontrol pemain">
+            <button type="button" data-move="up">Atas</button>
+            <button type="button" data-move="left">Belakang</button>
+            <button type="button" data-move="down">Bawah</button>
+            <button type="button" data-move="right">Depan</button>
+          </div>
+        </div>
+
+        <div class="game-log" data-game-log aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../../js/coding-game.js" defer></script>
+</body>
+</html>
