@@ -1,0 +1,21 @@
+Acoustic guitar recordings
+
+Original recordings: Lawrence Fritts / University of Iowa Electronic Music
+Studios, Musical Instrument Samples (MIS).
+https://theremin.music.uiowa.edu/MIS.html
+
+Sample editing and distribution: N. P. Brosowsky / tonejs-instruments.
+https://github.com/nbrosowsky/tonejs-instruments
+Version: 622c2f1c32c8cfce4158ddc3eb26e518ddef37e5
+Upstream source notes identify the guitar-acoustic recordings as Iowa MIS:
+https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/sample-source-info.txt
+
+Distributed samples license: Creative Commons Attribution 3.0 Unported.
+https://creativecommons.org/licenses/by/3.0/
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Files copied unchanged from samples/guitar-acoustic/:
+E2.mp3, G2.mp3, A2.mp3, B2.mp3, D3.mp3, E3.mp3, G3.mp3,
+A3.mp3, B3.mp3, C4.mp3, D4.mp3, E4.mp3, Fs4.mp3, G4.mp3.
+Playback volume and note duration are adjusted in the browser.
+Attribution does not imply endorsement of Storygrove by the authors.

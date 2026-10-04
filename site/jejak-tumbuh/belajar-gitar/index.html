@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q90NLSL12X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q90NLSL12X');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Belajar Gitar | Jejak Tumbuh - Storygrove</title>
+  <meta name="description" content="Eksplorasi gitar untuk pemula: kenali gitar dan senar, belajar chord dengan diagram jari, lalu berlatih irama dan bermain bersama.">
+  <link rel="icon" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/revisions.css">
+  <link rel="stylesheet" href="../../css/belajar-gitar.css">
+  <script src="../../js/vendor/lucide-0.468.0.js" defer></script>
+  <script src="../../js/vendor/tone-14.9.17.js" defer></script>
+  <script src="../../js/guitar-core.js" defer></script>
+  <script src="../../js/guitar-audio.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/belajar-gitar.js" defer></script>
+</head>
+<body class="guitar-page">
+  <a class="skip-link" href="#content">Lewati navigasi</a>
+  <header class="site-header">
+    <a class="brand" href="../../index.html" aria-label="Storygrove, beranda"><img src="../../assets/storygrove-logo.webp" width="260" height="90" alt="Storygrove"></a>
+    <nav id="main-navigation" aria-label="Navigasi utama">
+      <a href="../index.html">Jejak Tumbuh</a>
+      <a href="../index.html#eksplorasi" aria-current="page">Eksplorasi</a>
+      <a href="../../index.html">Studio</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Buka menu"><span></span><span></span></button>
+  </header>
+  <main class="guitar-shell" id="content">
+    <div class="course-heading">
+      <div><a class="back-link" href="../index.html"><i data-lucide="arrow-left" aria-hidden="true"></i> Jejak Tumbuh</a><p class="course-kicker">Eksplorasi musik</p><h1>Belajar gitar<span>.</span></h1><p class="course-intro">Mulai pelan, dengarkan, lalu coba lagi.</p><span class="sound-source"><i data-lucide="guitar" aria-hidden="true"></i><span id="guitar-sound-state" role="status">Gitar akustik</span></span></div>
+      <div class="course-progress"><span id="progress-label">0 dari 5 langkah sudah dicoba</span><progress id="course-progress" max="5" value="0" aria-label="Langkah yang sudah dicoba"></progress><span class="local-note">Catatan latihan di perangkat ini</span></div>
+    </div>
+    <noscript><p class="notice">Aktifkan JavaScript untuk membuka langkah latihan, diagram chord, dan suara contoh.</p></noscript>
+    <div class="lesson-layout">
+      <aside class="lesson-sidebar">
+        <p class="sidebar-label">Langkah latihan</p>
+        <div class="lesson-tabs" role="tablist" aria-label="Langkah belajar gitar" aria-orientation="vertical">
+          <button class="lesson-tab" id="tab-kenali" type="button" role="tab" aria-controls="kenali" aria-selected="true" data-lesson="kenali"><span class="step-number">1</span><span>Kenali gitarmu<small>Bagian &amp; posisi</small></span><i class="step-check" data-lucide="check" aria-hidden="true"></i></button>
+          <button class="lesson-tab" id="tab-senar" type="button" role="tab" aria-controls="senar" aria-selected="false" tabindex="-1" data-lesson="senar"><span class="step-number">2</span><span>Dengarkan senar<small>Enam nada awal</small></span><i class="step-check" data-lucide="check" aria-hidden="true"></i></button>
+          <button class="lesson-tab" id="tab-chord" type="button" role="tab" aria-controls="chord" aria-selected="false" tabindex="-1" data-lesson="chord"><span class="step-number">3</span><span>Chord pertamamu<small>Em, Am, G &amp; D</small></span><i class="step-check" data-lucide="check" aria-hidden="true"></i></button>
+          <button class="lesson-tab" id="tab-irama" type="button" role="tab" aria-controls="irama" aria-selected="false" tabindex="-1" data-lesson="irama"><span class="step-number">4</span><span>Temukan irama<small>Ketukan &amp; genjrengan</small></span><i class="step-check" data-lucide="check" aria-hidden="true"></i></button>
+          <button class="lesson-tab" id="tab-main" type="button" role="tab" aria-controls="main" aria-selected="false" tabindex="-1" data-lesson="main"><span class="step-number">5</span><span>Main bersama<small>Pindah chord perlahan</small></span><i class="step-check" data-lucide="check" aria-hidden="true"></i></button>
+        </div>
+        <div class="practice-note"><i data-lucide="heart" aria-hidden="true"></i><p>Latihan 10–15 menit sudah cukup untuk memulai. Bila tangan terasa nyeri, berhenti dan istirahat.</p></div>
+      </aside>
+      <div class="lesson-workspace">
+        <section class="lesson-panel" id="kenali" role="tabpanel" aria-labelledby="tab-kenali">
+          <div class="lesson-heading"><span class="lesson-count">01 / Kenali</span><h2>Berkenalan dengan gitarmu</h2><p>Gitar akustik punya enam senar. Kita mulai dengan mengenali tempat tanganmu bekerja.</p></div>
+          <div class="anatomy-layout">
+            <figure class="guitar-anatomy">
+              <div class="guitar-body">
+              <img src="../../assets/guitar-acoustic.png" width="500" height="1267" alt="Gitar akustik tampak depan: kepala di atas, leher panjang dengan fret, dan badan dengan lubang suara serta bridge.">
+              <button class="hotspot" type="button" style="--x:57%;--y:8%" data-part="0" aria-label="1. Pemutar senar" aria-pressed="true">1</button>
+              <button class="hotspot" type="button" style="--x:57%;--y:17%" data-part="1" aria-label="2. Nut" aria-pressed="false">2</button>
+              <button class="hotspot" type="button" style="--x:57%;--y:34%" data-part="2" aria-label="3. Fret dan leher" aria-pressed="false">3</button>
+              <button class="hotspot" type="button" style="--x:51%;--y:59%" data-part="3" aria-label="4. Senar" aria-pressed="false">4</button>
+              <button class="hotspot" type="button" style="--x:57%;--y:68%" data-part="4" aria-label="5. Lubang suara" aria-pressed="false">5</button>
+              <button class="hotspot" type="button" style="--x:57%;--y:82%" data-part="5" aria-label="6. Bridge" aria-pressed="false">6</button>
+              </div>
+              <figcaption>Gitar akustik · Tampak depan</figcaption>
+            </figure>
+            <div class="anatomy-copy">
+              <div class="part-list" aria-label="Bagian gitar">
+                <button type="button" data-part="0" aria-pressed="true">1. Pemutar senar</button><button type="button" data-part="1" aria-pressed="false">2. Nut</button><button type="button" data-part="2" aria-pressed="false">3. Fret &amp; leher</button><button type="button" data-part="3" aria-pressed="false">4. Senar</button><button type="button" data-part="4" aria-pressed="false">5. Lubang suara</button><button type="button" data-part="5" aria-pressed="false">6. Bridge</button>
+              </div>
+              <div class="part-description" aria-live="polite"><p class="tiny-label" id="part-name">Pemutar senar</p><h3 id="part-title">Tempat mengatur nada</h3><p id="part-description">Pemutar di kepala gitar mengubah ketegangan senar. Putar sedikit demi sedikit sambil memakai tuner; minta pendamping membantu saat pertama kali menyetem.</p></div>
+              <div class="posture-section"><h3>Posisi yang nyaman</h3><ol><li>Duduk tegak dan rileks. Letakkan badan gitar di paha, jangan diangkat dengan bahu.</li><li>Untuk pemain tangan kanan: tangan kiri menekan senar, tangan kanan memetik di dekat lubang suara.</li><li>Tekan dengan ujung jari, dekat di belakang kawat fret, bukan tepat di atas kawatnya.</li></ol><p class="gentle-tip">Kalau kamu kidal, minta guru membantu menyesuaikan posisi dan gitar. Diagram di sini memakai gitar standar tangan kanan.</p></div>
+            </div>
+          </div>
+        </section>
+        <section class="lesson-panel" id="senar" role="tabpanel" aria-labelledby="tab-senar" hidden>
+          <div class="lesson-heading"><span class="lesson-count">02 / Dengarkan</span><h2>Enam senar, enam nada</h2><p>Senar 6 paling tebal, senar 1 paling tipis. Saat gitar dipegang, senar tebal berada lebih dekat ke wajahmu.</p></div>
+          <div class="string-instrument" id="string-instrument" aria-label="Nada senar terbuka"></div>
+          <div class="tuning-callout"><i data-lucide="ear" aria-hidden="true"></i><div><h3>Dengar, lalu petik di gitarmu</h3><p>Urutan tuning standar: <strong>E – A – D – G – B – E</strong>. Semua nada di atas dimainkan tanpa menekan fret.</p><p class="gentle-tip">Suara contoh berasal dari rekaman gitar akustik, bukan tuner. Untuk menyetem dengan tepat, gunakan tuner dan minta bantuan guru. Halaman ini tidak memakai mikrofon.</p></div></div>
+          <div class="mini-task"><span class="task-marker">Coba di gitar</span><h3>Petik satu per satu dari senar 6 ke 1.</h3><p>Perhatikan: senar yang makin tipis terdengar makin tinggi. Tidak perlu menghafal semuanya hari ini.</p></div>
+        </section>
+        <section class="lesson-panel" id="chord" role="tabpanel" aria-labelledby="tab-chord" hidden>
+          <div class="lesson-heading"><span class="lesson-count">03 / Chord</span><h2>Satu bentuk, beberapa nada</h2><p>Chord adalah beberapa nada yang dimainkan bersama. Mulai dari Em: letakkan jari perlahan, lalu petik tiap senar untuk mendengar apakah bunyinya sudah jelas.</p></div>
+          <div class="chord-picker" role="group" aria-label="Pilih chord"><button type="button" data-chord="Em" aria-pressed="true">Em<small>E minor</small></button><button type="button" data-chord="Am" aria-pressed="false">Am<small>A minor</small></button><button type="button" data-chord="G" aria-pressed="false">G<small>G mayor</small></button><button type="button" data-chord="D" aria-pressed="false">D<small>D mayor</small></button></div>
+          <div class="chord-layout">
+            <figure class="chord-visual"><div id="chord-diagram"></div><figcaption>Tampak depan · Senar tebal di kiri</figcaption><div class="diagram-legend"><span><b>○</b> Senar terbuka</span><span><b>×</b> Tidak dipetik</span></div></figure>
+            <div class="chord-instructions"><div class="chord-name"><h3 id="chord-name">Em</h3><span id="chord-strum">Petik keenam senar</span></div><p class="finger-key">Jari 1 = telunjuk · 2 = tengah · 3 = manis · 4 = kelingking</p><ol class="finger-steps" id="finger-steps"></ol><button class="g-button primary" type="button" id="hear-chord"><i data-lucide="volume-2" aria-hidden="true"></i>Dengarkan chord</button><div class="mini-task"><h4>Bunyi masih berdengung?</h4><p>Geser ujung jari lebih dekat ke kawat fret, tanpa menutupi senar sebelahnya. Coba satu senar dulu; tekan secukupnya.</p></div></div>
+          </div>
+        </section>
+        <section class="lesson-panel" id="irama" role="tabpanel" aria-labelledby="tab-irama" hidden>
+          <div class="lesson-heading"><span class="lesson-count">04 / Irama</span><h2>Jaga ketukan, bukan kecepatan</h2><p>Pegang chord Em. Hitung “satu, dua, tiga, empat” dengan pelan. Satu putaran berisi empat ketukan.</p></div>
+          <div class="rhythm-select" role="group" aria-label="Pola genjrengan"><button type="button" data-pattern="down" aria-pressed="true">Turun saja</button><button type="button" data-pattern="alternate" aria-pressed="false">Turun–naik</button></div>
+          <div class="strum-pattern" id="strum-pattern" aria-label="Pola genjrengan turun"></div>
+          <div class="beat-grid" id="rhythm-beats" aria-label="Empat ketukan"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+          <div class="rhythm-guidance"><p><i data-lucide="arrow-down" aria-hidden="true"></i><strong>Turun:</strong> sapukan dari senar tebal ke tipis.</p><p><i data-lucide="arrow-up" aria-hidden="true"></i><strong>Naik:</strong> sapukan kembali ke arah senar tebal.</p></div>
+          <div class="tempo-controls"><label for="rhythm-tempo">Tempo <output id="rhythm-tempo-value" for="rhythm-tempo">60</output> <span>BPM</span><input id="rhythm-tempo" type="range" min="40" max="120" step="5" value="60"></label><button class="g-button primary" id="rhythm-play" type="button" aria-pressed="false"><i data-lucide="play" aria-hidden="true"></i><span>Mulai ketukan</span></button><button class="g-icon" id="rhythm-reset" type="button" title="Ulang ketukan dari awal" aria-label="Ulang ketukan dari awal"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button></div>
+          <p class="playback-status" id="rhythm-status" aria-live="polite">Siap di ketukan 1.</p>
+          <p class="gentle-tip">Boleh latihan gerakan tangan dulu dengan senar diredam. Bila pindah chord terasa sulit, turunkan tempo.</p>
+        </section>
+        <section class="lesson-panel" id="main" role="tabpanel" aria-labelledby="tab-main" hidden>
+          <div class="lesson-heading"><span class="lesson-count">05 / Main bersama</span><h2>Dua chord jadi satu latihan</h2><p>Mainkan satu genjrengan turun pada tiap ketukan. Pindah chord setelah hitungan 4. Kalau terlambat, masuk lagi di ketukan berikutnya.</p></div>
+          <label class="progression-select" for="practice-progression">Rangkaian chord<select id="practice-progression"><option value="easy">Awal: Em – Am – Em – Am</option><option value="next">Berikutnya: Em – G – D – Am</option></select></label>
+          <div class="progression-track" id="progression-track" aria-label="Urutan empat birama"></div>
+          <div class="practice-stage"><figure class="practice-chord"><div id="practice-diagram"></div><figcaption id="practice-chord-caption">Siapkan Em</figcaption></figure><div class="practice-count"><p id="bar-label">Birama 1 dari 4</p><div class="beat-grid" id="practice-beats" aria-label="Ketukan latihan"><span>1</span><span>2</span><span>3</span><span>4</span></div><p id="practice-next">Berikutnya: Am</p></div></div>
+          <div class="tempo-controls"><label for="practice-tempo">Tempo <output id="practice-tempo-value" for="practice-tempo">60</output> <span>BPM</span><input id="practice-tempo" type="range" min="40" max="120" step="5" value="60"></label><button class="g-button primary" id="practice-play" type="button" aria-pressed="false"><i data-lucide="play" aria-hidden="true"></i><span>Main bersama</span></button><button class="g-icon" id="practice-reset" type="button" title="Ulang latihan dari awal" aria-label="Ulang latihan dari awal"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button></div>
+          <label class="audio-option"><input type="checkbox" id="play-chords" checked> Bunyi chord pendamping</label>
+          <p class="playback-status" id="practice-status" aria-live="polite">Empat ketukan persiapan, lalu empat birama latihan.</p>
+          <div class="mini-task"><span class="task-marker">Setelah bermain</span><h3>Apa yang terasa lebih mudah hari ini?</h3><p>Bunyi satu senar yang lebih jelas atau satu perpindahan chord yang lebih tenang juga kemajuan. Besok, coba bagian itu lagi.</p></div>
+        </section>
+        <div class="lesson-footer"><label class="completion-control"><input type="checkbox" id="lesson-complete"> Aku sudah mencoba langkah ini</label><button class="g-button" type="button" id="next-lesson"><span>Ke senar</span><i data-lucide="arrow-right" aria-hidden="true"></i></button></div>
+        <p class="audio-error" id="audio-error" role="status" hidden></p>
+      </div>
+    </div>
+    <footer class="guitar-footer"><p>Belajar bersama pendamping · Tidak perlu akun</p><details><summary>Referensi materi &amp; ilustrasi</summary><p>Posisi chord dan tuning merujuk panduan <a href="https://www.fender.com/articles/setup/for-those-about-to-rock-10-beginner-faqs" target="_blank" rel="noopener">Fender</a> (<a href="https://www.fender.com/articles/chords/learn-how-to-play-e-minor-chord" target="_blank" rel="noopener">Em</a>, <a href="https://www.fender.com/articles/chords/learn-how-to-play-a-minor-guitar-chord" target="_blank" rel="noopener">Am</a>, <a href="https://www.fender.com/articles/chords/learn-how-to-play-the-g-major-chord-on-guitar" target="_blank" rel="noopener">G</a>, <a href="https://www.fender.com/articles/chords/learn-how-to-play-the-d-chord-on-guitar" target="_blank" rel="noopener">D</a>). Ilustrasi gitar oleh <a href="https://commons.wikimedia.org/wiki/File:Acoustic_guitar.svg" target="_blank" rel="noopener">narrowhouse / Openclipart, CC0</a>. Rekaman gitar: Lawrence Fritts / <a href="https://theremin.music.uiowa.edu/MIS.html" target="_blank" rel="noopener">University of Iowa MIS</a>, disunting N. P. Brosowsky dalam <a href="https://github.com/nbrosowsky/tonejs-instruments" target="_blank" rel="noopener">tonejs-instruments</a> (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>). Pemutaran menggunakan Tone.js; klik metronom sintetis.</p></details></footer>
+  </main>
+</body>
+</html>

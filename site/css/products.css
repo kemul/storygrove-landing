@@ -455,6 +455,38 @@
   min-height: 68px
 }
 
+.guitar-art {
+  background: #e6e1f2;
+  gap: 24px;
+  padding: 12px;
+  overflow: hidden
+}
+
+.guitar-art img {
+  height: 112px;
+  width: 44px;
+  object-fit: contain;
+  transform: rotate(9deg)
+}
+
+.guitar-art span {
+  font-size: 30px;
+  font-weight: 650;
+  color: #615377;
+  line-height: 1.6
+}
+
+@media (min-width: 601px) {
+  .activity-grid-expanded { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+}
+
+@media (min-width: 1100px) {
+  .activity-grid-expanded { grid-template-columns: repeat(4, minmax(0, 1fr)) }
+  .activity-grid-expanded .activity-copy { padding: 20px }
+  .activity-grid-expanded .activity-copy h3 { font-size: 22px; min-height: 52px }
+  .activity-grid-expanded .activity-copy>p:not(.product-category) { min-height: 90px }
+}
+
 .freebies-section {
   background: #efe5d0;
   padding-block: 45px

@@ -1,0 +1,13 @@
+guitar-acoustic.png
+Illustration: Acoustic guitar, narrowhouse / Open Clip Art Library.
+Source: https://commons.wikimedia.org/wiki/File:Acoustic_guitar.svg
+License: CC0 1.0 Universal / Public Domain.
+Downloaded PNG rendering from Wikimedia Commons, 500px wide.
+
+Acoustic guitar recordings: Lawrence Fritts / University of Iowa MIS,
+edited by N. P. Brosowsky in tonejs-instruments (CC BY 3.0).
+Full attribution: audio/guitar-acoustic/CREDITS.txt
+
+Libraries used by the guitar activity:
+Tone.js 14.9.17 (MIT), site/js/vendor/TONE-LICENSE.md
+Lucide 0.468.0 (ISC), site/js/vendor/LUCIDE-LICENSE
