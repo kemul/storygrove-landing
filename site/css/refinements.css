@@ -1134,20 +1134,18 @@
 .kici-hero { height: 520px; background: #152d29; }
 .kici-hero-art {
   position: absolute;
-  inset: 0 0 0 auto;
-  width: 65%;
-  max-width: 880px;
+  inset: 0;
+  width: 100%;
   overflow: hidden;
   z-index: -2;
-  mask-image: linear-gradient(90deg, transparent, #000 18%);
 }
-.kici-hero-world { object-position: center 46%; }
-.kici-hero::after { background: linear-gradient(90deg, #152d29 4%, #152d29d9 28%, #152d2922 62%, transparent 75%); }
+.kici-hero-world { object-position: 75% 61%; }
+.kici-hero::after { background: linear-gradient(90deg, #17372ced 0%, #17372cba 25%, #17372c22 66%, transparent); }
 .kici-intro { padding-top: 72px; }
 .kici-intro h1 { max-width: 540px; font-size: clamp(42px, 5.2vw, 68px); }
-.crew-art { border: 0; background: #17302b; border-radius: 18px; }
-.crew-art img { aspect-ratio: 1.4; object-fit: cover; object-position: center 42%; }
-.crew-art figcaption { padding: 12px 18px; color: #d4e3d8; font-size: 12px; }
+.crew-art { border: 0; background: #f1f2f4; border-radius: 18px; }
+.crew-art img { aspect-ratio: 1.5; object-fit: contain; }
+.crew-art figcaption { position: relative; padding: 12px 18px; color: var(--ink); background: #f1f2f4; font-size: 12px; }
 .character-test { padding-block: 15px 40px; }
 .character-test-film { max-width: 720px; margin-inline: auto; border-radius: 16px; overflow: hidden; background: #152d29; }
 .character-test-film .video-frame { aspect-ratio: 160 / 131; }
@@ -1160,8 +1158,10 @@
   .crew-art.motion-card { rotate: 1deg; }
   .character-sheet.motion-card { rotate: -2deg; }
   .game-exploration > figure.motion-card { rotate: -1.2deg; }
-  .world-full .motion-art, .crew-art .motion-art { --art-scale: 1.06; }
-  .world-full:hover .motion-art, .crew-art:hover .motion-art { --art-scale: 1.1; }
+  .world-full .motion-art { --art-scale: 1.06; }
+  .world-full:hover .motion-art { --art-scale: 1.1; }
+  .crew-art .motion-art { --art-scale: 1; }
+  .crew-art:hover .motion-art { --art-scale: 1.025; }
 }
 @media (max-width: 800px) {
   .kici-hero { height: 450px; }
@@ -1170,10 +1170,10 @@
   .kici-preview { height: 210px; }
 }
 @media (max-width: 600px) {
-  .kici-hero { height: 545px; }
-  .kici-hero-art { inset: auto 0 0; width: 100%; height: 330px; mask-image: linear-gradient(180deg, transparent, #000 15%); }
-  .kici-hero-world { object-fit: contain; object-position: center bottom; opacity: 1; }
-  .kici-hero::after { background: linear-gradient(180deg, #152d29 0%, #152d29d9 30%, transparent 48%); }
+  .kici-hero { height: 470px; }
+  .kici-hero-art { inset: 0; width: 100%; height: 100%; }
+  .kici-hero-world { object-fit: cover; object-position: 60% bottom; opacity: 1; }
+  .kici-hero::after { background: linear-gradient(180deg, #17372cef, #17372c33 68%, transparent); }
   .kici-intro { padding-top: 26px; }
   .kici-intro h1 { font-size: 38px; }
   .kici-intro > p:not(.eyebrow) { margin-block: 12px 16px; font-size: 14px; }

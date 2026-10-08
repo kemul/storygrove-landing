@@ -75,7 +75,7 @@ test('Page chord buttons and practice choices match the available guitar data', 
   const html = fs.readFileSync(path.join(__dirname, '../site/jejak-tumbuh/belajar-gitar/index.html'), 'utf8');
   assert.deepEqual([...html.matchAll(/data-chord="([^"]+)"/g)].map(m => m[1]), Object.keys(guitar.chords));
   assert.deepEqual([...html.matchAll(/<option value="([^"]+)"/g)].map(m => m[1]), Object.keys(guitar.progressions));
-  assert.ok(html.includes('8 chord dasar'));
+  assert.ok(html.includes('8 kunci gitar'));
 });
 
 test('All open strings and chord pitches have a local acoustic recording', () => {
@@ -113,7 +113,9 @@ test('Acoustic sampler waits for recordings, then plays the requested pitch', as
   sampler.load();
   const engine = await pending;
   engine.pluck(40, 1.25);
-  assert.deepEqual(sampler.calls, [['release', 82.40688922821748, 1.25], ['play', 82.40688922821748, 2.5, 1.25]]);
+  // JavaScript engines may round the frequency's final decimal differently.
+  assert.deepEqual(sampler.calls.map(([action, frequency, ...timing]) => [action, ...timing]), [['release', 1.25], ['play', 2.5, 1.25]]);
+  sampler.calls.forEach(([, frequency]) => assert.ok(Math.abs(frequency - 82.40688922821748) < 1e-10));
   assert.equal(Tone.nodes.filter(node => node instanceof Tone.Sampler).length, 1);
 });
 

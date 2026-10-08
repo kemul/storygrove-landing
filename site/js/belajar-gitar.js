@@ -6,12 +6,12 @@
   const lessons = ['kenali', 'senar', 'chord', 'irama', 'main'];
   const storageKey = 'storygrove-guitar-progress-v1';
   const parts = [
-    ['Pemutar senar', 'Tempat mengatur nada', 'Pemutar di kepala gitar mengubah ketegangan senar. Putar sedikit demi sedikit sambil memakai tuner; minta pendamping membantu saat pertama kali menyetem.'],
-    ['Nut', 'Awal panjang senar yang bergetar', 'Nut adalah penyangga kecil antara kepala dan leher gitar. Senar melewatinya sebelum masuk ke area fret. Senar terbuka berbunyi tanpa ditekan jari.'],
-    ['Fret & leher', 'Tempat jari membentuk nada', 'Kawat fret membagi leher gitar. Fret 1 adalah ruang pertama setelah nut. Tekan senar di ruangnya, dekat di belakang kawat fret, agar nada terdengar jelas.'],
-    ['Senar', 'Enam jalur bunyi', 'Petik senar untuk membuatnya bergetar. Senar 6 paling tebal dan bernada rendah; senar 1 paling tipis dan bernada tinggi. Tangan kiri dapat mengubah nada dengan menekan fret.'],
-    ['Lubang suara', 'Bunyi dari badan gitar', 'Getaran senar diteruskan ke badan gitar. Badan dan lubang suara membantu bunyi gitar akustik terdengar. Petik atau genjreng dengan santai di sekitar bagian ini.'],
-    ['Bridge', 'Tempat senar bertumpu', 'Bridge menahan ujung senar pada badan gitar dan membantu meneruskan getarannya. Tidak perlu dilepas atau diubah untuk latihan hari ini.']
+    ['Pemutar senar', 'Agar nadanya pas', 'Pemutar ini membuat nada senar lebih tinggi atau lebih rendah. Minta bantuan orang dewasa saat mengaturnya, ya.'],
+    ['Penyangga senar · Nut', 'Jembatan kecil untuk senar', 'Lihat bagian kecil di ujung leher gitar. Namanya nut. Bagian ini menjaga senar tetap di tempatnya.'],
+    ['Leher gitar · Fret', 'Tempat jari menekan senar', 'Lihat kotak-kotak di leher gitar. Kotak ini disebut fret. Tekan senar di dalam kotak untuk mengubah nadanya.'],
+    ['Senar', 'Petik, lalu dengarkan', 'Gitar ini punya enam senar. Senar tebal bersuara rendah. Senar tipis bersuara tinggi. Coba petik satu!'],
+    ['Lubang suara', 'Dari sini bunyi terdengar', 'Badan gitar membantu suara senar terdengar lebih kuat. Coba petik senar di dekat lubang ini.'],
+    ['Dudukan senar · Bridge', 'Tempat ujung senar terpasang', 'Bagian ini menahan ujung senar pada badan gitar. Namanya bridge. Kita tidak perlu mengubahnya saat bermain.']
   ];
   let currentLesson = 'kenali';
   let chordName = 'Em';
@@ -59,7 +59,7 @@
       tab.tabIndex = selected ? 0 : -1;
     });
     lessons.forEach((lesson) => { $(lesson).hidden = lesson !== id; });
-    const nextNames = ['Ke senar', 'Ke chord', 'Ke irama', 'Main bersama', 'Kembali ke Jejak Tumbuh'];
+    const nextNames = ['Ke senar', 'Ke kunci gitar', 'Ke irama', 'Main bersama', 'Kembali ke Jejak Tumbuh'];
     $('next-lesson').querySelector('span').textContent = nextNames[lessons.indexOf(id)];
     renderProgress();
     if (updateHash) {
@@ -134,7 +134,7 @@
     $('chord-name').textContent = chordName;
     $('chord-strum').textContent = core.chords[chordName].strum;
     document.querySelectorAll('[data-chord]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.chord === chordName)));
-    $('finger-steps').innerHTML = core.fingersForChord(chordName).map((step) => `<li><button type="button" data-finger-string="${step.string}" aria-pressed="${selectedFinger === step.string}"><span class="finger-badge">${step.finger}</span><span>Senar ${step.string} (${step.note}), fret ${step.fret}</span></button></li>`).join('');
+    $('finger-steps').innerHTML = core.fingersForChord(chordName).map((step) => `<li><button type="button" data-finger-string="${step.string}" aria-pressed="${selectedFinger === step.string}"><span class="finger-badge">${step.finger}</span><span><strong>Jari ${["", "telunjuk", "tengah", "manis", "kelingking"][step.finger]}</strong><small>Senar ${step.string} · kotak ${step.fret}</small></span></button></li>`).join('');
     $('finger-steps').querySelectorAll('button').forEach((button) => button.addEventListener('click', () => {
       const number = Number(button.dataset.fingerString);
       selectedFinger = selectedFinger === number ? null : number;
@@ -228,11 +228,11 @@
     const sequence = progression();
     const safeBar = Math.min(bar, sequence.length - 1);
     const name = sequence[safeBar];
-    $('progression-track').innerHTML = sequence.map((chord, i) => `<span class="${!preparing && i === safeBar ? 'is-active' : ''}">${chord}<small>Birama ${i + 1} · 4 ketukan</small></span>`).join('');
+    $('progression-track').innerHTML = sequence.map((chord, i) => `<span class="${!preparing && i === safeBar ? 'is-active' : ''}">${chord}<small>Bagian ${i + 1}<br>4 ketukan</small></span>`).join('');
     $('practice-diagram').innerHTML = diagram(name, 'practice-chord');
     $('practice-chord-caption').textContent = `${preparing || beat < 0 ? 'Siapkan' : 'Mainkan'} ${name}`;
-    $('bar-label').textContent = preparing ? 'Bersiap: hitung empat ketukan' : `Birama ${safeBar + 1} dari 4`;
-    $('practice-next').textContent = preparing ? `Mulai dengan ${sequence[0]}` : sequence[safeBar + 1] ? `Berikutnya: ${sequence[safeBar + 1]}` : 'Birama terakhir';
+    $('bar-label').textContent = preparing ? 'Bersiap: hitung empat ketukan' : `Bagian ${safeBar + 1} dari 4`;
+    $('practice-next').textContent = preparing ? `Mulai dengan ${sequence[0]}` : sequence[safeBar + 1] ? `Berikutnya: ${sequence[safeBar + 1]}` : 'Bagian terakhir';
     highlightBeat('practice-beats', beat);
   }
   $('practice-progression').addEventListener('change', () => { stopPlayback(true, 'practice'); renderPractice(); });
@@ -275,7 +275,7 @@
         if (mode === 'practice') {
           finished = false;
           renderPractice();
-          $('practice-status').textContent = 'Empat ketukan persiapan, lalu empat birama latihan.';
+          $('practice-status').textContent = 'Kita hitung sampai 4 dulu. Setelah itu, mulai bermain!';
         } else {
           highlightBeat('rhythm-beats', -1);
           $('strum-pattern').querySelectorAll('.strum-step').forEach((step) => step.classList.remove('is-active'));
@@ -316,7 +316,7 @@
             highlightBeat('practice-beats', -1);
             $('practice-chord-caption').textContent = 'Latihan selesai';
             $('practice-status').textContent = 'Selesai satu putaran. Ambil napas, lalu coba lagi jika kamu ingin.';
-            $('practice-next').textContent = 'Kamu sudah mencoba empat birama.';
+            $('practice-next').textContent = 'Kamu sudah mencoba empat bagian latihan.';
             updatePlaybackButtons();
           }, time);
           return;
@@ -334,7 +334,7 @@
             $('strum-pattern').querySelectorAll('.strum-step').forEach((step) => step.classList.toggle('is-active', Number(step.dataset.eighth) === rhythm.eighth));
           } else {
             renderPractice(practice.bar, practice.beat, practice.preparing);
-            if (tick === 8) $('practice-status').textContent = 'Latihan berjalan. Ikuti empat ketukan pada setiap chord.';
+            if (tick === 8) $('practice-status').textContent = 'Ikuti empat ketukan untuk setiap kunci gitar.';
           }
         }, time);
         ticks[mode]++;
