@@ -1079,8 +1079,8 @@
     box-shadow: 0 18px 36px #193e3520;
   }
   .partner-mark:hover { --art-scale: 1.09; box-shadow: none; }
-  .film-grid figure:has(video.is-playing) { transform: none; --art-scale: 1; }
-  .film-grid figure:has(video.is-playing) .motion-art { translate: none; }
+  .motion-card:has(video.is-playing) { transform: none; --art-scale: 1; }
+  .motion-card:has(video.is-playing) .motion-art { translate: none; }
   .motion-card:has(.play-button:focus-visible), .motion-card:has(.motion-toggle:focus-visible) {
     --tilt-x: 0deg; --tilt-y: 0deg;
   }
@@ -1113,4 +1113,77 @@
   .books-collage .collage-app {
     left: 18%;
   }
+}
+
+/* The final character comes directly from the supplied animation. */
+.product-ip { position: relative; }
+.product-card-link { display: block; height: 100%; }
+.kici-preview {
+  height: 245px;
+  overflow: hidden;
+  background: #17302b;
+}
+.kici-preview video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+}
+.product-ip > .motion-toggle { top: 12px; right: 12px; bottom: auto; z-index: 2; }
+.kici-hero { height: 520px; background: #152d29; }
+.kici-hero-art {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 65%;
+  max-width: 880px;
+  overflow: hidden;
+  z-index: -2;
+  mask-image: linear-gradient(90deg, transparent, #000 18%);
+}
+.kici-hero-world { object-position: center 46%; }
+.kici-hero::after { background: linear-gradient(90deg, #152d29 4%, #152d29d9 28%, #152d2922 62%, transparent 75%); }
+.kici-intro { padding-top: 72px; }
+.kici-intro h1 { max-width: 540px; font-size: clamp(42px, 5.2vw, 68px); }
+.crew-art { border: 0; background: #17302b; border-radius: 18px; }
+.crew-art img { aspect-ratio: 1.4; object-fit: cover; object-position: center 42%; }
+.crew-art figcaption { padding: 12px 18px; color: #d4e3d8; font-size: 12px; }
+.character-test { padding-block: 15px 40px; }
+.character-test-film { max-width: 720px; margin-inline: auto; border-radius: 16px; overflow: hidden; background: #152d29; }
+.character-test-film .video-frame { aspect-ratio: 160 / 131; }
+.character-test-film .video-frame video { object-fit: contain; height: 100%; }
+.character-test-film figcaption { padding: 14px 20px; font-size: 12px; color: #d4e3d8; }
+.motion-card[data-hover-scene] { transform: none; box-shadow: none; --lift: 0px; --pop: 0px; --art-scale: 1.025; }
+.motion-card[data-hover-scene]:hover { --art-scale: 1.055; }
+.worksheet-stack.motion-card:hover { box-shadow: none; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .crew-art.motion-card { rotate: 1deg; }
+  .character-sheet.motion-card { rotate: -2deg; }
+  .game-exploration > figure.motion-card { rotate: -1.2deg; }
+  .world-full .motion-art, .crew-art .motion-art { --art-scale: 1.06; }
+  .world-full:hover .motion-art, .crew-art:hover .motion-art { --art-scale: 1.1; }
+}
+@media (max-width: 800px) {
+  .kici-hero { height: 450px; }
+  .kici-intro { padding-top: 65px; }
+  .kici-intro h1 { max-width: 430px; }
+  .kici-preview { height: 210px; }
+}
+@media (max-width: 600px) {
+  .kici-hero { height: 545px; }
+  .kici-hero-art { inset: auto 0 0; width: 100%; height: 330px; mask-image: linear-gradient(180deg, transparent, #000 15%); }
+  .kici-hero-world { object-fit: contain; object-position: center bottom; opacity: 1; }
+  .kici-hero::after { background: linear-gradient(180deg, #152d29 0%, #152d29d9 30%, transparent 48%); }
+  .kici-intro { padding-top: 26px; }
+  .kici-intro h1 { font-size: 38px; }
+  .kici-intro > p:not(.eyebrow) { margin-block: 12px 16px; font-size: 14px; }
+  .kici-hero .eyebrow { margin-bottom: 12px; }
+  .crew-art { transform: none; }
+  .character-test { padding-block: 6px 30px; }
+  .character-test-film figcaption { font-size: 11px; padding: 12px 16px; }
+  .product-ip { display: block; }
+  .product-ip .product-card-link { display: grid; grid-template-columns: 43% 57%; }
+  .kici-preview { position: relative; height: auto; min-height: 210px; }
+  .kici-preview video { position: absolute; inset: 0; }
+  .product-ip > .motion-toggle { left: 10px; right: auto; top: 10px; }
 }

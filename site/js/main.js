@@ -167,7 +167,7 @@
 
   // Only visible cards respond to scroll. No animation library or idle loop.
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-  const motionCards = [...document.querySelectorAll('.capability-card, .product-card, .film-grid > figure, .partner-mark, .activity-card')];
+  const motionCards = [...document.querySelectorAll('.capability-card, .product-card, .film-grid > figure, .partner-mark, .activity-card, .crew-art, .world-gallery > figure, .concept-card, .game-exploration > figure, .character-test-film, .ark-cover-stage, .phone-duo > figure, .companion-demo, .worksheet-stack, [data-hover-scene]')];
   const visibleCards = new Set();
   let cardFrame = 0;
 
@@ -197,7 +197,7 @@
 
   motionCards.forEach(card => {
     card.classList.add('motion-card');
-    card.querySelectorAll('.books-collage > figure, :scope > img, .ar-preview video, .kici-folder, .kici-2d, .alamku-logo, .jejak-product-logo, .number-path, .video-frame video, :scope > .activity-art').forEach((art, index) => {
+    card.querySelectorAll('.books-collage > figure, :scope > img, .ar-preview video, .kici-folder, .kici-2d, .kici-preview video, .kici-hero-world, .concept-motion img, .alamku-logo, .jejak-product-logo, .number-path, .video-frame video, :scope > .activity-art').forEach((art, index) => {
       art.classList.add('motion-art');
       art.style.setProperty('--depth', String(.55 + (index % 4) * .2));
     });
@@ -293,22 +293,31 @@
       if (reduced.matches) showMotion(false);
     });
   });
-  document.querySelectorAll('.ar-loop').forEach(video => {
-    const button = video.parentElement.querySelector('.motion-toggle');
+  document.querySelectorAll('[data-loop-src]').forEach(video => {
+    const button = (video.closest('[data-loop-container]') || video.parentElement).querySelector('.motion-toggle');
+    const label = video.dataset.loopLabel || 'AR';
     let userPaused = false,
-      visible = false;
+      visible = false,
+      wanted = false;
     async function play() {
+      wanted = true;
       if (!video.hasAttribute('src')) video.src = video.dataset.loopSrc;
       try {
         await video.play();
+        if (!wanted) video.pause();
       } catch (_) {
         /* A browser may require a tap before inline playback. */
       }
     }
+    function pause() {
+      wanted = false;
+      video.pause();
+    }
 
     function sync() {
       button.textContent = video.paused ? '▶' : 'Ⅱ';
-      button.setAttribute('aria-label', video.paused ? 'Putar cuplikan AR' : 'Jeda cuplikan AR');
+      button.setAttribute('aria-label', (video.paused ? 'Putar cuplikan ' : 'Jeda cuplikan ') + label);
+      button.setAttribute('aria-pressed', String(!video.paused));
     }
     button.addEventListener('click', () => {
       if (video.paused) {
@@ -316,7 +325,7 @@
         play();
       } else {
         userPaused = true;
-        video.pause();
+        pause();
       }
     });
     video.addEventListener('play', sync);
@@ -324,16 +333,16 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
       visible = entries[0].isIntersecting;
       if (visible && !reduced.matches && !userPaused && !document.hidden) play();
-      else video.pause();
+      else pause();
     }, {
       threshold: .3
     }).observe(video);
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) video.pause();
+      if (document.hidden) pause();
       else if (visible && !reduced.matches && !userPaused) play();
     });
     reduced.addEventListener('change', () => {
-      if (reduced.matches) video.pause();
+      if (reduced.matches) pause();
     });
   });
 })();
